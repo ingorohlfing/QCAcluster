@@ -1,27 +1,33 @@
 ### Application of Panel QCA functions ###
 
+
+#### CHANGES 
+
+#install.packages(c("devtools", "roxygen2", "testthat", "knitr"))
 ### Loading Packages
 
-library(dplyr)
 library(QCA)
-library(SetMethods)
-library(stringr)
-library(tidyr)
 library(data.table)
 library(plyr)
 library(testit)
-library(base64)
+library(devtools)
+library(roxygen2)
+library(testthat)
+library(knitr)
+has_devel()
 
 setwd("D:/QCA")
 
 
 ### Functions for Panel results, diversity and partition weights
+#' @export
 
 PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, BE_cons, WI_cons) {
     
-    #### Splitting the data ####
-    options(warn = -1)
-    
+    # Turning of warnings
+    # options(warn = -1)
+ 
+    # Splitting the data if time and unit values are available
     if (missing(units)) {
         colnames(x)[which(names(x) == time)] <- "time"
         x <- x[with(x, order(time)), ]
@@ -50,16 +56,14 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
         xB <- x
         xW <- x
         
-        
+        # Assigning individual consistency thresholds if available
         if (missing(BE_cons)) {
             BE_cons <- rep(incl_cut, times = lengtht)
             xB$consis <- rep(incl_cut, times = nrow(x))
-            
         } else {
             BE_cons <- BE_cons
             xB$consis <- rep(BE_cons, each = lengthu)
         }
-        
         if (missing(WI_cons)) {
             WI_cons <- rep(incl_cut, times = lengthu)
             xW$consis <- rep(incl_cut, times = nrow(x))
@@ -67,16 +71,14 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
             WI_cons <- WI_cons
             xW$consis <- rep(WI_cons, times = lengtht)
         }
-        
-        
         BE_list <- split(xB, xB[, "time"])
         WI_list <- split(xW, xW[, "units"])
-        
     }
     
     x$consis <- incl_cut
     PO_list <- list(x)
     
+    # Creating a function for the transformation of QCA results
     paster <- function(x) {
         x <- paste(x, collapse = "+")
         x
@@ -93,7 +95,6 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
             type <- "within"
         } else {
             partition <- unlist(x$time)
-            
             if (partition[1] == partition[2]) {
                 part <- as.character(x$time[1])
                 type <- "between"
@@ -111,7 +112,6 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
         check3 <- as.numeric(colMeans(check2))
         
         if (check3 == 0) {
-            
             x$consistency <- "-"
             zz <- as.data.frame(x$consistency)
             zz$coverage <- "-"
@@ -121,14 +121,13 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
             zz$type <- type
             zz <- zz[!duplicated(zz), ]
             colnames(zz)[1] <- "consistency"
-            
         } else {
             
             # s <- has_error(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[,ncol(x)][1], n.cut = n_cut))
-            s <- has_error(susu <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE))
+            s <- testit::has_error(susu <- try(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE))
             
             if (s == F) {
-                x1 <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE)
+                x1 <- try(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE)
                 
                 x2 <- x1$tt$OUT
                 x2[x2 == "?"] <- NA
@@ -164,16 +163,11 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
                 } else {
                   
                   if (solution == "C") {
-                    
-                    x <- minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
-                    
+                    x <- QCA::minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
                   } else if (solution == "P") {
-                    
-                    x <- minimize(x1, explain = "1", include = "?", details = T, show.cases = T, all.sol = T, row.dom = F)
-                    
+                    x <- QCA::minimize(x1, explain = "1", include = "?", details = T, show.cases = T, all.sol = T, row.dom = F)
                   } else {
-                    
-                    x <- minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
+                    x <- QCA::minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
                   }
                   
                   # x$CONS <- x$IC$incl.cov$incl[1]
@@ -215,7 +209,6 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
                   colnames(zz)[1] <- "consistency"
                 }
                 
-                
             } else {
                 x$consistency <- "-"
                 zz <- as.data.frame(x$consistency)
@@ -237,21 +230,19 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
     if (missing(time)) {
         WI_list1 <- lapply(WI_list, pqmcc)
         PO_list1 <- lapply(PO_list, pqmcc)
-        dff2 <- ldply(WI_list1)[, -1]
-        dff3 <- ldply(PO_list1)[, ]
+        dff2 <- plyr::ldply(WI_list1)[, -1]
+        dff3 <- plyr::ldply(PO_list1)[, ]
         dff3$type <- "pooled"
         dff3$partition <- "-"
-        
         total <- rbind(dff3, dff2)
+        
     } else if (missing(units)) {
         BE_list1 <- lapply(BE_list, pqmcc)
         PO_list1 <- lapply(PO_list, pqmcc)
-        
-        dff1 <- ldply(BE_list1)[, -1]
-        dff3 <- ldply(PO_list1)[, ]
+        dff1 <- plyr::ldply(BE_list1)[, -1]
+        dff3 <- plyr::ldply(PO_list1)[, ]
         dff3$type <- "pooled"
         dff3$partition <- "-"
-        
         total <- rbind(dff3, dff1)
         
     } else {
@@ -259,12 +250,11 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
         WI_list1 <- lapply(WI_list, pqmcc)
         PO_list1 <- lapply(PO_list, pqmcc)
         
-        dff1 <- ldply(BE_list1)[, -1]
-        dff2 <- ldply(WI_list1)[, -1]
-        dff3 <- ldply(PO_list1)[, ]
+        dff1 <- plyr::ldply(BE_list1)[, -1]
+        dff2 <- plyr::ldply(WI_list1)[, -1]
+        dff3 <- plyr::ldply(PO_list1)[, ]
         dff3$type <- "pooled"
         dff3$partition <- "-"
-        
         total <- rbind(dff3, dff1, dff2)
     }
     
@@ -275,7 +265,6 @@ PWBfunctionCP <- function(x, units, time, cond, out, n_cut, incl_cut, solution, 
     total$coverage <- as.numeric(total$coverage)
     
     return(total)
-    
 }
 
 PWBfunctionINTER <- function(x, units, time, cond, out, n_cut, incl_cut, intermediate, BE_cons, WI_cons) {
@@ -1297,8 +1286,8 @@ Thiem_panelpars <- PWBfunctionCP(Thiem2011, units = "units", time = "time", cond
     "pubsupfs", "ecodpcefs"), out = "memberfs", 6, 0.8, solution = "P", BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 
     0.8), WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8))
 
-
-
+Thiem_panelpars <- PWBfunctionCP(Thiem2011, units = "units", time = "time", cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", 
+                                                                                     "pubsupfs", "ecodpcefs"), out = "memberfs", 2, 0.8, solution = "P")
 ### Schwarz 2016
 
 setwd("D:/QCA")
