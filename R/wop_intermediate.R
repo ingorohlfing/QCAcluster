@@ -3,14 +3,20 @@
 #' @param x 
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
-#' @param cond Conditions used for the analysis
-#' @param out Outcome used for the analysis
+#' @param cond Conditions used for the pooled analysis
+#' @param out Outcome used for the pooled analysis
 #' @param n_cut Frequency cut-off for designating truth table rows as observed
 #' @param incl_cut Inclusion cut-off for designating truth table rows as
 #' consistent
 #' @param intermediate 
-#' @param BE_cons 
-#' @param WI_cons 
+#' @param BE_cons Inclusion (or consistency) thresholds for cross sections. 
+#' Must be specified as a numeric vector with length equaling the number of
+#' cross sections. Numbers correspond to the order of the cross section ID
+#' in the data (such as years in ascending order).
+#' @param WI_cons Inclusion (or consistency) thresholds for time series. 
+#' Must be specified as a numeric vector with length equaling the number of
+#' time series. Numbers correspond to the order of the time series (unit) ID
+#' in the data (such as countries in alphabetical order).
 #'
 #' @return A dataframe with the weight of the partitions for pooled consistency
 #' scores.
