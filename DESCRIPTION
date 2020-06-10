@@ -1,9 +1,11 @@
 Package: QCAcluster
 Type: Package
 Title: QCAcluster
-Version: 0.1.0
-Author: 
-Maintainer: Ingo Rohlfing, Jan Schwalbach
+Version: 0.0.0.9
+Authors@R: c(
+  person("Ingo", "Rohlfing", email = "i.rohlfing@uni-koeln.de", role = c("aut", "cre")),
+  person("Ayjeren", "Rozyjumayeva", email = "rozyjumayeva@wiso.uni-koeln.de", role = c("aut")),
+    person("Jan", "Schwalbach", email = "schwalbach@wiso.uni-koeln.de", role = c("aut")))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: 
