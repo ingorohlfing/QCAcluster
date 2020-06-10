@@ -1,15 +1,13 @@
-
 #' Title
 #'
-#' @param x  
-#' @param units Units defining the within-dimension of data (time series)
-#' @param time Periods defining the between-dimension of data (cross sections)
-#' @param cond Conditions used for the pooled analysis
-#' @param out Outcome used for the pooled analysis
-#' @param n_cut Frequency cut-off for designating truth table rows as observed
-#' @param incl_cut Inclusion cut-off for designating truth table rows as
-#' consistent
-#' @param solution 
+#' @param x 
+#' @param units 
+#' @param time 
+#' @param cond 
+#' @param out 
+#' @param n_cut 
+#' @param incl_cut 
+#' @param intermediate 
 #' @param BE_cons 
 #' @param WI_cons 
 #'
@@ -17,28 +15,24 @@
 #' @export
 #'
 #' @examples
-partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, solution, BE_cons, WI_cons) {
-  
-  # Turning of warnings
-  # options(warn = -1)
-  
-  # Splitting the data if time and unit values are available
+partition_min_inter <- function(x, units, time, cond, out, n_cut, incl_cut, intermediate, BE_cons, WI_cons) {
+  options(warn = -1)
   if (missing(units)) {
     colnames(x)[which(names(x) == time)] <- "time"
     x <- x[with(x, order(time)), ]
     xB <- x
     xB$consis <- rep(incl_cut, times = nrow(x))
-    xxx <- 1
     BE_list <- split(xB, xB[, "time"])
+    xxx <- 1
   } else if (missing(time)) {
     colnames(x)[which(names(x) == units)] <- "units"
     x <- x[with(x, order(units)), ]
     xW <- x
     xW$consis <- rep(incl_cut, times = nrow(x))
-    xxx <- 2
     WI_list <- split(xW, xW[, "units"])
-    
+    xxx <- 2
   } else {
+    
     xxx <- 3
     colnames(x)[which(names(x) == time)] <- "time"
     colnames(x)[which(names(x) == units)] <- "units"
@@ -51,14 +45,16 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
     xB <- x
     xW <- x
     
-    # Assigning individual consistency thresholds if available
+    
     if (missing(BE_cons)) {
       BE_cons <- rep(incl_cut, times = lengtht)
       xB$consis <- rep(incl_cut, times = nrow(x))
+      
     } else {
       BE_cons <- BE_cons
       xB$consis <- rep(BE_cons, each = lengthu)
     }
+    
     if (missing(WI_cons)) {
       WI_cons <- rep(incl_cut, times = lengthu)
       xW$consis <- rep(incl_cut, times = nrow(x))
@@ -66,20 +62,62 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
       WI_cons <- WI_cons
       xW$consis <- rep(WI_cons, times = lengtht)
     }
+    
+    
     BE_list <- split(xB, xB[, "time"])
     WI_list <- split(xW, xW[, "units"])
+    
   }
   
   x$consis <- incl_cut
   PO_list <- list(x)
   
-  # Creating a function for the transformation of QCA results
   paster <- function(x) {
     x <- paste(x, collapse = "+")
     x
   }
   
+  
+  intersol <- function(x) {
+    neux <- lapply(x$solution, paster)
+    neuxx <- unlist(neux)
+    zz <- as.data.frame(neuxx)
+    zz
+  }
+  intercons1 <- function(x) {
+    
+    zz <- x$IC$sol.incl.cov[1]
+    
+    if (is.null(zz)) {
+      BSP2 <- x$IC
+      BSP3 <- BSP2$individual
+      neu <- sapply(BSP3, function(x) x[2])
+      zz <- sapply(neu, function(x) x[1])
+    }
+    zz <- as.data.frame(zz)
+    zz
+  }
+  
+  intercov1 <- function(x) {
+    zz <- x$IC$sol.incl.cov[3]
+    if (is.null(zz)) {
+      BSP2 <- x$IC
+      BSP3 <- BSP2$individual
+      neu <- sapply(BSP3, function(x) x[2])
+      zz <- sapply(neu, function(x) x[3])
+    }
+    zz <- as.data.frame(zz)
+    zz
+  }
+  
+  intersol2 <- function(x) {
+    solu <- as.data.frame(x[1])
+    solu <- unlist(solu)
+    solu
+  }
+  
   #### Function for Between and Within Solutions ####
+  
   pqmcc <- function(x) {
     
     if (xxx == 1) {
@@ -90,6 +128,7 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
       type <- "within"
     } else {
       partition <- unlist(x$time)
+      
       if (partition[1] == partition[2]) {
         part <- as.character(x$time[1])
         type <- "between"
@@ -99,6 +138,7 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
       }
     }
     
+    
     check <- x[cond]
     check[check < 0.5] <- 0
     check[check > 0.5] <- 1
@@ -107,8 +147,9 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
     check3 <- as.numeric(colMeans(check2))
     
     if (check3 == 0) {
-      x$consistency <- "-"
-      zz <- as.data.frame(x$consistency)
+      
+      x$CONS <- "-"
+      zz <- as.data.frame(x$CONS)
       zz$coverage <- "-"
       zz$solution <- "No variation in all coniditions"
       zz$model <- "-"
@@ -116,13 +157,13 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
       zz$type <- type
       zz <- zz[!duplicated(zz), ]
       colnames(zz)[1] <- "consistency"
+      
     } else {
       
-      # s <- has_error(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[,ncol(x)][1], n.cut = n_cut))
-      s <- testit::has_error(susu <- try(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE))
+      s <- has_error(susu <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE))
       
       if (s == F) {
-        x1 <- try(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE)
+        x1 <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE)
         
         x2 <- x1$tt$OUT
         x2[x2 == "?"] <- NA
@@ -132,9 +173,8 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
         x2 <- mean(x2)
         
         if (x2 == 0) {
-          
-          x$consistency <- "-"
-          zz <- as.data.frame(x$consistency)
+          x$CONS <- "-"
+          zz <- as.data.frame(x$CONS)
           zz$coverage <- "-"
           zz$solution <- "All inconsistent"
           zz$model <- "-"
@@ -143,7 +183,7 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
           zz <- zz[!duplicated(zz), ]
           colnames(zz)[1] <- "consistency"
           
-        } else if (x2 == 1 & solution == "P") {
+        } else if (x2 == 1) {
           
           x$consistency <- "-"
           zz <- as.data.frame(x$consistency)
@@ -156,57 +196,51 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
           colnames(zz)[1] <- "consistency"
           
         } else {
+          t <- has_error(susu <- try(minimize(x1, explain = "1", dir.exp = intermediate, include = "?", details = T, show.cases = T, 
+                                              all.sol = T, row.dom = F), silent = TRUE))
           
-          if (solution == "C") {
-            x <- QCA::minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
-          } else if (solution == "P") {
-            x <- QCA::minimize(x1, explain = "1", include = "?", details = T, show.cases = T, all.sol = T, row.dom = F)
-          } else {
-            x <- QCA::minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
-          }
-          
-          # x$CONS <- x$IC$incl.cov$incl[1]
-          x$consistency <- x$IC$sol.incl.cov[1]
-          
-          if (is.null(x$consistency)) {
-            BSP2 <- x$IC
-            BSP3 <- BSP2$individual
-            neu <- sapply(BSP3, function(x) x[2])
-            x$consistency <- sapply(neu, function(x) x[1])
-            x$consistency <- unlist(x$consistency)
-          }
-          
-          zz <- as.data.frame(x$consistency)
-          x$coverage <- x$IC$sol.incl.cov[3]
-          
-          if (is.null(x$coverage)) {
-            BSP2 <- x$IC
-            BSP3 <- BSP2$individual
-            neu <- sapply(BSP3, function(x) x[2])
-            x$coverage <- sapply(neu, function(x) x[3])
-            x$coverage <- unlist(x$coverage)
-          }
-          
-          zz$coverage <- as.numeric(x$coverage)
-          x$solution <- x$solution[]
-          tete <- list(cons = x$solution[])
-          neux <- lapply(tete$cons, paster)
-          neuxx <- unlist(neux)
-          zz$solution <- neuxx
-          numberrows <- nrow(zz)
-          if (numberrows == 1) {
-            zz$model <- 1
-          } else {
+          if (t == F) {
+            
+            x <- minimize(x1, explain = "1", dir.exp = intermediate, include = "?", details = T, show.cases = T, all.sol = T, 
+                          row.dom = F)
+            
+            
+            a <- x$i.sol
+            ININ <- lapply(a, intersol)
+            ININ1 <- lapply(ININ, intersol2)
+            zz <- unlist(ININ1)
+            zz <- as.data.frame(zz)
+            ININCONS <- lapply(a, intercons1)
+            ININCOV <- lapply(a, intercov1)
+            zzcons <- unlist(ININCONS)
+            zzcov <- unlist(ININCOV)
+            zz$consistency <- zzcons
+            zz$coverage <- zzcov
+            zz <- zz[!duplicated(zz), ]
+            
+            rownames(zz) <- c()
+            colnames(zz)[1] <- "solution"
+            rownames(zz) <- c()
             zz$model <- as.numeric(rownames(zz))
+            zz$partition <- part
+            zz$type <- type
+            zz <- zz[, c(2, 3, 1, 4, 5, 6)]
+          } else {
+            x$CONS <- "-"
+            zz <- as.data.frame(x$CONS)
+            zz$coverage <- "-"
+            zz$solution <- "Values specified in the directional expectations do not appear in the data"
+            zz$model <- "-"
+            zz$partition <- part
+            zz$type <- type
+            zz <- zz[!duplicated(zz), ]
+            colnames(zz)[1] <- "consistency"
           }
-          zz$partition <- part
-          zz$type <- type
-          colnames(zz)[1] <- "consistency"
         }
         
       } else {
-        x$consistency <- "-"
-        zz <- as.data.frame(x$consistency)
+        x$CONS <- "-"
+        zz <- as.data.frame(x$CONS)
         zz$coverage <- "-"
         zz$solution <- "no combinations at this frequency cutoff"
         zz$model <- "-"
@@ -219,25 +253,25 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
     zz
   }
   
-  
   #### Application of Function ####
-  
   if (missing(time)) {
     WI_list1 <- lapply(WI_list, pqmcc)
     PO_list1 <- lapply(PO_list, pqmcc)
-    dff2 <- plyr::ldply(WI_list1)[, -1]
-    dff3 <- plyr::ldply(PO_list1)[, ]
+    dff2 <- ldply(WI_list1)[, -1]
+    dff3 <- ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
-    total <- rbind(dff3, dff2)
     
+    total <- rbind(dff3, dff2)
   } else if (missing(units)) {
     BE_list1 <- lapply(BE_list, pqmcc)
     PO_list1 <- lapply(PO_list, pqmcc)
-    dff1 <- plyr::ldply(BE_list1)[, -1]
-    dff3 <- plyr::ldply(PO_list1)[, ]
+    
+    dff1 <- ldply(BE_list1)[, -1]
+    dff3 <- ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
+    
     total <- rbind(dff3, dff1)
     
   } else {
@@ -245,13 +279,15 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
     WI_list1 <- lapply(WI_list, pqmcc)
     PO_list1 <- lapply(PO_list, pqmcc)
     
-    dff1 <- plyr::ldply(BE_list1)[, -1]
-    dff2 <- plyr::ldply(WI_list1)[, -1]
-    dff3 <- plyr::ldply(PO_list1)[, ]
+    dff1 <- ldply(BE_list1)[, -1]
+    dff2 <- ldply(WI_list1)[, -1]
+    dff3 <- ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
+    
     total <- rbind(dff3, dff1, dff2)
   }
+  
   
   #### Rounding ####
   total$consistency[total$model == "-"] <- NA
@@ -260,4 +296,5 @@ partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, soluti
   total$coverage <- as.numeric(total$coverage)
   
   return(total)
+  
 }
