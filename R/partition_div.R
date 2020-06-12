@@ -1,19 +1,38 @@
-#' Title
+#' Diversity of cases belonging to the same partition of the pooled data
+#' 
+#' The function calculates the diversity of cases that belong to the same
+#' partition of the clustered data (time series, cross section etc.).
+#' Diversity is measured by the number of truth table rows that the cases
+#' cover. It calculates diversity across all truth table rows and for the
+#' subsets of consistent and inconsistent rows.
 #'
-#' @param x 
-#' @param units 
-#' @param time 
-#' @param cond 
-#' @param out 
-#' @param n_cut 
-#' @param incl_cut 
-#' @param BE_cons 
-#' @param WI_cons 
+#' @param x Calibrated dataset for minimization
+#' @param units Units defining the within-dimension of data (time series)
+#' @param time Periods defining the between-dimension of data (cross sections)
+#' @param cond Conditions used for the pooled analysis
+#' @param out Outcome used for the pooled analysis
+#' @param n_cut Frequency cut-off for designating truth table rows as observed
+#' @param incl_cut Inclusion cut-off for designating truth table rows as
+#' consistent
+#' @param BE_cons Inclusion (or consistency) thresholds for cross sections. 
+#' Must be specified as a numeric vector with length equaling the number of
+#' cross sections. Numbers correspond to the order of the cross section ID
+#' in the data (such as years in ascending order).
+#' @param WI_cons Inclusion (or consistency) thresholds for time series. 
+#' Must be specified as a numeric vector with length equaling the number of
+#' time series. Numbers correspond to the order of the time series (unit) ID
+#' in the data (such as countries in alphabetical order).
 #'
-#' @return
-#' @export
+#' @return A dataframe presenting the diversity of cases belonging to the
+#' same partition. 
 #'
 #' @examples
+#' data(schwarz2016)
+#' partition_div(schwarz2016, units = "country", time = "year", 
+#' cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
+#' out = "enlarge", 1, 0.8)
+#' 
+#' @export
 diversity <- function(x, units, time, cond, out, n_cut, incl_cut, BE_cons, WI_cons) {
   
   #### Splitting the data ####
