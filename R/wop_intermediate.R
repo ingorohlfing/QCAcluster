@@ -1,6 +1,6 @@
 #' Calculates the weight of partitions for intermediate solution
 #'
-#' @param x 
+#' @param x Calibrated dataset for minimization
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
 #' @param cond Conditions used for the pooled analysis
