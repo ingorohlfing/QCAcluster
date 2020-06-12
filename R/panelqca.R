@@ -63,8 +63,7 @@ Schwarz_panelinter_2 <- PWBfunctionINTER(schwarz2016, units = "country", cond = 
 Schwarz_panelcons <- PWBfunctionCP(schwarz2016, units = "country", time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
     "attention"), out = "enlarge", 1, 0.8, solution = "P")
 
-Schwarz_DIV <- DIVfunction(schwarz2016, units = "country", time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
-    out = "enlarge", 1, 0.8)
+
 
 Schwarz_WOP_Inter <- WOPfunctionInter(schwarz2016, units = "country", time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
     "attention"), out = "enlarge", 1, 0.8, intermediate = c("1", "1", "1", "1", "1"))
