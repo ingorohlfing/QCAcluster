@@ -1,4 +1,5 @@
-#' Title
+#' Generation of intermediate solutions for individual partitions of 
+#' clustered set-relational data
 #'
 #' @param x 
 #' @param units 
@@ -12,9 +13,10 @@
 #' @param WI_cons 
 #'
 #' @return
-#' @export
 #'
 #' @examples
+#' 
+#' @export
 partition_min_inter <- function(x, units, time, cond, out, n_cut, incl_cut, intermediate, BE_cons, WI_cons) {
   options(warn = -1)
   if (missing(units)) {

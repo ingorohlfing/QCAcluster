@@ -1,5 +1,5 @@
-#' Generation of solutions for individual partitions of clustered 
-#' set-relational data
+#' Generation of conservative or parsimonious solutions for individual 
+#' partitions of clustered set-relational data
 #' 
 #' \code{partition_min} decomposes clustered data into individual
 #' partitions such as cross-sections and time-series for panel
