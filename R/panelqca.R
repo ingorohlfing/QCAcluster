@@ -34,7 +34,7 @@ Thiem_panelpars <- PWBfunctionCP(Thiem2011, units = "units", time = "time", cond
 
 setwd("D:/QCA")
 
-schwarz2016 <- read.csv("schwarz2016.csv", as.is = T, sep = ";")
+schwarz2016 <- read.csv("Schwarz2016.csv", as.is = T, sep = ";")
 
 # calibration
 schwarz2016$enlarge <- calibrate(schwarz2016$enlarge, type = "fuzzy", logistic = T, thresholds = c(0, 9, 21))
