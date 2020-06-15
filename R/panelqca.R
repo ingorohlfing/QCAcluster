@@ -32,29 +32,6 @@ Thiem_panelpars <- PWBfunctionCP(Thiem2011, units = "units", time = "time", cond
                                                                                      "pubsupfs", "ecodpcefs"), out = "memberfs", 2, 0.8, solution = "P")
 ### Schwarz 2016
 
-setwd("D:/QCA")
-
-schwarz2016 <- read.csv("Schwarz2016.csv", as.is = T, sep = ";")
-
-# calibration
-schwarz2016$enlarge <- calibrate(schwarz2016$enlarge, type = "fuzzy", logistic = T, thresholds = c(0, 9, 21))
-
-schwarz2016$poltrans <- calibrate(schwarz2016$poltrans, type = "fuzzy", logistic = T, thresholds = c(4, 6, 10))
-
-schwarz2016$ecotrans <- calibrate(schwarz2016$ecotrans, type = "fuzzy", logistic = T, thresholds = c(3, 7, 10))
-
-schwarz2016$reform <- calibrate(schwarz2016$reform, type = "fuzzy", logistic = T, thresholds = c(3, 5.6, 10))
-
-schwarz2016$conflict <- calibrate(schwarz2016$conflict, type = "fuzzy", logistic = T, thresholds = c(5, 2, 0))
-
-schwarz2016$attention <- calibrate(schwarz2016$attention, type = "fuzzy", logistic = T, thresholds = c(-0.96, 0, 2.93))
-
-schwarz2016$year <- schwarz2016$Case.ID
-schwarz2016$year <- gsub("[A-Z]", "", schwarz2016$year)
-
-schwarz2016$country <- schwarz2016$Case.ID
-schwarz2016$country <- gsub("[0-9]", "", schwarz2016$country)
-
 Schwarz_panelinter_1 <- PWBfunctionINTER(schwarz2016, units = "country", time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
     "attention"), out = "enlarge", 1, 0.8, intermediate = c("1", "1", "1", "1", "1"))
 Schwarz_panelinter_2 <- PWBfunctionINTER(schwarz2016, units = "country", cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
