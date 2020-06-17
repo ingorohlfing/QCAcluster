@@ -8,24 +8,7 @@ library(devtools)
 library(testthat)
 has_devel()
 
-Thiem_panelpars <- PWBfunctionCP(Thiem2011, units = "units", time = "time", cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", 
-    "pubsupfs", "ecodpcefs"), out = "memberfs", 6, 0.8, solution = "P", 
-    BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 
-    0.8), 
-    WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8))
-
-Thiem_panelpars <- PWBfunctionCP(Thiem2011, units = "units", time = "time", cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", 
-                                                                                     "pubsupfs", "ecodpcefs"), out = "memberfs", 2, 0.8, solution = "P")
 ### Schwarz 2016
-
-Schwarz_panelinter_1 <- PWBfunctionINTER(schwarz2016, units = "country", time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
-    "attention"), out = "enlarge", 1, 0.8, intermediate = c("1", "1", "1", "1", "1"))
-Schwarz_panelinter_2 <- PWBfunctionINTER(schwarz2016, units = "country", cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
-    out = "enlarge", n_cut = 1, incl_cut = 0.8, intermediate = c("1", "1", "1", "1", "1"))
-
-Schwarz_panelcons <- PWBfunctionCP(schwarz2016, units = "country", time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
-    "attention"), out = "enlarge", 1, 0.8, solution = "P")
-
 
 
 Schwarz_WOP_Inter <- WOPfunctionInter(schwarz2016, units = "country", time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
