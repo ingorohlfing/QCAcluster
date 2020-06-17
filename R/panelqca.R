@@ -5,22 +5,8 @@ library(data.table)
 library(plyr)
 library(testit)
 library(devtools)
-library(roxygen2)
 library(testthat)
-library(knitr)
 has_devel()
-
-
-### Functions for Panel results, diversity and partition weights
-#' @export
-
-
-
-
-
-Thiem2011 <- read.table(file = "ThiemPanel051.csv", fileEncoding = "WINDOWS-1252",
-                        stringsAsFactors = FALSE, header = TRUE, sep = ";")
-
 
 Thiem_panelpars <- PWBfunctionCP(Thiem2011, units = "units", time = "time", cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", 
     "pubsupfs", "ecodpcefs"), out = "memberfs", 6, 0.8, solution = "P", 
@@ -47,10 +33,6 @@ Schwarz_WOP_Inter <- WOPfunctionInter(schwarz2016, units = "country", time = "ye
 
 
 ### Grauvogel 2014
-
-grauvogel2014 <- read.csv("grauvogel2014.csv", as.is = T, sep = ";")
-grauvogel2014$Sender <- gsub("EU ", "EU", grauvogel2014$Sender, fixed = FALSE)
-grauvogel2014$Sender <- gsub("UN ", "UN", grauvogel2014$Sender, fixed = FALSE)
 
 
 grauvogel_panelinter <- PWBfunctionINTER(grauvogel2014, units = "Sender", cond = c("Comprehensiveness", "Linkage", "Vulnerability", "Repression", 
