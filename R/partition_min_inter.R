@@ -15,6 +15,14 @@
 #' @return
 #'
 #' @examples
+#' Schwarz_panelinter_1 <- PWBfunctionINTER(schwarz2016, units = "country", 
+#' time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
+#' "attention"), out = "enlarge", 1, 0.8, intermediate = c("1", "1", "1", "1", "1"))
+#' 
+#' Schwarz_panelinter_2 <- PWBfunctionINTER(schwarz2016, units = "country", 
+#' cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
+#' out = "enlarge", n_cut = 1, incl_cut = 0.8, 
+#' intermediate = c("1", "1", "1", "1", "1"))
 #' 
 #' @export
 partition_min_inter <- function(x, units, time, cond, out, n_cut, incl_cut, intermediate, BE_cons, WI_cons) {
