@@ -31,6 +31,14 @@
 #' @return A dataframe summarizing the partition-specific and pooled solution. 
 #'
 #' @examples
+#' data(Thiem2011)
+#' 
+#' Thiem_pars <- PWBfunctionCP(Thiem2011, units = "units", time = "time", 
+#' cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", 
+#' "ecodpcefs"), out = "memberfs", 6, 0.8, solution = "P", 
+#' BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+#' WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 
+#' 0.8, 0.8, 0.8, 0.8))
 #' 
 #' @export
 partwise_minimize <- function(x, units, time, cond, out, n_cut, incl_cut, solution, BE_cons, WI_cons) {
