@@ -45,6 +45,6 @@
 #'   \item{Target}{Country that is target of sanctions}
 #'   ...
 #' }
-#' @source \url{https://doi.org/10.1017/S1755773910000251}
-"Thiem2011"
+#' @source \url{https://doi.org/10.1111/1475-6765.12065}
+"Grauvogel2014"
 
