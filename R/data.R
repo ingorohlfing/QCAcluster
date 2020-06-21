@@ -24,7 +24,25 @@
 #' @format A data frame with 165 rows and 10 variables:
 #' \describe{
 #'   \item{id}{Country-year ID}
-#'   \item{time}{time ID}
+#'   \item{time}{Time ID}
+#'   ...
+#' }
+#' @source \url{https://doi.org/10.1017/S1755773910000251}
+"Thiem2011"
+
+#' Original data used by Grauvogel/von Soest (2014)
+#'
+#' A dataset containing the calibrated set values for the article:
+#' Grauvogel, Julia and Christian von Soest (2014):  
+#' Claims to Legitimacy Count: Why Sanctions Fail to Instigate 
+#' Democratisation in Authoritarian Regimes.  
+#' European Journal of Political Research 53 (4): 635-653.
+#'
+#' @format A data frame with 120 rows and 10 variables:
+#' \describe{
+#'   \item{Code}{Sender-target ID}
+#'   \item{Sender}{Country or institution imposing sanctions}
+#'   \item{Target}{Country that is target of sanctions}
 #'   ...
 #' }
 #' @source \url{https://doi.org/10.1017/S1755773910000251}
