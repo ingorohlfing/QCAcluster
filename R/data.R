@@ -14,7 +14,7 @@
 #' @source \url{https://doi.org/10.1080/07036337.2016.1203309}
 "Schwarz2016"
 
-#' Original data used by Thiem (201)
+#' Original data used by Thiem (2011)
 #'
 #' A dataset containing the calibrated set values for the article:
 #' Thiem, Alrik (2011): 
