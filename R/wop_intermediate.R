@@ -21,7 +21,7 @@
 #' @return A dataframe with the weight of the partitions for pooled consistency
 #' scores.
 #' 
-#' #' @examples
+#' @examples
 #'
 #' @export
 wop_intermediate <- function(x, units, time, cond, out, n_cut, incl_cut, 
