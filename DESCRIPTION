@@ -1,32 +1,23 @@
 Package: QCAcluster
 Type: Package
-<<<<<<< HEAD
 Title: Implementing Different QCA Analyses for Clustered Data
-Version: 0.1.0
-Author: Ingo Rohlfing, Jan Schwalbach
-Maintainer: 
-Description: This package allows researchers working with QCA to analyze clustered data.
-
-More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: 
-=======
-Title: Analysis of Clustered Data with Qualitative Comparative Analysis
-Version: 0.0.9.000
+Version: 0.0.9
 Authors@R: c(
   person("Ingo", "Rohlfing", email = "i.rohlfing@uni-koeln.de", role = c("aut", "cre")),
   person("Ayjeren", "Rozyjumayeva", email = "rozyjumayeva@wiso.uni-koeln.de", role = c("aut")),
   person("Jan", "Schwalbach", email = "schwalbach@wiso.uni-koeln.de", role = c("aut")))
-Description: Clustered set-relational data can be hierarchical data, panel 
-    data or repeated cross sections. The package allows empirical researchers 
+Depends: 
+    R (>= 2.10)
+Description: Clustered set-relational data can have a hierarchical structure, a 
+    panel structure or be repeated cross sections. QCAcluster allows empirical 
+    researchers 
     to supplement a pooled analysis of the data with a disaggregated perspective.
     The pooled data can be partitioned along the dimensions of the clustered data
-    (individual cross sections or time series) and partition-specific truth table 
-    minimizations can be performed. Empirical researchers can further calculate 
+    (individual cross sections or time series) to perform partition-specific 
+    truth table minimizations. Empirical researchers can further calculate 
     the weight that each partition has on the parameters of the pooled solution 
-    and the diversity of the cases within and across partitions.
+    and the diversity of the cases under analysis within and across partitions.
 License: GPL-3
->>>>>>> 06278b9d203f30f23bdbebb354c2479d36702b7a
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -42,5 +33,4 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Language: en-US
-Depends: 
-    R (>= 2.10)
+
