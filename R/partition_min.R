@@ -1,47 +1,57 @@
-#' Generation of conservative or parsimonious solutions for individual 
-#' partitions of clustered set-relational data
+#' Generation of conservative or parsimonious solution for individual 
+#' partitions
 #' 
 #' \code{partition_min} decomposes clustered data into individual
-#' partitions such as cross-sections and time-series for panel
-#' data. It derives an individual solution for each partition
-#' and the pooled data to assess the robustness of the 
-#' solutions.
+#' partitions. For panel data, for example, these can be cross sections,
+#' time series or both. The function derives an individual solution for
+#' each partition and the pooled data to assess the robustness of the 
+#' solutions in a comparative perspective.
 #'
-#' @param x Calibrated pooled dataset for partitioning and minimization
+#' @param x Calibrated pooled dataset that is partitioned and minimized for
+#' deriving the pooled solution.
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
-#' @param cond Conditions used for the pooled analysis
-#' @param out Outcome used for the pooled analysis
+#' @param cond Conditions used for minimization
+#' @param out Outcome used for minimization
 #' @param n_cut Frequency cut-off for designating truth table rows as observed
-#' @param incl_cut Inclusion cut-off for designating truth table rows as
-#' consistent
+#' as opposed to designating them as remainders.
+#' @param incl_cut Inclusion (a.k.a. consistency) cut-off for designating 
+#' truth table rows as consistent.
 #' @param solution A character specifying the type of solution that should
-#' be derived. "C" produces the conservative (or complex) solution, "P" the
-#' parsimonious solution. See \code{\link{partition_min_inter}} for the
-#' intermediate solution.
-#' @param BE_cons Inclusion (or consistency) thresholds for cross sections. 
-#' Must be specified as a numeric vector with length equaling the number of
-#' cross sections. Numbers correspond to the order of the cross section ID
-#' in the data (such as years in ascending order).
-#' @param WI_cons Inclusion (or consistency) thresholds for time series. 
-#' Must be specified as a numeric vector with length equaling the number of
-#' time series. Numbers correspond to the order of the time series (unit) ID
-#' in the data (such as countries in alphabetical order).
+#' be derived. \code{C} produces the conservative (or complex) solution, 
+#' \code{P} for the parsimonious solution. See \code{\link{partition_min_inter}} 
+#' for a separate function for the intermediate solution.
+#' @param BE_cons Inclusion thresholds for creating an individual truth table
+#' for each cross section.
+#' They must be specified as a numeric vector. Its length should be
+#' equal the number of cross sections. The order of thresholds corresponds
+#' to the order of the cross sections in the data defined by the cross-section
+#' ID in the dataset (such as years in ascending order).
+#' @param WI_cons Inclusion thresholds for creating an individual truth table
+#' for each time series. 
+#' They must be specified as a numeric vector. Its length should be
+#' equal the number of time series. The order of thresholds corresponds
+#' to the order of the of the time-series (unit) ID
+#' in the dataset (such as countries in alphabetical order).
 #'
-#' @return A dataframe summarizing the partition-specific and pooled solution. 
+#' @return A dataframe summarizing the partition-specific and pooled solutions
+#' with the following columns.
+#' 
+#' 
 #'
 #' @examples
 #' data(Thiem2011)
 #' 
-#' Thiem_pars_1 <- partition_min(Thiem2011, units = "units", time = "time", 
-#' cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", 
-#' "ecodpcefs"), out = "memberfs", 6, 0.8, solution = "P", 
-#' BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
-#' WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 
-#' 0.8, 0.8, 0.8, 0.8))
+# Thiem_pars_1 <- partition_min(Thiem2011, units = "units", time = "time",
+# cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs",
+# "ecodpcefs"), out = "memberfs", 6, 0.8, solution = "P",
+# BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+# WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8,
+# 0.8, 0.8, 0.8, 0.8))
 #' 
 #' @export
-partition_min <- function(x, units, time, cond, out, n_cut, incl_cut, solution, BE_cons, WI_cons) {
+partition_min <- function(x, units, time, cond, out, n_cut, incl_cut, 
+                          solution, BE_cons, WI_cons) {
   
   # Turning of warnings
   # options(warn = -1)
