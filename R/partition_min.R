@@ -35,9 +35,13 @@
 #' in the dataset (such as countries in alphabetical order).
 #'
 #' @return A dataframe summarizing the partition-specific and pooled solutions
-#' with the following columns.
+#' with the following columns:
 #' 
-#' 
+#' * type: The type of the partition. \code{pooled} are rows with information
+#' on the pooled data; \code{between} is for cross-section partitions;
+#' \code{within} is for time-series partitions
+#' * consistency
+#' @md
 #'
 #' @examples
 #' data(Thiem2011)
