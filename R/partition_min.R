@@ -117,7 +117,7 @@ partition_min <- function(x, units, time, cond, out, n_cut, incl_cut,
     x
   }
   
-  #### Function for Between and Within Solutions ####
+  #### Function for between and within solutions ####
   pqmcc <- function(x) {
     
     if (xxx == 1) {
