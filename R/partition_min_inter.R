@@ -307,7 +307,6 @@ partition_min_inter <- function(x, units, time, cond, out, n_cut, incl_cut, inte
     dff3 <- ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
-    
     total <- rbind(dff3, dff1, dff2)
   }
   
@@ -317,6 +316,7 @@ partition_min_inter <- function(x, units, time, cond, out, n_cut, incl_cut, inte
   total$coverage[total$model == "-"] <- NA
   total$consistency <- as.numeric(total$consistency)
   total$coverage <- as.numeric(total$coverage)
+  total <- total[, c(6, 5, 3, 4, 1, 2)]
   
   return(total)
   

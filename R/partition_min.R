@@ -117,7 +117,7 @@ partition_min <- function(x, units, time, cond, out, n_cut, incl_cut,
     x
   }
   
-  #### Function for Between and Within Solutions ####
+  #### Function for between and within solutions ####
   pqmcc <- function(x) {
     
     if (xxx == 1) {
@@ -296,6 +296,6 @@ partition_min <- function(x, units, time, cond, out, n_cut, incl_cut,
   total$coverage[total$model == "-"] <- NA
   total$consistency <- as.numeric(total$consistency)
   total$coverage <- as.numeric(total$coverage)
-  
+  total <- total[, c(6, 5, 3, 4, 1, 2)]
   return(total)
 }
