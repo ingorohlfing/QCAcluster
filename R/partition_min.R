@@ -57,10 +57,10 @@
 partition_min <- function(x, units, time, cond, out, n_cut, incl_cut, 
                           solution, BE_cons, WI_cons) {
   
-  # Turning of warnings
+  # turning of warnings
   # options(warn = -1)
   
-  # Splitting the data if time and unit values are available
+  # splitting the data if time and unit values are available
   if (missing(units)) {
     colnames(x)[which(names(x) == time)] <- "time"
     x <- x[with(x, order(time)), ]
