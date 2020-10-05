@@ -220,6 +220,8 @@ diversity <- function(x, units, time, cond, out, n_cut, incl_cut, BE_cons, WI_co
   total$diversity_per_0 <- ifelse(is.na(total$diversity_0), NA, total$diversity_0/y)
   total$diversity <- total$diversity_old
   total$diversity_old <- NULL
+  total <- total[, c(2, 1, 3, 4, 5, 6, 7, 8)]
+  
   return(total)
   
 }

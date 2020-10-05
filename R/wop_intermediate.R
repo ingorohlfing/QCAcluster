@@ -306,7 +306,7 @@ wop_intermediate <- function(x, units, time, cond, out, n_cut, incl_cut,
     
     total <- rbind(dff3, dff1, dff2)
   }
-  
+  total <- total[, c(6, 5, 1, 4, 3, 2)]
   return(total)
   
 }
