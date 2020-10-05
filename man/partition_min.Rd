@@ -6,7 +6,7 @@
 partitions}
 \usage{
 partition_min(
-  x,
+  dataset,
   units,
   time,
   cond,
@@ -19,7 +19,7 @@ partition_min(
 )
 }
 \arguments{
-\item{x}{Calibrated pooled dataset that is partitioned and minimized for
+\item{dataset}{Calibrated pooled dataset that is partitioned and minimized for
 deriving the pooled solution.}
 
 \item{units}{Units defining the within-dimension of data (time series)}
@@ -59,9 +59,13 @@ in the dataset (such as countries in alphabetical order).}
 A dataframe summarizing the partition-specific and pooled solutions
 with the following columns:
 \itemize{
-\item type: The type of the partition. \code{pooled} are rows with information
+\item \code{type}: The type of the partition. \code{pooled} are rows with information
 on the pooled data; \code{between} is for cross-section partitions;
 \code{within} is for time-series partitions
+\item \code{partition}: Specific dimension of the partition at hand. For
+between-dimension, the unit identifiers are included here  (argument \code{units}).
+For the within-dimension, the time identifier are listed (argument \code{time}).
+The entry is \code{-} for the pooled data without partitions.
 \item consistency
 }
 }
@@ -73,7 +77,18 @@ each partition and the pooled data to assess the robustness of the
 solutions in a comparative perspective.
 }
 \examples{
+# loading data from Thiem (EPSR, 2011; see data documentation)
 data(Thiem2011)
 
+# running function for parsimonious solution
+Thiem_pars_1 <- partition_min(
+  dataset = Thiem2011,
+  units = "units", time = "time",
+  cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
+  out = "memberfs",
+  n_cut = 6, incl_cut = 0.8,
+  solution = "P",
+  BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+  WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
 
 }

@@ -7,7 +7,7 @@
 #' each partition and the pooled data to assess the robustness of the 
 #' solutions in a comparative perspective.
 #'
-#' @param x Calibrated pooled dataset that is partitioned and minimized for
+#' @param dataset Calibrated pooled dataset that is partitioned and minimized for
 #' deriving the pooled solution.
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
@@ -37,30 +37,44 @@
 #' @return A dataframe summarizing the partition-specific and pooled solutions
 #' with the following columns:
 #' 
-#' * type: The type of the partition. \code{pooled} are rows with information
+#' * \code{type}: The type of the partition. \code{pooled} are rows with information
 #' on the pooled data; \code{between} is for cross-section partitions;
 #' \code{within} is for time-series partitions
+#' * \code{partition}: Specific dimension of the partition at hand. For 
+#' between-dimension, the unit identifiers are included here  (argument \code{units}).
+#' For the within-dimension, the time identifier are listed (argument \code{time}).
+#' The entry is \code{-} for the pooled data without partitions.
 #' * consistency
 #' @md
 #'
 #' @examples
+#' # loading data from Thiem (EPSR, 2011; see data documentation)
 #' data(Thiem2011)
 #' 
-# Thiem_pars_1 <- partition_min(Thiem2011, units = "units", time = "time",
-# cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs",
-# "ecodpcefs"), out = "memberfs", 6, 0.8, solution = "P",
-# BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
-# WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8,
-# 0.8, 0.8, 0.8, 0.8))
+#' # running function for parsimonious solution
+#' Thiem_pars_1 <- partition_min(
+#'   dataset = Thiem2011,
+#'   units = "units", time = "time",
+#'   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
+#'   out = "memberfs",
+#'   n_cut = 6, incl_cut = 0.8,
+#'   solution = "P",
+#'   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+#'   WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
 #' 
 #' @export
-partition_min <- function(x, units, time, cond, out, n_cut, incl_cut, 
-                          solution, BE_cons, WI_cons) {
+partition_min <- function(dataset, 
+                          units, time, 
+                          cond, out, 
+                          n_cut, incl_cut, 
+                          solution, 
+                          BE_cons, WI_cons) {
   
   # turning of warnings
   # options(warn = -1)
   
   # splitting the data if time and unit values are available
+  x <- dataset
   if (missing(units)) {
     colnames(x)[which(names(x) == time)] <- "time"
     x <- x[with(x, order(time)), ]
