@@ -52,15 +52,15 @@
 #' data(Thiem2011)
 #' 
 #' # running function for parsimonious solution
-#' Thiem_pars_1 <- partition_min(
-#'   dataset = Thiem2011,
-#'   units = "units", time = "time",
-#'   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
-#'   out = "memberfs",
-#'   n_cut = 6, incl_cut = 0.8,
-#'   solution = "P",
-#'   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
-#'   WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
+# Thiem_pars_1 <- partition_min(
+#   dataset = Thiem2011,
+#   units = "units", time = "time",
+#   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
+#   out = "memberfs",
+#   n_cut = 6, incl_cut = 0.8,
+#   solution = "P",
+#   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+#   WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
 #' 
 #' @export
 partition_min <- function(dataset, 
@@ -162,7 +162,7 @@ partition_min <- function(dataset,
       x$consistency <- "-"
       zz <- as.data.frame(x$consistency)
       zz$coverage <- "-"
-      zz$solution <- "No variation in all coniditions"
+      zz$solution <- "No variation in all conditions"
       zz$model <- "-"
       zz$partition <- part
       zz$type <- type
@@ -188,7 +188,7 @@ partition_min <- function(dataset,
           x$consistency <- "-"
           zz <- as.data.frame(x$consistency)
           zz$coverage <- "-"
-          zz$solution <- "All inconsistent"
+          zz$solution <- "All truth table rows inconsistent"
           zz$model <- "-"
           zz$partition <- part
           zz$type <- type
@@ -200,7 +200,7 @@ partition_min <- function(dataset,
           x$consistency <- "-"
           zz <- as.data.frame(x$consistency)
           zz$coverage <- "-"
-          zz$solution <- "All consistent"
+          zz$solution <- "All truth table rows consistent"
           zz$model <- "-"
           zz$partition <- part
           zz$type <- type
@@ -260,7 +260,7 @@ partition_min <- function(dataset,
         x$consistency <- "-"
         zz <- as.data.frame(x$consistency)
         zz$coverage <- "-"
-        zz$solution <- "no combinations at this frequency cutoff"
+        zz$solution <- "All rows remainders (n < frequency cutoff)"
         zz$model <- "-"
         zz$partition <- part
         zz$type <- type
