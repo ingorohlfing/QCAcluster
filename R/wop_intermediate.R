@@ -22,7 +22,21 @@
 #' Must be specified as a numeric vector with length equaling the number of
 #' time series. Numbers correspond to the order of the time series (unit) ID
 #' in the data (such as countries in alphabetical order).
-#'
+#' @param BE_ncut The minimum number of cases under which a truth table 
+#' row is declared as a remainder for creating an individual truth 
+#' table for each cross section.
+#' They must be specified as a numeric vector. Its length should be
+#' equal the number of cross sections. The order of thresholds corresponds
+#' to the order of the cross sections in the data defined by the cross-section
+#' ID in the dataset (such as years in ascending order).
+#' @param WI_ncut The minimum number of cases under which a truth table
+#' row is declared as a remainder for creating an individual truth 
+#' table for each time series. 
+#' They must be specified as a numeric vector. Its length should be
+#' equal the number of time series. The order of thresholds corresponds
+#' to the order of the of the time-series (unit) ID
+#' in the dataset (such as countries in alphabetical order).
+#' 
 #' @return A dataframe with the weight of the partitions for pooled consistency
 #' scores.
 #' 
@@ -32,25 +46,53 @@
 #' "attention"), out = "enlarge", 1, 0.8, intermediate = c("1", "1", "1", "1", "1"))
 #'
 #' @export
-wop_intermediate <- function(x, units, time, cond, out, n_cut, incl_cut, 
-                             intermediate, BE_cons, WI_cons) {
+wop_intermediate <- function(dataset, units, time, cond, out, n_cut, incl_cut, 
+                             intermediate, BE_cons, WI_cons,
+                             BE_ncut,WI_ncut) {
   
   #### Splitting the data ####
   options(warn = -1)
+  x <- dataset
   if (missing(units)) {
     colnames(x)[which(names(x) == time)] <- "time"
     x <- x[with(x, order(time)), ]
     xB <- x
-    xB$consis <- rep(incl_cut, times = nrow(x))
-    BE_list <- split(xB, xB[, "time"])
+    if (missing(BE_cons)) {
+      BE_cons <- rep(incl_cut, times = lengtht)
+      xB$consis <- rep(incl_cut, times = nrow(x))
+    } else {
+      BE_cons <- BE_cons
+      xB$consis <- rep(BE_cons, each = lengthu)
+    }
+    if (missing(BE_ncut)) {
+      BE_ncut <- rep(n_cut, times = lengtht)
+      xB$ncut <- rep(n_cut, times = nrow(x))
+    } else {
+      BE_ncut <- BE_ncut
+      xB$ncut <- rep(BE_ncut, each = lengthu)
+    }
     xxx <- 1
+    BE_list <- split(xB, xB[, "time"])
   } else if (missing(time)) {
     colnames(x)[which(names(x) == units)] <- "units"
     x <- x[with(x, order(units)), ]
     xW <- x
-    xW$consis <- rep(incl_cut, times = nrow(x))
-    WI_list <- split(xW, xW[, "units"])
+    if (missing(WI_cons)) {
+      WI_cons <- rep(incl_cut, times = lengthu)
+      xW$consis <- rep(incl_cut, times = nrow(x))
+    } else {
+      WI_cons <- WI_cons
+      xW$consis <- rep(WI_cons, times = lengtht)
+    }
+    if (missing(WI_ncut)) {
+      WI_ncut <- rep(n_cut, times = lengthu)
+      xW$ncut <- rep(n_cut, times = nrow(x))
+    } else {
+      WI_ncut <- WI_ncut
+      xW$ncut <- rep(WI_ncut, each = lengtht)
+    }
     xxx <- 2
+    WI_list <- split(xW, xW[, "units"])
     
   } else {
     xxx <- 3
@@ -65,14 +107,20 @@ wop_intermediate <- function(x, units, time, cond, out, n_cut, incl_cut,
     xB <- x
     xW <- x
     
-    
+    # Assigning individual consistency thresholds if available
     if (missing(BE_cons)) {
       BE_cons <- rep(incl_cut, times = lengtht)
       xB$consis <- rep(incl_cut, times = nrow(x))
-      
     } else {
       BE_cons <- BE_cons
       xB$consis <- rep(BE_cons, each = lengthu)
+    }
+    if (missing(BE_ncut)) {
+      BE_ncut <- rep(n_cut, times = lengtht)
+      xB$ncut <- rep(n_cut, times = nrow(x))
+    } else {
+      BE_ncut <- BE_ncut
+      xB$ncut <- rep(BE_ncut, each = lengthu)
     }
     
     if (missing(WI_cons)) {
@@ -82,14 +130,21 @@ wop_intermediate <- function(x, units, time, cond, out, n_cut, incl_cut,
       WI_cons <- WI_cons
       xW$consis <- rep(WI_cons, times = lengtht)
     }
-    
+    if (missing(WI_ncut)) {
+      WI_ncut <- rep(n_cut, times = lengthu)
+      xW$ncut <- rep(n_cut, times = nrow(x))
+    } else {
+      WI_ncut <- WI_ncut
+      xW$ncut <- rep(WI_ncut, each = lengtht)
+    }
     
     BE_list <- split(xB, xB[, "time"])
     WI_list <- split(xW, xW[, "units"])
-    
   }
   
+  
   x$consis <- incl_cut
+  x$ncut <- n_cut
   PO_list <- list(x)
   
   paster <- function(x) {
@@ -154,11 +209,10 @@ wop_intermediate <- function(x, units, time, cond, out, n_cut, incl_cut,
       
     } else {
       
-      s <- has_error(susu <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE))
+      s <- has_error(susu <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1]), silent = TRUE))
       
       if (s == F) {
-        x1 <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)][1], n.cut = n_cut), silent = TRUE)
-        
+        x1 <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1]), silent = TRUE)
         
         x2 <- x1$tt$OUT
         x2[x2 == "?"] <- NA
@@ -310,4 +364,3 @@ wop_intermediate <- function(x, units, time, cond, out, n_cut, incl_cut,
   return(total)
   
 }
-
