@@ -1,8 +1,0 @@
----
-title: "notes"
-author: "varia"
-date: "25 5 2020"
-output: html_document
----
-
-
