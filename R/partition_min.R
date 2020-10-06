@@ -9,8 +9,12 @@
 #'
 #' @param dataset Calibrated pooled dataset that is partitioned and minimized for
 #' deriving the pooled solution.
-#' @param units Units defining the within-dimension of data (time series)
-#' @param time Periods defining the between-dimension of data (cross sections)
+#' @param units Units defining the within-dimension of data (time series). If no
+#' units are specified, the data is assumed to lack a dimension and be
+#' hierarchical.
+#' @param time Periods defining the between-dimension of data (cross sections). 
+#' This should be specified because it does not make sense to partition a 
+#' time series into individual data points.
 #' @param cond Conditions used for minimization
 #' @param out Outcome used for minimization
 #' @param n_cut Frequency cut-off for designating truth table rows as observed
