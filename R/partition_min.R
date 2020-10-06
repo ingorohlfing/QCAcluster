@@ -44,7 +44,20 @@
 #' between-dimension, the unit identifiers are included here  (argument \code{units}).
 #' For the within-dimension, the time identifier are listed (argument \code{time}).
 #' The entry is \code{-} for the pooled data without partitions.
-#' * consistency
+#' * \code{solution}: The solution derived for the partition or the pooled data.
+#' Absence of a condition is denoted by the \code{~} sign.
+#' * \code{model}: Running ID for models. In the presence of model ambiguity, each
+#' model has its own row with its individual solution and parameters. The rest of
+#' the information in the row is duplicated, for example by having two rows for
+#' the within-partition 1996. The column \code{model} highlights the presence of
+#' model ambiguity by numbering all models belonging to the same solution. For 
+#' example, if three consecutive rows are numbered 1, 2 and 3, then these rows
+#' belong to the same solution and represent model ambiguity. If a 1 in a row
+#' is followed by another 1, then there is no model ambiguity.
+#' * \code{consistency}: The consistency score (a.k.a. inclusion score) 
+#' for the partition of the data or the pooled data.
+#' * \code{coverage}: The coverage score for the partition of the data 
+#' or the pooled data.
 #' @md
 #'
 #' @examples
@@ -52,15 +65,15 @@
 #' data(Thiem2011)
 #' 
 #' # running function for parsimonious solution
-# Thiem_pars_1 <- partition_min(
-#   dataset = Thiem2011,
-#   units = "units", time = "time",
-#   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
-#   out = "memberfs",
-#   n_cut = 6, incl_cut = 0.8,
-#   solution = "P",
-#   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
-#   WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
+#' Thiem_pars_1 <- partition_min(
+#'   dataset = Thiem2011,
+#'   units = "units", time = "time",
+#'   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
+#'   out = "memberfs",
+#'   n_cut = 1, incl_cut = 0.8,
+#'   solution = "P",
+#'   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+#'   WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
 #' 
 #' @export
 partition_min <- function(dataset, 
