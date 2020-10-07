@@ -48,8 +48,13 @@
 #' @export
 wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_cons, WI_cons, BE_ncut, WI_ncut) {
   
+  # turning of warnings
+  quiet <- function(x) { 
+    sink(tempfile()) 
+    on.exit(sink()) 
+    invisible(force(x)) 
+  } 
   #### Splitting the data ####
-  options(warn = -1)
   x <- dataset
   if (missing(units)) {
     colnames(x)[which(names(x) == time)] <- "time"
@@ -193,10 +198,10 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
       
     } else {
       
-      s <- has_error(susu <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1]), silent = TRUE))
+      s <- has_error(susu <- try(suppressWarnings(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE))
       
       if (s == F) {
-        x1 <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1]), silent = TRUE)
+        x1 <- try(suppressWarnings(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE)
         
         
         x2 <- x1$tt$OUT
@@ -245,19 +250,16 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
             x3 <- minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
           }
           
-          
           SOL <- x3$solution[]
           tete <- list(cons = SOL)
           neux <- lapply(tete$cons, paster)
           neuxx <- unlist(neux)
           zz <- as.data.frame(neuxx)
           
-          
           pim <- x3$pims
           pimlength <- as.numeric(ncol(pim))
           pim$max <- do.call(pmax, pim[1:pimlength])
           denom <- sum(pim$max)
-          
           
           pim1 <- x3$pims
           pimlength1 <- as.numeric(ncol(pim1))
@@ -265,8 +267,7 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
           pim1$out <- unlist(x[out])
           pim1$min <- with(pim1, pmin(max, out))
           num <- sum(pim1$min)
-          
-          
+
           zz$denom <- denom
           zz$num <- num
           numberrows <- nrow(zz)
@@ -291,9 +292,7 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
         zz$num <- "-"
         zz <- zz[!duplicated(zz), ]
         colnames(zz)[1] <- "solution"
-        
       }
-      
     }
     zz
   }
@@ -302,8 +301,8 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
   #### Application of Function ####
   
   if (missing(time)) {
-    WI_list1 <- lapply(WI_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    WI_list1 <- quiet(lapply(WI_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     dff2 <- ldply(WI_list1)[, -1]
     dff3 <- ldply(PO_list1)[, ]
     dff3$type <- "pooled"
@@ -313,8 +312,8 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     
     total <- rbind(dff3, dff2)
   } else if (missing(units)) {
-    BE_list1 <- lapply(BE_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    BE_list1 <- quiet(lapply(BE_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
     dff1 <- ldply(BE_list1)[, -1]
     dff3 <- ldply(PO_list1)[, ]
@@ -326,9 +325,9 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     total <- rbind(dff3, dff1)
     
   } else {
-    BE_list1 <- lapply(BE_list, pqmcc)
-    WI_list1 <- lapply(WI_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    BE_list1 <- quiet(lapply(BE_list, pqmcc))
+    WI_list1 <- quiet(lapply(WI_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
     dff1 <- ldply(BE_list1)[, -1]
     dff2 <- ldply(WI_list1)[, -1]
@@ -341,7 +340,5 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     total <- rbind(dff3, dff1, dff2)
   }
   total <- total[, c(6, 5, 1, 4, 3, 2)]
-  
   return(total)
-  
 }

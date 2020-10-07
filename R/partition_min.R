@@ -102,7 +102,11 @@ partition_min <- function(dataset,
                           BE_ncut,WI_ncut) {
   
   # turning of warnings
-  # options(warn = -1)
+  quiet <- function(x) { 
+    sink(tempfile()) 
+    on.exit(sink()) 
+    invisible(force(x)) 
+  } 
   
   # splitting the data if time and unit values are available
   x <- dataset
@@ -246,10 +250,10 @@ partition_min <- function(dataset,
     } else {
       
       # s <- has_error(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[,ncol(x)][1], n.cut = n_cut))
-      s <- testit::has_error(susu <- try(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1]), silent = TRUE))
+      s <- testit::has_error(susu <- try(suppressWarnings(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE))
       
       if (s == F) {
-        x1 <- try(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1]), silent = TRUE)
+        x1 <- try(suppressWarnings(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE)
         
         x2 <- x1$tt$OUT
         x2[x2 == "?"] <- NA
@@ -350,8 +354,8 @@ partition_min <- function(dataset,
   #### Application of Function ####
   
   if (missing(time)) {
-    WI_list1 <- lapply(WI_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    WI_list1 <- quiet(lapply(WI_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     dff2 <- plyr::ldply(WI_list1)[, -1]
     dff3 <- plyr::ldply(PO_list1)[, ]
     dff3$type <- "pooled"
@@ -359,8 +363,8 @@ partition_min <- function(dataset,
     total <- rbind(dff3, dff2)
     
   } else if (missing(units)) {
-    BE_list1 <- lapply(BE_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    BE_list1 <- quiet(lapply(BE_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     dff1 <- plyr::ldply(BE_list1)[, -1]
     dff3 <- plyr::ldply(PO_list1)[, ]
     dff3$type <- "pooled"
@@ -368,9 +372,9 @@ partition_min <- function(dataset,
     total <- rbind(dff3, dff1)
     
   } else {
-    BE_list1 <- lapply(BE_list, pqmcc)
-    WI_list1 <- lapply(WI_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    BE_list1 <- quiet(lapply(BE_list, pqmcc))
+    WI_list1 <- quiet(lapply(WI_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
     dff1 <- plyr::ldply(BE_list1)[, -1]
     dff2 <- plyr::ldply(WI_list1)[, -1]

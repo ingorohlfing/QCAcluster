@@ -47,10 +47,20 @@
 #' out = "enlarge", 1, 0.8)
 #' 
 #' @export
-diversity <- function(dataset, units, time, cond, out, n_cut, incl_cut, BE_cons, WI_cons, BE_ncut, WI_ncut) {
+diversity <- function(dataset, 
+                      units, time, 
+                      cond, out, 
+                      n_cut, incl_cut, 
+                      BE_cons, WI_cons, 
+                      BE_ncut, WI_ncut) {
   
+  # turning of warnings
+  quiet <- function(x) { 
+    sink(tempfile()) 
+    on.exit(sink()) 
+    invisible(force(x)) 
+  } 
   #### Splitting the data ####
-  options(warn = -1)
   x <- dataset
   if (missing(units)) {
     colnames(x)[which(names(x) == time)] <- "time"
@@ -197,10 +207,10 @@ diversity <- function(dataset, units, time, cond, out, n_cut, incl_cut, BE_cons,
       
       
       # s <- has_error(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[,ncol(x)][1], n.cut = n_cut))
-      s <- has_error(susu <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1]), silent = TRUE))
+      s <- has_error(susu <- try(suppressWarnings(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE))
       
       if (s == F) {
-        x1 <- try(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1]), silent = TRUE)
+        x1 <- try(suppressWarnings(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE)
         
         zz <- as.data.frame(part)
         zz$type <- type
@@ -229,8 +239,8 @@ diversity <- function(dataset, units, time, cond, out, n_cut, incl_cut, BE_cons,
   #### Application of Function ####
   
   if (missing(time)) {
-    WI_list1 <- lapply(WI_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    WI_list1 <- quiet(lapply(WI_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     dff2 <- ldply(WI_list1)[, -1]
     dff3 <- ldply(PO_list1)[, ]
     dff3$type <- "pooled"
@@ -238,8 +248,8 @@ diversity <- function(dataset, units, time, cond, out, n_cut, incl_cut, BE_cons,
     
     total <- rbind(dff3, dff2)
   } else if (missing(units)) {
-    BE_list1 <- lapply(BE_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    BE_list1 <- quiet(lapply(BE_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
     dff1 <- ldply(BE_list1)[, -1]
     dff3 <- ldply(PO_list1)[, ]
@@ -249,9 +259,9 @@ diversity <- function(dataset, units, time, cond, out, n_cut, incl_cut, BE_cons,
     total <- rbind(dff3, dff1)
     
   } else {
-    BE_list1 <- lapply(BE_list, pqmcc)
-    WI_list1 <- lapply(WI_list, pqmcc)
-    PO_list1 <- lapply(PO_list, pqmcc)
+    BE_list1 <- quiet(lapply(BE_list, pqmcc))
+    WI_list1 <- quiet(lapply(WI_list, pqmcc))
+    PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
     dff1 <- ldply(BE_list1)[, -1]
     dff2 <- ldply(WI_list1)[, -1]
