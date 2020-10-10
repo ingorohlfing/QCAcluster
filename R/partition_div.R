@@ -22,17 +22,17 @@
 #' Must be specified as a numeric vector with length equaling the number of
 #' time series. Numbers correspond to the order of the time series (unit) ID
 #' in the data (such as countries in alphabetical order).
-#' @param BE_ncut The minimum number of cases under which a truth table 
-#' row is declared as a remainder for creating an individual truth 
-#' table for each cross section.
-#' They must be specified as a numeric vector. Its length should be
+#' @param BE_ncut For *cross sections*, the minimum number of members needed
+#' for declaring a truth table row 
+#' as relevant as opposed to designating it as a remainder.
+#' Must be specified as a numeric vector. Its length should be
 #' equal the number of cross sections. The order of thresholds corresponds
 #' to the order of the cross sections in the data defined by the cross-section
 #' ID in the dataset (such as years in ascending order).
-#' @param WI_ncut The minimum number of cases under which a truth table
-#' row is declared as a remainder for creating an individual truth 
-#' table for each time series. 
-#' They must be specified as a numeric vector. Its length should be
+#' @param WI_ncut For *time series*, the minimum number of members needed
+#' for declaring a truth table row 
+#' as relevant as opposed to designating it as a remainder. 
+#' Must be specified as a numeric vector. Its length should be
 #' equal the number of time series. The order of thresholds corresponds
 #' to the order of the of the time-series (unit) ID
 #' in the dataset (such as countries in alphabetical order).

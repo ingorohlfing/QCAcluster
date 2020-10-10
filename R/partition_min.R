@@ -18,9 +18,9 @@
 #' @param cond Conditions used for minimization
 #' @param out Outcome used for minimization
 #' @param n_cut Frequency cut-off for designating truth table rows as observed
-#' as opposed to designating them as remainders.
+#' as opposed to designating them as remainders for the *pooled* data.
 #' @param incl_cut Inclusion (a.k.a. consistency) cut-off for designating 
-#' truth table rows as consistent.
+#' truth table rows as consistent for the *pooled* data.
 #' @param solution A character specifying the type of solution that should
 #' be derived. \code{C} produces the conservative (or complex) solution, 
 #' \code{P} for the parsimonious solution. See \code{\link{partition_min_inter}} 
@@ -37,20 +37,21 @@
 #' equal the number of time series. The order of thresholds corresponds
 #' to the order of the of the time-series (unit) ID
 #' in the dataset (such as countries in alphabetical order).
-#' @param BE_ncut The minimum number of cases under which a truth table 
-#' row is declared as a remainder for creating an individual truth 
-#' table for each cross section.
-#' They must be specified as a numeric vector. Its length should be
+#' @param BE_ncut For *cross sections*, the minimum number of members needed
+#' for declaring a truth table row 
+#' as relevant as opposed to designating it as a remainder.
+#' Must be specified as a numeric vector. Its length should be
 #' equal the number of cross sections. The order of thresholds corresponds
 #' to the order of the cross sections in the data defined by the cross-section
 #' ID in the dataset (such as years in ascending order).
-#' @param WI_ncut The minimum number of cases under which a truth table
-#' row is declared as a remainder for creating an individual truth 
-#' table for each time series. 
-#' They must be specified as a numeric vector. Its length should be
+#' @param WI_ncut For *time series*, the minimum number of members needed
+#' for declaring a truth table row 
+#' as relevant as opposed to designating it as a remainder. 
+#' Must be specified as a numeric vector. Its length should be
 #' equal the number of time series. The order of thresholds corresponds
 #' to the order of the of the time-series (unit) ID
 #' in the dataset (such as countries in alphabetical order).
+#' 
 #' @return A dataframe summarizing the partition-specific and pooled solutions
 #' with the following columns:
 #' 

@@ -15,26 +15,32 @@ partition_min(
   incl_cut,
   solution,
   BE_cons,
-  WI_cons
+  WI_cons,
+  BE_ncut,
+  WI_ncut
 )
 }
 \arguments{
 \item{dataset}{Calibrated pooled dataset that is partitioned and minimized for
 deriving the pooled solution.}
 
-\item{units}{Units defining the within-dimension of data (time series)}
+\item{units}{Units defining the within-dimension of data (time series). If no
+units are specified, the data is assumed to lack a dimension and be
+hierarchical.}
 
-\item{time}{Periods defining the between-dimension of data (cross sections)}
+\item{time}{Periods defining the between-dimension of data (cross sections).
+This should be specified because it does not make sense to partition a
+time series into individual data points.}
 
 \item{cond}{Conditions used for minimization}
 
 \item{out}{Outcome used for minimization}
 
 \item{n_cut}{Frequency cut-off for designating truth table rows as observed
-as opposed to designating them as remainders.}
+as opposed to designating them as remainders for the \emph{pooled} data.}
 
 \item{incl_cut}{Inclusion (a.k.a. consistency) cut-off for designating
-truth table rows as consistent.}
+truth table rows as consistent for the \emph{pooled} data.}
 
 \item{solution}{A character specifying the type of solution that should
 be derived. \code{C} produces the conservative (or complex) solution,
@@ -51,6 +57,22 @@ ID in the dataset (such as years in ascending order).}
 \item{WI_cons}{Inclusion thresholds for creating an individual truth table
 for each time series.
 They must be specified as a numeric vector. Its length should be
+equal the number of time series. The order of thresholds corresponds
+to the order of the of the time-series (unit) ID
+in the dataset (such as countries in alphabetical order).}
+
+\item{BE_ncut}{For \emph{cross sections}, the minimum number of members needed
+for declaring a truth table row
+as relevant as opposed to designating it as a remainder.
+Must be specified as a numeric vector. Its length should be
+equal the number of cross sections. The order of thresholds corresponds
+to the order of the cross sections in the data defined by the cross-section
+ID in the dataset (such as years in ascending order).}
+
+\item{WI_ncut}{For \emph{time series}, the minimum number of members needed
+for declaring a truth table row
+as relevant as opposed to designating it as a remainder.
+Must be specified as a numeric vector. Its length should be
 equal the number of time series. The order of thresholds corresponds
 to the order of the of the time-series (unit) ID
 in the dataset (such as countries in alphabetical order).}

@@ -5,7 +5,7 @@
 \title{Calculates the weight of partitions for intermediate solution}
 \usage{
 wop_intermediate(
-  x,
+  dataset,
   units,
   time,
   cond,
@@ -14,12 +14,12 @@ wop_intermediate(
   incl_cut,
   intermediate,
   BE_cons,
-  WI_cons
+  WI_cons,
+  BE_ncut,
+  WI_ncut
 )
 }
 \arguments{
-\item{x}{Calibrated pooled dataset for partitioning and minimization}
-
 \item{units}{Units defining the within-dimension of data (time series)}
 
 \item{time}{Periods defining the between-dimension of data (cross sections)}
@@ -44,6 +44,24 @@ in the data (such as years in ascending order).}
 Must be specified as a numeric vector with length equaling the number of
 time series. Numbers correspond to the order of the time series (unit) ID
 in the data (such as countries in alphabetical order).}
+
+\item{BE_ncut}{For *cross sections*, the minimum number of members needed
+for declaring a truth table row 
+as relevant as opposed to designating it as a remainder.
+Must be specified as a numeric vector. Its length should be
+equal the number of cross sections. The order of thresholds corresponds
+to the order of the cross sections in the data defined by the cross-section
+ID in the dataset (such as years in ascending order).}
+
+\item{WI_ncut}{For *time series*, the minimum number of members needed
+for declaring a truth table row 
+as relevant as opposed to designating it as a remainder. 
+Must be specified as a numeric vector. Its length should be
+equal the number of time series. The order of thresholds corresponds
+to the order of the of the time-series (unit) ID
+in the dataset (such as countries in alphabetical order).}
+
+\item{x}{Calibrated pooled dataset for partitioning and minimization}
 }
 \value{
 A dataframe with the weight of the partitions for pooled consistency
