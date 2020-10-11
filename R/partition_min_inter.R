@@ -51,6 +51,19 @@
 #' out = "enlarge", n_cut = 1, incl_cut = 0.8, 
 #' intermediate = c("1", "1", "1", "1", "1"))
 #' 
+#' #' @examples
+#' # loading data from Grauvogel/von Soest (EJPR, 2014; see data documentation)
+#' data(Grauvogel2014)
+#' Grauvogel2014$Sender <- trimws(Grauvogel2014$Sender)
+#' 
+#' Grauvogel_inter <- partition_min(
+#'   dataset = Grauvogel2014,
+#'   units = "Sender",
+#'   cond = c("Comprehensiveness", "Linkage", "Vulnerability","Repression", "Claims"),
+#'   out = "Persistence",
+#'   n_cut = 1, incl_cut = 0.75,
+#'   intermediate = c("1","1","1","1","1")
+#' 
 #' @export
 partition_min_inter <- function(dataset, 
                                 units, time, 
@@ -73,6 +86,8 @@ partition_min_inter <- function(dataset,
     colnames(x)[which(names(x) == time)] <- "time"
     x <- x[with(x, order(time)), ]
     xB <- x
+    lengtht <- length(unique(x$time))
+    lengthu <- length(unique(x$units))
     if (missing(BE_cons)) {
       BE_cons <- rep(incl_cut, times = lengtht)
       xB$consis <- rep(incl_cut, times = nrow(x))
@@ -93,6 +108,8 @@ partition_min_inter <- function(dataset,
     colnames(x)[which(names(x) == units)] <- "units"
     x <- x[with(x, order(units)), ]
     xW <- x
+    lengtht <- length(unique(x$time))
+    lengthu <- length(unique(x$units))
     if (missing(WI_cons)) {
       WI_cons <- rep(incl_cut, times = lengthu)
       xW$consis <- rep(incl_cut, times = nrow(x))

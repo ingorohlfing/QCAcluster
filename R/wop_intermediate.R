@@ -62,6 +62,8 @@ wop_intermediate <- function(dataset, units, time, cond, out, n_cut, incl_cut,
     colnames(x)[which(names(x) == time)] <- "time"
     x <- x[with(x, order(time)), ]
     xB <- x
+    lengtht <- length(unique(x$time))
+    lengthu <- length(unique(x$units))
     if (missing(BE_cons)) {
       BE_cons <- rep(incl_cut, times = lengtht)
       xB$consis <- rep(incl_cut, times = nrow(x))
@@ -82,6 +84,8 @@ wop_intermediate <- function(dataset, units, time, cond, out, n_cut, incl_cut,
     colnames(x)[which(names(x) == units)] <- "units"
     x <- x[with(x, order(units)), ]
     xW <- x
+    lengtht <- length(unique(x$time))
+    lengthu <- length(unique(x$units))
     if (missing(WI_cons)) {
       WI_cons <- rep(incl_cut, times = lengthu)
       xW$consis <- rep(incl_cut, times = nrow(x))

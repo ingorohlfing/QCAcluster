@@ -21,8 +21,13 @@ library(QCAcluster)
 Two functions allow empirical researchers to partition clustered data on one or two dimensions and to derive solutions for the pooled data and for each partition. `partition_min()` is available for producing conservative or parsimonious solutions. `partition_min_inter()` has to be used for the intermediate solution. (For programming purposes, we opted for separate functions for the intermediate solution and the other two.)
 
 ## Panel data: Minimization for cross sections and time series
-We first illustrate how one can dempose panel data on two dimensions. In a between-unit perspective, the panel is partitioned into multiple cross sections. In a within-unit perspective, the data is decomposed into multiple time series. 
+We first illustrate how one can dempose panel data on two dimensions using data by [Thiem (2011)](https://doi.org/10.1017/S1755773910000251). In a *between-unit* perspective, the panel is partitioned into multiple cross sections with the `time` argument that specifies the cross section ID (here: years). In a *within-unit* perspective, the data is decomposed into multiple time series with the `units` argument that specifies the time series ID (here: countries). In short, the other parameters are:
 
+- `n_cut`: Frequency threshold for pooled data
+- `incl_cut`: Inclusion threshold (a.k.a. consistency threshold) for pooled data
+- `solution`: Either `C` for conservative solution (a.k.a. complex solution) or `P` for parsimonious solution
+- `BE_cons` and `WI_cons`: Inclusion thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
+- `BE_ncut` and `WI_ncut`: Frequency thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 
 ```{r}
 # loading panel data (see data description for emails)
@@ -39,5 +44,28 @@ Thiem_pars <- partition_min(
   WI_cons = c(0.75, 0.8, 0.9, 0.8, 0.85, rep(0.75, 10)),
   WI_ncut = rep(1, 15))
 Thiem_pars
+```
+
+The output of `partition_min()` is a dataframe summarizing the solutions for the pooled data and the partitions and the consistency and coverage values for the solution. There are different reasons why one might not be able to derive a partition-specific solution (all rows consistent; all rows inconsistent; no variation in conditions in the partition). If one the reason applies, it is listed in the column `solution`.
+
+The function does not produce more information than one sees in the dataframe. It can serve as a basis for spotting interesting insights such as partitions with no variation in conditions that can be explored further in a manual analysis.
+
+## Multilevel data
+Clustered data can be partitioned on a single dimension if the second dimension is not of interest or if there is only one dimension such as an in multilevel data. We use the dataset by [Grauvogel and von Soest (2014)](https://doi.org/10.1017/S1755773910000251). The study analyzes the effect of sanctions on authoritarian regimes. The data distinguishes between the source of the sanction (`Sender`) and the target (`Target). All sanctions have been imposed by the EU, UN or US. This makes the data multilevel data because the targets of the sanctions are nested in senders. We partition the data on the dimension of senders to see how solutions differ across senders.
+
+```{r, eval = F}
+data("Grauvogel2014")
+GS_cons <- partition_min(
+  dataset = Grauvogel2014,
+  units = "Sender", 
+  cond = c(""),
+  out = "",
+  n_cut = 6, incl_cut = 0.8,
+  solution = "C",
+  BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.85, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+  BE_ncut = rep(1, 11),
+  WI_cons = c(0.75, 0.8, 0.9, 0.8, 0.85, rep(0.75, 10)),
+  WI_ncut = rep(1, 15))
+GS_cons
 ```
 
