@@ -116,9 +116,9 @@ solutions in a comparative perspective.
 data(Thiem2011)
 
 # running function for parsimonious solution
-Thiem_pars_1 <- partition_min(
+Thiem_pars <- partition_min(
   dataset = Thiem2011,
-  units = "units", time = "time",
+  units = "country", time = "year",
   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
   out = "memberfs",
   n_cut = 1, incl_cut = 0.8,

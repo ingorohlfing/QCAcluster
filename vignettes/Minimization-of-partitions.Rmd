@@ -29,7 +29,7 @@ We first illustrate how one can dempose panel data on two dimensions. In a betwe
 data("Thiem2011")
 Thiem_pars <- partition_min(
   dataset = Thiem2011,
-  units = "units", time = "time",
+  units = "country", time = "year",
   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
   out = "memberfs",
   n_cut = 6, incl_cut = 0.8,
