@@ -84,4 +84,16 @@ cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"),
 out = "enlarge", n_cut = 1, incl_cut = 0.8, 
 intermediate = c("1", "1", "1", "1", "1"))
 
+#' @examples
+# loading data from Grauvogel/von Soest (EJPR, 2014; see data documentation)
+data(Grauvogel2014)
+
+Grauvogel_inter <- partition_min(
+  dataset = Grauvogel2014,
+  units = "Sender",
+  cond = c("Comprehensiveness", "Linkage", "Vulnerability","Repression", "Claims"),
+  out = "Persistence",
+  n_cut = 1, incl_cut = 0.75,
+  intermediate = c("1","1","1","1","1"))
+
 }

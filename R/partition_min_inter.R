@@ -54,15 +54,14 @@
 #' #' @examples
 #' # loading data from Grauvogel/von Soest (EJPR, 2014; see data documentation)
 #' data(Grauvogel2014)
-#' Grauvogel2014$Sender <- trimws(Grauvogel2014$Sender)
 #' 
-#' Grauvogel_inter <- partition_min(
+#' Grauvogel_inter <- partition_min_inter(
 #'   dataset = Grauvogel2014,
 #'   units = "Sender",
 #'   cond = c("Comprehensiveness", "Linkage", "Vulnerability","Repression", "Claims"),
 #'   out = "Persistence",
 #'   n_cut = 1, incl_cut = 0.75,
-#'   intermediate = c("1","1","1","1","1")
+#'   intermediate = c("1","1","1","1","1"))
 #' 
 #' @export
 partition_min_inter <- function(dataset, 
