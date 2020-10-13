@@ -100,7 +100,7 @@ partition_min <- function(dataset,
                           n_cut, incl_cut, 
                           solution, 
                           BE_cons, WI_cons,
-                          BE_ncut,WI_ncut) {
+                          BE_ncut, WI_ncut) {
   
   # turning of warnings
   quiet <- function(x) { 
