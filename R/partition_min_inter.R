@@ -42,26 +42,24 @@
 #' @return A dataframe summarizing the partition-specific and pooled solution. 
 #'
 #' @examples
-#' Schwarz_inter_1 <- partition_min_inter(schwarz2016, units = "country", 
-#' time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
-#' "attention"), out = "enlarge", 1, 0.8, intermediate = c("1", "1", "1", "1", "1"))
-#' 
-#' Schwarz_inter_2 <- partition_min_inter(schwarz2016, units = "country", 
-#' cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
-#' out = "enlarge", n_cut = 1, incl_cut = 0.8, 
-#' intermediate = c("1", "1", "1", "1", "1"))
-#' 
-#' #' @examples
-#' # loading data from Grauvogel/von Soest (EJPR, 2014; see data documentation)
+#' data(Schwarz2016)
+#' Schwarz_inter_1 <- partition_min_inter(
+#'   schwarz2016, 
+#'   units = "country", time = "year", 
+#'   cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
+#'   out = "enlarge", 
+#'   n_cut = 1, incl_cut = 0.8, 
+#'   intermediate = c("1", "1", "1", "1", "1"))
+#'  
 #' data(Grauvogel2014)
 #' 
-#' Grauvogel_inter <- partition_min_inter(
-#'   dataset = Grauvogel2014,
-#'   units = "Sender",
-#'   cond = c("Comprehensiveness", "Linkage", "Vulnerability","Repression", "Claims"),
-#'   out = "Persistence",
-#'   n_cut = 1, incl_cut = 0.75,
-#'   intermediate = c("1","1","1","1","1"))
+# Grauvogel_inter <- partition_min_inter(
+#   dataset = Grauvogel2014,
+#   units = "Sender",
+#   cond = c("Comprehensiveness", "Linkage", "Vulnerability","Repression", "Claims"),
+#   out = "Persistence",
+#   n_cut = 1, incl_cut = 0.75,
+#   intermediate = c("1","1","1","1","1"))
 #' 
 #' @export
 partition_min_inter <- function(dataset, 
