@@ -21,7 +21,7 @@ library(QCAcluster)
 Two functions allow empirical researchers to partition clustered data on one or two dimensions and to derive solutions for the pooled data and for each partition. `partition_min()` is available for producing conservative or parsimonious solutions. `partition_min_inter()` has to be used for the intermediate solution. (For programming purposes, we opted for separate functions for the intermediate solution and the other two.)
 
 ## Panel data: Minimization for cross sections and time series
-We first illustrate how one can dempose panel data on two dimensions using data by [Thiem (2011)](https://doi.org/10.1017/S1755773910000251). In a *between-unit* perspective, the panel is partitioned into multiple cross sections with the `time` argument that specifies the cross section ID (here: years). In a *within-unit* perspective, the data is decomposed into multiple time series with the `units` argument that specifies the time series ID (here: countries). In short, the other parameters are:
+We first illustrate how one can dempose panel data on two dimensions. In a *between-unit* perspective, the panel is partitioned into multiple cross sections with the `time` argument that specifies the cross section ID (here: years). In a *within-unit* perspective, the data is decomposed into multiple time series with the `units` argument that specifies the time series ID (here: countries). In short, the other parameters are:
 
 - `n_cut`: Frequency threshold for pooled data
 - `incl_cut`: Inclusion threshold (a.k.a. consistency threshold) for pooled data
@@ -29,9 +29,11 @@ We first illustrate how one can dempose panel data on two dimensions using data 
 - `BE_cons` and `WI_cons`: Inclusion thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 - `BE_ncut` and `WI_ncut`: Frequency thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 
+### Conservative or parsimonious solution
+We first illustrate the parsimonious solution with dataset from [Thiem (2011)](https://doi.org/10.1017/S1755773910000251).
 ```{r}
 # loading panel data (see data description for emails)
-data("Thiem2011")
+data(Thiem2011)
 # partitioning data by countries (within-unit) and years (between-unit)
 Thiem_pars <- partition_min(
   dataset = Thiem2011,
@@ -51,12 +53,27 @@ The output of `partition_min()` is a dataframe summarizing the solutions for the
 
 The function produces the information than one sees in the dataframe. It can serve as a basis for spotting interesting insights such as partitions with no variation in conditions that can be explored further in a manual analysis of the data.
 
+### Intermediate solution
+The intermediate solution is derived with `partition_min_inter()`. (We decided to have a separate function for the intermediate solution for computational purposes.) For the intermediate solution, one has to specify the directional expectations. 
+```{r, error = T}
+data(Schwarz2016)
+Schwarz_inter_1 <- partition_min_inter(
+  Schwarz2016, 
+  units = "country", time = "year", 
+  cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
+  out = "enlarge", 
+  n_cut = 1, incl_cut = 0.8, 
+  intermediate = c("1", "1", "1", "1", "1"))
+```
+
+
+
 ## Multilevel data
 Clustered data can be partitioned on a single dimension if the second dimension is not of interest or if there is only one dimension such as an in multilevel data where lower-level units are nested in higher-level units. We use the dataset by [Grauvogel and von Soest (2014)](https://doi.org/10.1017/S1755773910000251) for illustrating the analysis of multilevel data. The study analyzes the effect of sanctions on authoritarian regimes. The data distinguishes between the source of the sanction (`Sender`) and the target country (`Target). All sanctions have been imposed by the EU, UN or US, which means that target countries are nested in three different senders. We partition the data on the dimension of senders to see how solutions differ across senders.
 
-```{r, eval = F}
+```{r, error = T}
 # loading multilevel data (see data description for emails)
-data("Grauvogel2014")
+data(Grauvogel2014)
 # partitioning data by sender country (higher-level unit)
 GS_pars <- partition_min(
   dataset = Grauvogel2014,
