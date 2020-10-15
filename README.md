@@ -9,3 +9,8 @@ the tools promises insights that would go unnoticed in a pooled analysis ignorin
 the clusters in the data.
 
 **This is work in progress.**
+
+**Internal notes**
+
+- Vignette now uses formattable(). I guess it needs to be suggested 
+in the DESCRIPTION?
