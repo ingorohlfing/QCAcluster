@@ -76,15 +76,12 @@ solutions.
 }
 \examples{
 data(Schwarz2016)
-Schwarz_inter_1 <- partition_min_inter(
-  schwarz2016, 
-  units = "country", time = "year", 
-  cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
-  out = "enlarge", 
-  n_cut = 1, incl_cut = 0.8, 
+Schwarz_inter <- partition_min_inter(
+  Schwarz2016,
+  units = "country", time = "year",
+  cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"),
+  out = "enlarge",
+  n_cut = 1, incl_cut = 0.8,
   intermediate = c("1", "1", "1", "1", "1"))
- 
-data(Grauvogel2014)
-
 
 }
