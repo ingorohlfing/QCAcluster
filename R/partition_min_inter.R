@@ -39,7 +39,8 @@
 #' to the order of the of the time-series (unit) ID
 #' in the dataset (such as countries in alphabetical order).
 #' 
-#' @return A dataframe summarizing the partition-specific and pooled solution. 
+#' @return A dataframe summarizing the partition-specific and 
+#' pooled intermediate solutions. 
 #'
 #' @examples
 #' data(Schwarz2016)
@@ -254,10 +255,19 @@ partition_min_inter <- function(dataset,
       
     } else {
       
-      s <- has_error(susu <- try(suppressWarnings(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE))
+      s <- testit::has_error(susu <- try(suppressWarnings(
+        truthTable(x, outcome = out, 
+                   conditions = cond, 
+                   incl.cut1 = x[, ncol(x)-1][1], 
+                   n.cut = x[, ncol(x)][1])), 
+        silent = TRUE))
       
       if (s == F) {
-        x1 <- try(suppressWarnings(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE)
+        x1 <- try(suppressWarnings(truthTable(x, outcome = out, 
+                                              conditions = cond, 
+                                              incl.cut1 = x[, ncol(x)-1][1], 
+                                              n.cut = x[, ncol(x)][1])), 
+                  silent = TRUE)
         
         x2 <- x1$tt$OUT
         x2[x2 == "?"] <- NA
@@ -290,12 +300,19 @@ partition_min_inter <- function(dataset,
           colnames(zz)[1] <- "consistency"
           
         } else {
-          t <- has_error(susu <- try(minimize(x1, explain = "1", dir.exp = intermediate, include = "?", details = T, show.cases = T, 
-                                              all.sol = T, row.dom = F), silent = TRUE))
+          t <- testit::has_error(susu <- try(minimize(x1, explain = "1", 
+                                                      dir.exp = intermediate, 
+                                                      include = "?", 
+                                                      details = T, 
+                                                      show.cases = T, 
+                                                      all.sol = T, row.dom = F), 
+                                             silent = TRUE))
           
           if (t == F) {
             
-            x <- minimize(x1, explain = "1", dir.exp = intermediate, include = "?", details = T, show.cases = T, all.sol = T, 
+            x <- minimize(x1, explain = "1", dir.exp = intermediate, 
+                          include = "?", 
+                          details = T, show.cases = T, all.sol = T, 
                           row.dom = F)
             
             a <- x$i.sol

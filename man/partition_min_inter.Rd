@@ -65,7 +65,8 @@ in the dataset (such as countries in alphabetical order).}
 \item{x}{Calibrated pooled dataset for partitioning and minimization}
 }
 \value{
-A dataframe summarizing the partition-specific and pooled solution.
+A dataframe summarizing the partition-specific and 
+pooled intermediate solutions.
 }
 \description{
 \code{partition_min_inter} decomposes clustered data into individual
