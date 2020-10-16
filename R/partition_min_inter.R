@@ -167,7 +167,6 @@ partition_min_inter <- function(dataset,
     WI_list <- split(xW, xW[, "units"])
   }
   
-  
   x$consis <- incl_cut
   x$ncut <- n_cut
   PO_list <- list(x)
@@ -177,17 +176,15 @@ partition_min_inter <- function(dataset,
     x
   }
   
-  
   intersol <- function(x) {
     neux <- lapply(x$solution, paster)
     neuxx <- unlist(neux)
     zz <- as.data.frame(neuxx)
     zz
   }
+  
   intercons1 <- function(x) {
-    
     zz <- x$IC$sol.incl.cov[1]
-    
     if (is.null(zz)) {
       BSP2 <- x$IC
       BSP3 <- BSP2$individual
@@ -260,14 +257,14 @@ partition_min_inter <- function(dataset,
     } else {
       
       s <- testit::has_error(susu <- try(suppressWarnings(
-        truthTable(x, outcome = out, 
+        QCA::truthTable(x, outcome = out, 
                    conditions = cond, 
                    incl.cut1 = x[, ncol(x)-1][1], 
                    n.cut = x[, ncol(x)][1])), 
         silent = TRUE))
       
       if (s == F) {
-        x1 <- try(suppressWarnings(truthTable(x, outcome = out, 
+        x1 <- try(suppressWarnings(QCA::truthTable(x, outcome = out, 
                                               conditions = cond, 
                                               incl.cut1 = x[, ncol(x)-1][1], 
                                               n.cut = x[, ncol(x)][1])), 
@@ -304,7 +301,7 @@ partition_min_inter <- function(dataset,
           colnames(zz)[1] <- "consistency"
           
         } else {
-          t <- testit::has_error(susu <- try(minimize(x1, explain = "1", 
+          t <- testit::has_error(susu <- try(QCA::minimize(x1, explain = "1", 
                                                       dir.exp = intermediate, 
                                                       include = "?", 
                                                       details = T, 
@@ -314,7 +311,7 @@ partition_min_inter <- function(dataset,
           
           if (t == F) {
             
-            x <- minimize(x1, explain = "1", dir.exp = intermediate, 
+            x <- QCA::minimize(x1, explain = "1", dir.exp = intermediate, 
                           include = "?", 
                           details = T, show.cases = T, all.sol = T, 
                           row.dom = F)
@@ -371,8 +368,8 @@ partition_min_inter <- function(dataset,
   if (missing(time)) {
     WI_list1 <- quiet(lapply(WI_list, pqmcc))
     PO_list1 <- quiet(lapply(PO_list, pqmcc))
-    dff2 <- ldply(WI_list1)[, -1]
-    dff3 <- ldply(PO_list1)[, ]
+    dff2 <- plyr::ldply(WI_list1)[, -1]
+    dff3 <- plyr::ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
     
@@ -381,8 +378,8 @@ partition_min_inter <- function(dataset,
     BE_list1 <- quiet(lapply(BE_list, pqmcc))
     PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
-    dff1 <- ldply(BE_list1)[, -1]
-    dff3 <- ldply(PO_list1)[, ]
+    dff1 <- plyr::ldply(BE_list1)[, -1]
+    dff3 <- plyr::ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
     
@@ -393,14 +390,13 @@ partition_min_inter <- function(dataset,
     WI_list1 <- quiet(lapply(WI_list, pqmcc))
     PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
-    dff1 <- ldply(BE_list1)[, -1]
-    dff2 <- ldply(WI_list1)[, -1]
-    dff3 <- ldply(PO_list1)[, ]
+    dff1 <- plyr::ldply(BE_list1)[, -1]
+    dff2 <- plyr::ldply(WI_list1)[, -1]
+    dff3 <- plyr::ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
     total <- rbind(dff3, dff1, dff2)
   }
-  
   
   #### Rounding ####
   total$consistency[total$model == "-"] <- NA
@@ -408,7 +404,5 @@ partition_min_inter <- function(dataset,
   total$consistency <- as.numeric(total$consistency)
   total$coverage <- as.numeric(total$coverage)
   total <- total[, c(6, 5, 3, 4, 1, 2)]
-  
   return(total)
-  
 }

@@ -5,6 +5,10 @@
 #' function for pooled solution parameters. It derives a a score for the
 #' numerator and denimonator for each solution of the clustered data.
 #'
+#' @importFrom plyr ldply
+#' @importFrom testit has_error
+#' @import QCA
+#' 
 #' @param x Calibrated pooled dataset for partitioning and minimization
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
@@ -149,11 +153,9 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     WI_list <- split(xW, xW[, "units"])
   }
   
-  
   x$consis <- incl_cut
   x$ncut <- n_cut
   PO_list <- list(x)
-  
   
   paster <- function(x) {
     x <- paste(x, collapse = "+")
@@ -202,10 +204,10 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
       
     } else {
       
-      s <- has_error(susu <- try(suppressWarnings(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE))
+      s <- testit::has_error(susu <- try(suppressWarnings(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE))
       
       if (s == F) {
-        x1 <- try(suppressWarnings(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE)
+        x1 <- try(suppressWarnings(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE)
         
         
         x2 <- x1$tt$OUT
@@ -243,15 +245,15 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
           
           if (solution == "C") {
             
-            x3 <- minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
+            x3 <- QCA::minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
             
           } else if (solution == "P") {
             
-            x3 <- minimize(x1, explain = "1", include = "?", details = T, show.cases = T, all.sol = T, row.dom = F)
+            x3 <- QCA::minimize(x1, explain = "1", include = "?", details = T, show.cases = T, all.sol = T, row.dom = F)
             
           } else {
             
-            x3 <- minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
+            x3 <- QCA::minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
           }
           
           SOL <- x3$solution[]
@@ -301,14 +303,13 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     zz
   }
   
-  
   #### Application of Function ####
   
   if (missing(time)) {
     WI_list1 <- quiet(lapply(WI_list, pqmcc))
     PO_list1 <- quiet(lapply(PO_list, pqmcc))
-    dff2 <- ldply(WI_list1)[, -1]
-    dff3 <- ldply(PO_list1)[, ]
+    dff2 <- plyr::ldply(WI_list1)[, -1]
+    dff3 <- plyr::ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
     ntot <- as.numeric(mean(dff3$num))
@@ -319,8 +320,8 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     BE_list1 <- quiet(lapply(BE_list, pqmcc))
     PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
-    dff1 <- ldply(BE_list1)[, -1]
-    dff3 <- ldply(PO_list1)[, ]
+    dff1 <- plyr::ldply(BE_list1)[, -1]
+    dff3 <- plyr::ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
     ntot <- as.numeric(mean(dff3$num))
@@ -333,9 +334,9 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     WI_list1 <- quiet(lapply(WI_list, pqmcc))
     PO_list1 <- quiet(lapply(PO_list, pqmcc))
     
-    dff1 <- ldply(BE_list1)[, -1]
-    dff2 <- ldply(WI_list1)[, -1]
-    dff3 <- ldply(PO_list1)[, ]
+    dff1 <- plyr::ldply(BE_list1)[, -1]
+    dff2 <- plyr::ldply(WI_list1)[, -1]
+    dff3 <- plyr::ldply(PO_list1)[, ]
     dff3$type <- "pooled"
     dff3$partition <- "-"
     ntot <- as.numeric(mean(dff3$num))

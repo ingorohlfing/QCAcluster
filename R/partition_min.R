@@ -208,7 +208,6 @@ partition_min <- function(dataset,
     WI_list <- split(xW, xW[, "units"])
   }
   
-  
   x$consis <- incl_cut
   x$ncut <- n_cut
   PO_list <- list(x)
@@ -371,7 +370,6 @@ partition_min <- function(dataset,
     }
     zz
   }
-  
   
   #### Application of Function ####
   
