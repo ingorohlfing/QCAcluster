@@ -7,6 +7,10 @@
 #' and the pooled data to assess the robustness of the 
 #' solutions.
 #'
+#' @importFrom testit has_error
+#' @importFrom plyr ldply
+#' @import QCA
+#'
 #' @param x Calibrated pooled dataset for partitioning and minimization
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)

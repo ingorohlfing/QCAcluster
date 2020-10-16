@@ -6,6 +6,10 @@
 #' time series or both. The function derives an individual solution for
 #' each partition and the pooled data to assess the robustness of the 
 #' solutions in a comparative perspective.
+#' 
+#' @importFrom plyr ldply
+#' @importFrom testit has_error
+#' @import QCA
 #'
 #' @param dataset Calibrated pooled dataset that is partitioned and minimized for
 #' deriving the pooled solution.
@@ -254,11 +258,18 @@ partition_min <- function(dataset,
       colnames(zz)[1] <- "consistency"
     } else {
       
-      # s <- has_error(truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[,ncol(x)][1], n.cut = n_cut))
-      s <- testit::has_error(susu <- try(suppressWarnings(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE))
+      s <- testit::has_error(susu <- try(suppressWarnings(QCA::truthTable(
+        x, 
+        outcome = out, 
+        conditions = cond, 
+        incl.cut1 = x[, ncol(x)-1][1],
+        n.cut = x[, ncol(x)][1])), silent = TRUE))
       
       if (s == F) {
-        x1 <- try(suppressWarnings(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE)
+        x1 <- try(suppressWarnings(QCA::truthTable(x, outcome = out, 
+                                                   conditions = cond, 
+                                                   incl.cut1 = x[, ncol(x)-1][1], 
+                                                   n.cut = x[, ncol(x)][1])), silent = TRUE)
         
         x2 <- x1$tt$OUT
         x2[x2 == "?"] <- NA
@@ -294,11 +305,17 @@ partition_min <- function(dataset,
         } else {
           
           if (solution == "C") {
-            x <- QCA::minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
+            x <- QCA::minimize(x1, explain = "1", include = "1", 
+                               details = T, show.cases = T, 
+                               all.sol = T, row.dom = F)
           } else if (solution == "P") {
-            x <- QCA::minimize(x1, explain = "1", include = "?", details = T, show.cases = T, all.sol = T, row.dom = F)
+            x <- QCA::minimize(x1, explain = "1", include = "?", 
+                               details = T, show.cases = T, 
+                               all.sol = T, row.dom = F)
           } else {
-            x <- QCA::minimize(x1, explain = "1", include = "1", details = T, show.cases = T, all.sol = T, row.dom = F)
+            x <- QCA::minimize(x1, explain = "1", include = "1", 
+                               details = T, show.cases = T, 
+                               all.sol = T, row.dom = F)
           }
           
           # x$CONS <- x$IC$incl.cov$incl[1]
