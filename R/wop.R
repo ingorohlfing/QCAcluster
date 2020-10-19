@@ -345,5 +345,6 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     total <- rbind(dff3, dff1, dff2)
   }
   total <- total[, c(6, 5, 1, 4, 3, 2)]
+  total$solution <- gsub("\\*"," * ",total$solution)
   return(total)
 }

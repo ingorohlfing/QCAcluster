@@ -410,5 +410,6 @@ partition_min <- function(dataset,
   total$consistency <- as.numeric(total$consistency)
   total$coverage <- as.numeric(total$coverage)
   total <- total[, c(6, 5, 3, 4, 1, 2)]
+  total$solution <- gsub("\\*"," * ",total$solution)
   return(total)
 }
