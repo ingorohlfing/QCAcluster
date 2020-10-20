@@ -64,49 +64,60 @@ diversity <- function(dataset,
     on.exit(sink()) 
     invisible(force(x)) 
   } 
-  #### Splitting the data ####
+  
+  # splitting the data if time and unit values are available
   x <- dataset
   if (missing(units)) {
     colnames(x)[which(names(x) == time)] <- "time"
-    x <- x[with(x, order(time)), ]
     xB <- x
-    lengtht <- length(unique(x$time))
-    lengthu <- length(unique(x$units))
+    
     if (missing(BE_cons)) {
-      BE_cons <- rep(incl_cut, times = lengtht)
       xB$consis <- rep(incl_cut, times = nrow(x))
     } else {
-      BE_cons <- BE_cons
-      xB$consis <- rep(BE_cons, each = lengthu)
+      
+      time_data <- as.data.frame(unique(x$time))
+      names(time_data)[1] <- "time"
+      time_data$consis <- BE_cons
+      
+      xB <- merge(xB, time_data, by = "time", all.x = T)
     }
     if (missing(BE_ncut)) {
-      BE_ncut <- rep(n_cut, times = lengtht)
       xB$ncut <- rep(n_cut, times = nrow(x))
     } else {
-      BE_ncut <- BE_ncut
-      xB$ncut <- rep(BE_ncut, each = lengthu)
+      
+      time_data1 <- as.data.frame(unique(x$time))
+      names(time_data1)[1] <- "time"
+      time_data1$ncut <- BE_ncut
+      
+      xB <- merge(xB, time_data1, by = "time", all.x = T)
     }
     xxx <- 1
     BE_list <- split(xB, xB[, "time"])
+    
   } else if (missing(time)) {
+    
     colnames(x)[which(names(x) == units)] <- "units"
-    x <- x[with(x, order(units)), ]
     xW <- x
-    lengtht <- length(unique(x$time))
-    lengthu <- length(unique(x$units))
+    
     if (missing(WI_cons)) {
-      WI_cons <- rep(incl_cut, times = lengthu)
       xW$consis <- rep(incl_cut, times = nrow(x))
     } else {
-      WI_cons <- WI_cons
-      xW$consis <- rep(WI_cons, times = lengtht)
+      
+      unit_data <- as.data.frame(unique(x$units))
+      names(unit_data)[1] <- "units"
+      unit_data$consis <- WI_cons
+      
+      xW <- merge(xW, unit_data, by = "units", all.x = T)
     }
     if (missing(WI_ncut)) {
-      WI_ncut <- rep(n_cut, times = lengthu)
       xW$ncut <- rep(n_cut, times = nrow(x))
     } else {
-      WI_ncut <- WI_ncut
-      xW$ncut <- rep(WI_ncut, each = lengtht)
+      
+      unit_data1 <- as.data.frame(unique(x$units))
+      names(unit_data1)[1] <- "units"
+      unit_data1$ncut <- WI_ncut
+      
+      xW <- merge(xW, unit_data1, by = "units", all.x = T)
     }
     xxx <- 2
     WI_list <- split(xW, xW[, "units"])
@@ -116,43 +127,50 @@ diversity <- function(dataset,
     colnames(x)[which(names(x) == time)] <- "time"
     colnames(x)[which(names(x) == units)] <- "units"
     
-    x <- x[with(x, order(time)), ]
-    
-    lengtht <- length(unique(x$time))
-    lengthu <- length(unique(x$units))
-    
     xB <- x
     xW <- x
     
     # Assigning individual consistency thresholds if available
     if (missing(BE_cons)) {
-      BE_cons <- rep(incl_cut, times = lengtht)
       xB$consis <- rep(incl_cut, times = nrow(x))
     } else {
-      BE_cons <- BE_cons
-      xB$consis <- rep(BE_cons, each = lengthu)
+      
+      time_data <- as.data.frame(unique(x$time))
+      names(time_data)[1] <- "time"
+      time_data$consis <- BE_cons
+      
+      xB <- merge(xB, time_data, by = "time", all.x = T)
     }
     if (missing(BE_ncut)) {
-      BE_ncut <- rep(n_cut, times = lengtht)
       xB$ncut <- rep(n_cut, times = nrow(x))
     } else {
-      BE_ncut <- BE_ncut
-      xB$ncut <- rep(BE_ncut, each = lengthu)
+      
+      time_data1 <- as.data.frame(unique(x$time))
+      names(time_data1)[1] <- "time"
+      time_data1$ncut <- BE_ncut
+      
+      xB <- merge(xB, time_data1, by = "time", all.x = T)
     }
     
     if (missing(WI_cons)) {
-      WI_cons <- rep(incl_cut, times = lengthu)
       xW$consis <- rep(incl_cut, times = nrow(x))
     } else {
-      WI_cons <- WI_cons
-      xW$consis <- rep(WI_cons, times = lengtht)
+      
+      unit_data <- as.data.frame(unique(x$units))
+      names(unit_data)[1] <- "units"
+      unit_data$consis <- WI_cons
+      
+      xW <- merge(xW, unit_data, by = "units", all.x = T)
     }
     if (missing(WI_ncut)) {
-      WI_ncut <- rep(n_cut, times = lengthu)
       xW$ncut <- rep(n_cut, times = nrow(x))
     } else {
-      WI_ncut <- WI_ncut
-      xW$ncut <- rep(WI_ncut, each = lengtht)
+      
+      unit_data1 <- as.data.frame(unique(x$units))
+      names(unit_data1)[1] <- "units"
+      unit_data1$ncut <- WI_ncut
+      
+      xW <- merge(xW, unit_data1, by = "units", all.x = T)
     }
     
     BE_list <- split(xB, xB[, "time"])
