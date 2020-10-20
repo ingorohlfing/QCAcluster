@@ -16,8 +16,6 @@
 #'   \item{attention}{EU’s attention to the issue of enlargement}
 #'   \item{year}{Year ID}
 #'   \item{country}{Country ID}
-
-
 #' }
 #' @source \url{https://doi.org/10.1080/07036337.2016.1203309}
 "Schwarz2016"

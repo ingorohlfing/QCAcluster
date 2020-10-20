@@ -21,16 +21,16 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: 
-  data.table (>= 1.12.8),
-  plyr (>= 1.8.5),
-  QCA (>= 3.7),
-  testit (>= 0.11)
+    data.table (>= 1.12.8),
+    plyr (>= 1.8.5),
+    QCA (>= 3.7),
+    testit (>= 0.11)
 RoxygenNote: 7.1.1
 URL: https://github.com/ingorohlfing/QCAcluster
 BugReports: https://github.com/ingorohlfing/QCAcluster
 Suggests: 
-    formattable,
     knitr,
-    rmarkdown
+    rmarkdown,
+    formattable
 VignetteBuilder: knitr
 Language: en-US
