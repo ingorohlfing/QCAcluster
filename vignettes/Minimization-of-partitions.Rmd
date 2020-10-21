@@ -19,7 +19,7 @@ library(QCAcluster)
 library(formattable) # nicer html tables
 ```
 
-Two functions allow empirical researchers to partition clustered data on one or two dimensions and to derive solutions for the pooled data and for each partition. `partition_min()` is available for producing conservative or parsimonious solutions. `partition_min_inter()` has to be used for the intermediate solution. (For programming purposes, we opted for separate functions for the intermediate solution and the other two.)
+Two functions allow empirical researchers to partition clustered data on one or two dimensions and to derive solutions for the pooled data and for each partition. `partition_min()` is available for producing conservative or parsimonious solutions. `partition_min_inter()` has to be used for the intermediate solution. For programming purposes, we opted for separate functions for the intermediate solution and the other two.
 
 ## Panel data: Minimization for cross sections and time series
 We first illustrate how one can dempose panel data on two dimensions. In a *between-unit* perspective, the panel is partitioned into multiple cross sections with the `time` argument that specifies the cross section ID (here: years). In a *within-unit* perspective, the data is decomposed into multiple time series with the `units` argument that specifies the time series ID (here: countries). In short, the other parameters are:
@@ -55,9 +55,14 @@ The output of `partition_min()` is a dataframe summarizing the solutions for the
 The function produces the information than one sees in the dataframe. It can serve as a basis for spotting interesting insights such as partitions with no variation in conditions that can be explored further in a manual analysis of the data.
 
 ### Intermediate solution
-The intermediate solution is derived with `partition_min_inter()`. (We decided to have a separate function for the intermediate solution for computational purposes.) For the intermediate solution, one has to specify the directional expectations. The data structure is an unbalanced panel with eight countries and ten years.
-```{r, error = T}
+The intermediate solution is derived with `partition_min_inter()`. (We decided to have a separate function for the intermediate solution for computational purposes.) For the intermediate solution, one has to specify the directional expectations. The data structure is an *unbalanced* panel with eight countries and ten years and an uneven number of observations per countries and years (by implication).
+```{r}
 data(Schwarz2016)
+table(Schwarz2016$year, Schwarz2016$country)
+```
+
+The functions for the minimization of panel data can process balanced and unbalanced panel data without having to specify this with a function argument.
+```{r}
 Schwarz_inter <- partition_min_inter(
   Schwarz2016, 
   units = "country", time = "year", 
@@ -68,13 +73,13 @@ Schwarz_inter <- partition_min_inter(
                                      0.8, 0.8, 0.8, 0.8, 0.8),
   WI_ncut = rep(1, 8), BE_ncut = rep(1, 10),
   intermediate = c("1", "1", "1", "1", "1"))
-Schwarz_inter
+formattable(Schwarz_inter)
 ```
 
 ## Multilevel data
 Clustered data can be partitioned on a single dimension if the second dimension is not of interest or if there is only one dimension such as an in multilevel data where lower-level units are nested in higher-level units. We use the dataset by [Grauvogel and von Soest (2014)](https://doi.org/10.1017/S1755773910000251) for illustrating the analysis of multilevel data. The study analyzes the effect of sanctions on authoritarian regimes. The data distinguishes between the source of the sanction (`Sender`) and the target country (`Target). All sanctions have been imposed by the EU, UN or US, which means that target countries are nested in three different senders. We partition the data on the dimension of senders to see how solutions differ across senders.
 
-```{r, error = T}
+```{r}
 # loading multilevel data (see data description for emails)
 data(Grauvogel2014)
 # partitioning data by sender country (higher-level unit)
@@ -90,3 +95,4 @@ GS_pars <- partition_min(
 formattable(GS_pars)
 ```
 
+The dataframe only has entries for Senders. The number of rows is larger than the number of Senders because the partition-specific solutions for the EU and the US feature model ambiguity.
