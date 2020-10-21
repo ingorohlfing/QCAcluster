@@ -65,6 +65,47 @@ diversity <- function(dataset,
     invisible(force(x)) 
   } 
   
+  x1 <- dataset
+  x2 <- dataset
+  if (!missing(BE_cons) & !missing(time)) {
+    colnames(x1)[which(names(x1) == time)] <- "time"
+    beconstest <- all(length(unique(x1$time)) == length(BE_cons))  
+  } else{
+    beconstest <- T
+  } 
+  if (!missing(WI_cons) & !missing(units)) {
+    colnames(x1)[which(names(x1) == units)] <- "units"
+    wiconstest <- all(length(unique(x1$units)) == length(WI_cons))  
+  } else{
+    wiconstest <- T
+  } 
+  if (!missing(BE_ncut) & !missing(time)) {
+    colnames(x2)[which(names(x2) == time)] <- "time"
+    bencuttest <- all(length(unique(x2$time)) == length(BE_ncut))  
+  } else{
+    bencuttest <- T
+  } 
+  if (!missing(WI_ncut) & !missing(units)) {
+    colnames(x2)[which(names(x2) == units)] <- "units"
+    wincuttest <- all(length(unique(x2$units)) == length(WI_ncut))  
+  } else{
+    wincuttest <- T
+  } 
+  
+  if(beconstest == F){
+    print("The number of BE_cons values does not match the unique values of the time column")
+  } else{
+    if(wiconstest == F){
+      print("The number of WI_cons values does not match the unique values of the units column")
+    } else{
+      if(bencuttest == F){
+        print("The number of BE_ncut values does not match the unique values of the time column")
+      } else{  
+        if(wincuttest == F){
+          print("The number of WI_ncut values does not match the unique values of the units column")
+        } else{
+          
+  
   # splitting the data if time and unit values are available
   x <- dataset
   if (missing(units)) {
@@ -311,5 +352,5 @@ diversity <- function(dataset,
   total$diversity <- total$diversity_old
   total$diversity_old <- NULL
   total <- total[, c(2, 1, 3, 4, 5, 6, 7, 8)]
-  return(total)
+  return(total)}}}}
 }
