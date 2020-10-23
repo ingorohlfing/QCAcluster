@@ -86,18 +86,18 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_c
     wincuttest <- T
   } 
   
-  if(beconstest == F){
-    print("The number of BE_cons values does not match the unique values of the time column")
-  } else{
-    if(wiconstest == F){
-      print("The number of WI_cons values does not match the unique values of the units column")
-    } else{
-      if(bencuttest == F){
-        print("The number of BE_ncut values does not match the unique values of the time column")
-      } else{  
-        if(wincuttest == F){
-          print("The number of WI_ncut values does not match the unique values of the units column")
-        } else{
+  if(beconstest == F) {
+    stop("The number of BE_cons values does not match the number of periods")
+  } else {
+    if(wiconstest == F) {
+      stop("The number of WI_cons values does not match the number of units")
+    } else {
+      if(bencuttest == F) {
+        stop("The number of BE_ncut values does not match the number of periods")
+      } else {  
+        if(wincuttest == F) {
+          stop("The number of WI_ncut values does not match the number of units")
+        } else {
   
   # splitting the data if time and unit values are available
   x <- dataset
