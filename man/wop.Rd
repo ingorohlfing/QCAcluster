@@ -2,7 +2,8 @@
 % Please edit documentation in R/wop.R
 \name{wop}
 \alias{wop}
-\title{Calculation of weight of partitions for pooled solution parameters}
+\title{Calculation of weight of partitions in pooled solution parameters
+for conservative or parsimonious solution}
 \usage{
 wop(
   dataset,
@@ -68,14 +69,25 @@ in the dataset (such as countries in alphabetical order).}
 }
 \value{
 A dataframe with the weight of the partitions for pooled consistency
-scores.
+and coverage scores.
 }
 \description{
-\code{wop} calculates the weight of partitions for each 
-individual solution derived from the \code{\link{partition_min}}
-function for pooled solution parameters. It derives a a score for the
-numerator and denimonator for each solution of the clustered data.
+\code{wop} calculates the weight of partitions in the pooled
+solution parameters (consistecy, coverage) for the conservative
+and parsimonious solution.
 }
 \examples{
-
+data(Thiem2016)
+Thiem_wop_pars <- wop(
+  dataset = Thiem2011,
+  units = "country", time = "year",
+  cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
+  out = "memberfs",
+  n_cut = 6, incl_cut = 0.8,
+  solution = "P",
+  BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.85, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+  BE_ncut = rep(1, 11),
+  WI_cons = c(0.75, 0.8, 0.9, 0.8, 0.85, rep(0.75, 10)),
+  WI_ncut = rep(1, 15))
+Thiem_wop_pars
 }

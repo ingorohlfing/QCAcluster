@@ -1,9 +1,9 @@
-#' Calculation of weight of partitions for pooled solution parameters
+#' Calculation of weight of partitions in pooled solution parameters
+#' for conservative or parsimonious solution
 #' 
-#' \code{wop} calculates the weight of partitions for each 
-#' individual solution derived from the \code{\link{partition_min}}
-#' function for pooled solution parameters. It derives a a score for the
-#' numerator and denimonator for each solution of the clustered data.
+#' \code{wop} calculates the weight of partitions in the pooled
+#' solution parameters (consistecy, coverage) for the conservative
+#' and parsimonious solution. 
 #'
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
@@ -45,12 +45,26 @@
 #' in the dataset (such as countries in alphabetical order).
 #' 
 #' @return A dataframe with the weight of the partitions for pooled consistency
-#' scores.
+#' and coverage scores.
 #' 
 #' @examples
-#' 
+#' data(Thiem2016)
+#' Thiem_wop_pars <- wop(
+#'   dataset = Thiem2011,
+#'   units = "country", time = "year",
+#'   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
+#'   out = "memberfs",
+#'   n_cut = 6, incl_cut = 0.8,
+#'   solution = "P",
+#'   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.85, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
+#'   BE_ncut = rep(1, 11),
+#'   WI_cons = c(0.75, 0.8, 0.9, 0.8, 0.85, rep(0.75, 10)),
+#'   WI_ncut = rep(1, 15))
+#' Thiem_wop_pars
+
 #' @export
-wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, solution, BE_cons, WI_cons, BE_ncut, WI_ncut) {
+wop <- function(dataset, units, time, cond, out, n_cut, incl_cut, 
+                solution, BE_cons, WI_cons, BE_ncut, WI_ncut) {
   
   # turning of warnings
   quiet <- function(x) { 
