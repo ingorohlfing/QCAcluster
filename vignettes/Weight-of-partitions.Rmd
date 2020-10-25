@@ -14,13 +14,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, message = F}
 library(QCAcluster)
+library(formattable) # nicer html tables
 ```
 
-
+### Conservative and parsimonious solution
+We use the data from [Thiem (2011)](https://doi.org/10.1017/S1755773910000251) for illustrating how `wop()` calculates the weights of partitions.
 ```{r}
+# loading data
 data(Thiem2011)
+# calculating weight of partitions
 Thiem_wop_pars <- wop(
   dataset = Thiem2011,
   units = "country", time = "year",
@@ -33,6 +37,24 @@ Thiem_wop_pars <- wop(
   BE_ncut = rep(1, 11),
   WI_cons = c(0.75, 0.8, 0.9, 0.8, 0.85, rep(0.75, 10)),
   WI_ncut = rep(1, 15))
-Thiem_wop_pars
+# result
+formattable(Thiem_wop_pars)
+```
+
+### Intermediate solution
+The weight of partitions for intermediate solutions is produced with `wop_inter()`. We use data from [Schwarz 2016](https://doi.org/10.1080/07036337.2016.1203309) to illustrate the function.
+```{r}
+# loading data
+data(Schwarz2016)
+# calculating weight of partitions
+Schwarz_wop_inter <- partition_min_inter(
+  Schwarz2016,
+  units = "country", time = "year",
+  cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"),
+  out = "enlarge",
+  n_cut = 1, incl_cut = 0.8,
+  intermediate = c("1", "1", "1", "1", "1"))
+# result
+formattable(Schwarz_wop_inter)
 ```
 
