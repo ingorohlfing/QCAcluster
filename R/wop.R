@@ -19,7 +19,7 @@
 #' consistent
 #' @param solution A character specifying the type of solution that should
 #' be derived. "C" produces the conservative (or complex) solution, "P" the
-#' parsimonious solution. See \code{\link{wop_intermediate}} for the
+#' parsimonious solution. See \code{\link{wop_inter}} for deriving the
 #' intermediate solution.
 #' @param BE_cons Inclusion (or consistency) thresholds for cross sections. 
 #' Must be specified as a numeric vector with length equaling the number of
@@ -29,14 +29,14 @@
 #' Must be specified as a numeric vector with length equaling the number of
 #' time series. Numbers correspond to the order of the time series (unit) ID
 #' in the data (such as countries in alphabetical order).
-#' @param BE_ncut For *cross sections*, the minimum number of members needed
+#' @param BE_ncut For cross sections, the minimum number of members needed
 #' for declaring a truth table row 
 #' as relevant as opposed to designating it as a remainder.
 #' Must be specified as a numeric vector. Its length should be
 #' equal the number of cross sections. The order of thresholds corresponds
 #' to the order of the cross sections in the data defined by the cross-section
 #' ID in the dataset (such as years in ascending order).
-#' @param WI_ncut For *time series*, the minimum number of members needed
+#' @param WI_ncut For time series, the minimum number of members needed
 #' for declaring a truth table row 
 #' as relevant as opposed to designating it as a remainder. 
 #' Must be specified as a numeric vector. Its length should be
