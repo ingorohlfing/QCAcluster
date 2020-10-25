@@ -85,9 +85,9 @@
 #   intermediate = c("1", "1", "1", "1", "1"))
 #'
 #' @export
-wop_intermediate <- function(dataset, units, time, cond, out, n_cut, incl_cut, 
-                             intermediate, BE_cons, WI_cons,
-                             BE_ncut,WI_ncut) {
+wop_inter <- function(dataset, units, time, cond, out, n_cut, incl_cut, 
+                      intermediate, BE_cons, WI_cons,
+                      BE_ncut,WI_ncut) {
   
   # turning of warnings
   quiet <- function(x) { 
