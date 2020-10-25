@@ -21,6 +21,8 @@ wop(
 )
 }
 \arguments{
+\item{dataset}{Calibrated pooled dataset for partitioning and minimization}
+
 \item{units}{Units defining the within-dimension of data (time series)}
 
 \item{time}{Periods defining the between-dimension of data (cross sections)}
@@ -36,40 +38,67 @@ consistent}
 
 \item{solution}{A character specifying the type of solution that should
 be derived. "C" produces the conservative (or complex) solution, "P" the
-parsimonious solution. See \code{\link{wop_intermediate}} for the
+parsimonious solution. See \code{\link{wop_inter}} for deriving the
 intermediate solution.}
 
-\item{BE_cons}{Inclusion (or consistency) thresholds for cross sections. 
+\item{BE_cons}{Inclusion (or consistency) thresholds for cross sections.
 Must be specified as a numeric vector with length equaling the number of
 cross sections. Numbers correspond to the order of the cross section ID
 in the data (such as years in ascending order).}
 
-\item{WI_cons}{Inclusion (or consistency) thresholds for time series. 
+\item{WI_cons}{Inclusion (or consistency) thresholds for time series.
 Must be specified as a numeric vector with length equaling the number of
 time series. Numbers correspond to the order of the time series (unit) ID
 in the data (such as countries in alphabetical order).}
 
-\item{BE_ncut}{For *cross sections*, the minimum number of members needed
-for declaring a truth table row 
+\item{BE_ncut}{For cross sections, the minimum number of members needed
+for declaring a truth table row
 as relevant as opposed to designating it as a remainder.
 Must be specified as a numeric vector. Its length should be
 equal the number of cross sections. The order of thresholds corresponds
 to the order of the cross sections in the data defined by the cross-section
 ID in the dataset (such as years in ascending order).}
 
-\item{WI_ncut}{For *time series*, the minimum number of members needed
-for declaring a truth table row 
-as relevant as opposed to designating it as a remainder. 
+\item{WI_ncut}{For time series, the minimum number of members needed
+for declaring a truth table row
+as relevant as opposed to designating it as a remainder.
 Must be specified as a numeric vector. Its length should be
 equal the number of time series. The order of thresholds corresponds
 to the order of the of the time-series (unit) ID
 in the dataset (such as countries in alphabetical order).}
-
-\item{x}{Calibrated pooled dataset for partitioning and minimization}
 }
 \value{
-A dataframe with the weight of the partitions for pooled consistency
-and coverage scores.
+A dataframe with information about the weight of the partitions
+for pooled consistency and coverage scores and the following columns:
+\itemize{
+\item \code{type}: The type of the partition. \code{pooled} are rows with information
+on the pooled data; \code{between} is for cross-section partitions;
+\code{within} is for time-series partitions
+\item \code{partition}: Specific dimension of the partition at hand. For
+between-dimension, the unit identifiers are included here  (argument \code{units}).
+For the within-dimension, the time identifier are listed (argument \code{time}).
+The entry is \code{-} for the pooled data without partitions.
+\item \code{solution}: The solution derived for the partition or the pooled data.
+Absence of a condition is denoted by the \code{~} sign.
+\item \code{model}: Running ID for models. In the presence of model ambiguity, each
+model has its own row with its individual solution and parameters. The rest of
+the information in the row is duplicated, for example by having two rows for
+the within-partition 1996. The column \code{model} highlights the presence of
+model ambiguity by numbering all models belonging to the same solution. For
+example, if three consecutive rows are numbered 1, 2 and 3, then these rows
+belong to the same solution and represent model ambiguity. If a 1 in a row
+is followed by another 1, then there is no model ambiguity.
+\item \code{num}: The contribution of the data to the numerator of the consistency
+formula. For the pooled data, the value draws on all cases. For
+partitions, the value represents the weight of the partition. The larger the
+value, the larger the weight. The sum over all partition-specific weights is
+equal to the value for the pooled data.
+\item \code{denom}: The contribution of the data to the denominator of the
+consistency formula. For the pooled data, the value draws on all cases.
+For partitions, the value represents the weight of the partition.
+The larger the value, the larger the weight. The sum over all
+partition-specific weights is equal to the value for the pooled data.
+}
 }
 \description{
 \code{wop} calculates the weight of partitions in the pooled

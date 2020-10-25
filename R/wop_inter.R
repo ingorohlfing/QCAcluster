@@ -1,15 +1,15 @@
-#' Calculates the weight of partitions for intermediate solution
-#'
-#' \code{wop} calculates the weight of partitions for each 
-#' individual solution derived from the \code{\link{partition_min_inter}}
-#' function for pooled solution parameters. It derives a a score for the
-#' numerator and denimonator for each solution of the clustered data.
+#' Calculation of weight of partitions in pooled solution parameters
+#' for intermediate solution
+#' 
+#' \code{wop_inter} calculates the weight of partitions in the pooled
+#' solution parameters (consistecy, coverage) for the conservative
+#' and parsimonious solution. 
 #' 
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
 #' @import QCA
 #' 
-#' @param x Calibrated pooled dataset for partitioning and minimization
+#' @param Dataset Calibrated pooled dataset for partitioning and minimization
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
 #' @param cond Conditions used for the pooled analysis
@@ -17,7 +17,8 @@
 #' @param n_cut Frequency cut-off for designating truth table rows as observed
 #' @param incl_cut Inclusion cut-off for designating truth table rows as
 #' consistent
-#' @param intermediate A vector of directional expectations to derive intermediate solutions
+#' @param intermediate A vector of directional expectations to derive 
+#' intermediate solutions
 #' @param BE_cons Inclusion (or consistency) thresholds for cross sections. 
 #' Must be specified as a numeric vector with length equaling the number of
 #' cross sections. Numbers correspond to the order of the cross section ID
@@ -41,13 +42,47 @@
 #' to the order of the of the time-series (unit) ID
 #' in the dataset (such as countries in alphabetical order).
 #' 
-#' @return A dataframe with the weight of the partitions for pooled consistency
-#' scores.
+#' @return A dataframe with information about the weight of the partitions 
+#' for pooled consistency and coverage scores and the following columns:
+#' 
+#' * \code{type}: The type of the partition. \code{pooled} are rows with information
+#' on the pooled data; \code{between} is for cross-section partitions;
+#' \code{within} is for time-series partitions
+#' * \code{partition}: Specific dimension of the partition at hand. For 
+#' between-dimension, the unit identifiers are included here  (argument \code{units}).
+#' For the within-dimension, the time identifier are listed (argument \code{time}).
+#' The entry is \code{-} for the pooled data without partitions.
+#' * \code{solution}: The solution derived for the partition or the pooled data.
+#' Absence of a condition is denoted by the \code{~} sign.
+#' * \code{model}: Running ID for models. In the presence of model ambiguity, each
+#' model has its own row with its individual solution and parameters. The rest of
+#' the information in the row is duplicated, for example by having two rows for
+#' the within-partition 1996. The column \code{model} highlights the presence of
+#' model ambiguity by numbering all models belonging to the same solution. For 
+#' example, if three consecutive rows are numbered 1, 2 and 3, then these rows
+#' belong to the same solution and represent model ambiguity. If a 1 in a row
+#' is followed by another 1, then there is no model ambiguity.
+#' * \code{num}: The contribution of the data to the numerator of the consistency
+#' formula. For the pooled data, the value draws on all cases. For
+#' partitions, the value represents the weight of the partition. The larger the
+#' value, the larger the weight. The sum over all partition-specific weights is 
+#' equal to the value for the pooled data.
+#' * \code{denom}: The contribution of the data to the denominator of the 
+#' consistency formula. For the pooled data, the value draws on all cases.
+#' For partitions, the value represents the weight of the partition. 
+#' The larger the value, the larger the weight. The sum over all 
+#' partition-specific weights is equal to the value for the pooled data.
+#' @md
 #' 
 #' @examples
 #' data(schwarz2016)
-#' Schwarz_WOP_Inter <- wop_intermediate(schwarz2016, units = "country", time = "year", cond = c("poltrans", "ecotrans", "reform", "conflict", 
-#' "attention"), out = "enlarge", 1, 0.8, intermediate = c("1", "1", "1", "1", "1"))
+# Schwarz_wop_inter <- partition_min_inter(
+#   Schwarz2016,
+#   units = "country", time = "year",
+#   cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"),
+#   out = "enlarge",
+#   n_cut = 1, incl_cut = 0.8,
+#   intermediate = c("1", "1", "1", "1", "1"))
 #'
 #' @export
 wop_intermediate <- function(dataset, units, time, cond, out, n_cut, incl_cut, 
@@ -277,10 +312,20 @@ wop_intermediate <- function(dataset, units, time, cond, out, n_cut, incl_cut,
       
     } else {
       
-      s <- testit::has_error(susu <- try(suppressWarnings(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE))
+      s <- testit::has_error(susu <- 
+                               try(suppressWarnings(QCA::truthTable(x,
+                                                                    outcome = out, 
+                                                                    conditions = cond, 
+                                                                    incl.cut1 = x[, ncol(x)-1][1], 
+                                                                    n.cut = x[, ncol(x)][1])), 
+                                   silent = TRUE))
       
       if (s == F) {
-        x1 <- try(suppressWarnings(QCA::truthTable(x, outcome = out, conditions = cond, incl.cut1 = x[, ncol(x)-1][1], n.cut = x[, ncol(x)][1])), silent = TRUE)
+        x1 <- try(suppressWarnings(QCA::truthTable(x, outcome = out, 
+                                                   conditions = cond, 
+                                                   incl.cut1 = x[, ncol(x)-1][1], 
+                                                   n.cut = x[, ncol(x)][1])),
+                  silent = TRUE)
         
         x2 <- x1$tt$OUT
         x2[x2 == "?"] <- NA
@@ -314,12 +359,21 @@ wop_intermediate <- function(dataset, units, time, cond, out, n_cut, incl_cut,
           colnames(zz)[1] <- "solution"
           
         } else {
-          t <- testit::has_error(susu <- try(QCA::minimize(x1, explain = "1", dir.exp = intermediate, include = "?", details = T, show.cases = T, 
-                                              all.sol = T, row.dom = F), silent = TRUE))
+          t <- testit::has_error(susu <- try(QCA::minimize(x1, 
+                                                           explain = "1",
+                                                           dir.exp = intermediate, 
+                                                           include = "?", 
+                                                           details = T, 
+                                                           show.cases = T, 
+                                              all.sol = T, row.dom = F), 
+                                             silent = TRUE))
           
           if (t == F) {
             
-            x3 <- QCA::minimize(x1, explain = "1", dir.exp = intermediate, include = "?", details = T, show.cases = T, all.sol = T, 
+            x3 <- QCA::minimize(x1, explain = "1", 
+                                dir.exp = intermediate, 
+                                include = "?", details = T, 
+                                show.cases = T, all.sol = T, 
                            row.dom = F)
             
             a <- x3$i.sol
@@ -369,7 +423,7 @@ wop_intermediate <- function(dataset, units, time, cond, out, n_cut, incl_cut,
         }
       } else {
         
-        SOL <- "no combinations at this frequency cutoff"
+        SOL <- "No combinations at this frequency cutoff"
         zz <- as.data.frame(SOL)
         zz$model <- "-"
         zz$partition <- part
