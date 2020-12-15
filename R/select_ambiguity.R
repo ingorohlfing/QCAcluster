@@ -2,7 +2,7 @@
 #' 
 #' A function that selects element pertaining
 #' to each part of ambiguous solutions
-#'
+#' @importFrom purrr map
 #'
 #' @param sol QCA solution
 #' @param elmnt is specific part of the solution that
@@ -18,7 +18,7 @@ select.fnc <- function(sol, elmnt, overall = FALSE){
   if (overall == TRUE) {
     tmp <- sol$IC[[elmnt]]
   } else {
-    tmp <- map(sol$IC$individual, function(x) x[[elmnt]])
+    tmp <- purrr::map(sol$IC$individual, function(x) x[[elmnt]])
   }
   return(tmp)
 }
