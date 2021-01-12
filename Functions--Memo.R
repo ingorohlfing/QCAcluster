@@ -1,4 +1,7 @@
-# Functions
+# Functions -- Memo
+# I do not have any specific questions, except whether the
+# functions will be used at all.
+
 # 1. ambig: returns information about ambiguity
 
 # the function prints out FALSE if the solution is not ambiguous
