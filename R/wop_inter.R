@@ -7,6 +7,7 @@
 #' 
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
+#' @importFrom purrr map
 #' @import QCA
 #' 
 #' @param Dataset Calibrated pooled dataset for partitioning and minimization
@@ -272,7 +273,8 @@ wop_inter <- function(dataset, units, time, cond, out, n_cut, incl_cut,
   
   #### Function for Between and Within Solutions ####
   pqmcc <- function(x) {
-    
+    #datapart <- x[out]
+    #datapart <- unlist(datapart[1])
     if (xxx == 1) {
       part <- as.character(x$time[1])
       type <- "between"
@@ -382,17 +384,64 @@ wop_inter <- function(dataset, units, time, cond, out, n_cut, incl_cut,
             zz <- unlist(ININ1)
             zz <- as.data.frame(zz)
             
-            pim <- x3$pims
-            pimlength <- as.numeric(ncol(pim))
-            pim$max <- do.call(pmax, pim[1:pimlength])
-            denom <- sum(pim$max)
             
-            pim1 <- x3$pims
-            pimlength1 <- as.numeric(ncol(pim1))
-            pim1$max <- do.call(pmax, pim1[1:pimlength])
-            pim1$out <- unlist(x[out])
-            pim1$min <- with(pim1, pmin(max, out))
-            num <- sum(pim1$min)
+            denomfunc <- function(x) {
+              pimlength <- as.numeric(ncol(x))
+              x$max <- do.call(pmax, x[1:pimlength])
+              deno <- sum(x$max)
+              deno
+            }
+            
+            numfunc2 <- function(x) {
+              pimlength <- as.numeric(ncol(x))
+              x$max <- do.call(pmax, x[1:pimlength])
+              outcomedata <- as.numeric(unlist(x3$tt$initial.data[out]))
+              x$out <- outcomedata
+              x$min <- with(x, pmin(max, out))
+              nu <- sum(x$min)
+              nu
+            }
+            
+            getpims <- function(x){
+              if(length(x$solution)<2){
+                x <- x$pims
+              }else{
+                allpi <- x$IC$individual
+                x <- purrr::map(allpi,3)
+              }
+              x
+            }
+            
+            pimsisi <- lapply(a, getpims)
+            
+            getpims2 <- function(x){
+              if(is.data.frame(x)==T){
+                pimlength <- as.numeric(ncol(x))
+                x$max <- do.call(pmax, x[1:pimlength])
+                x <- sum(x$max)
+              }else{
+                x <- unlist(lapply(x, denomfunc))
+              }
+              x
+            }
+            
+            denom <- unlist(lapply(pimsisi, getpims2))
+            
+            getpims3 <- function(x, x3, out){
+              if(is.data.frame(x)==T){
+                pimlength <- as.numeric(ncol(x))
+                x$max <- do.call(pmax, x[1:pimlength])
+                outcomedata <- as.numeric(unlist(x3$tt$initial.data[out]))
+                x$out <- outcomedata
+                x$min <- with(x, pmin(max, out))
+                x <- sum(x$min)
+              }else{
+                x <- unlist(lapply(x, numfunc2))
+              }
+              x
+            }
+            
+            num <- unlist(lapply(pimsisi, x3=x3, out = out, getpims3))
             
             zz$denom <- denom
             zz$num <- num

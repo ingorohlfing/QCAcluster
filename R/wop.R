@@ -7,6 +7,7 @@
 #'
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
+#' @importFrom purrr map
 #' @import QCA
 #' 
 #' @param dataset Calibrated pooled dataset for partitioning and minimization
@@ -363,18 +364,43 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut,
           neuxx <- unlist(neux)
           zz <- as.data.frame(neuxx)
           
-          pim <- x3$pims
-          pimlength <- as.numeric(ncol(pim))
-          pim$max <- do.call(pmax, pim[1:pimlength])
-          denom <- sum(pim$max)
+          ambig <- length(x3$IC$individual)
           
-          pim1 <- x3$pims
-          pimlength1 <- as.numeric(ncol(pim1))
-          pim1$max <- do.call(pmax, pim1[1:pimlength])
-          pim1$out <- unlist(x[out])
-          pim1$min <- with(pim1, pmin(max, out))
-          num <- sum(pim1$min)
-
+          if (ambig < 2) {
+            pim <- x3$pims
+            pimlength <- as.numeric(ncol(pim))
+            pim$max <- do.call(pmax, pim[1:pimlength])
+            denom <- sum(pim$max)
+            
+            pim1 <- x3$pims
+            pimlength1 <- as.numeric(ncol(pim1))
+            pim1$max <- do.call(pmax, pim1[1:pimlength])
+            pim1$out <- unlist(x[out])
+            pim1$min <- with(pim1, pmin(max, out))
+            num <- sum(pim1$min)
+            
+          } else {
+            pims <- x3$IC$individual[]
+            allpims <- purrr::map(pims,3)
+            
+            denomfunc <- function(x) {
+              pimlength <- as.numeric(ncol(x))
+              x$max <- do.call(pmax, x[1:pimlength])
+              deno <- sum(x$max)
+              deno
+            }
+            denom <- unlist(lapply(allpims, denomfunc))
+            
+            numfunc <- function(y) {
+              pimlength <- as.numeric(ncol(y))
+              y$max <- do.call(pmax, y[1:pimlength])
+              y$out <- unlist(x[out])
+              y$min <- with(y, pmin(max, out))
+              nu <- sum(y$min)
+              nu
+            }
+            num <- unlist(lapply(allpims, numfunc))
+          }
           zz$denom <- denom
           zz$num <- num
           numberrows <- nrow(zz)
