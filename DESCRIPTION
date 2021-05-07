@@ -37,7 +37,6 @@ URL: https://github.com/ingorohlfing/QCAcluster
 BugReports: https://github.com/ingorohlfing/QCAcluster/issues
 Suggests: 
     knitr,
-    rmarkdown,
-    formattable
+    rmarkdown
 VignetteBuilder: knitr
 Language: en-US
