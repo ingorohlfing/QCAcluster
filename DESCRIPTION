@@ -10,7 +10,8 @@ Authors@R: c(
   person(given = "Ayjeren", family = "Bekmuratovna", 
   email = "arozyjum@uni-koeln.de", role = c("aut")),
   person(given = "Jan", family = "Schwalbach", 
-  email = "schwalbach@wiso.uni-koeln.de", role = c("aut")))
+  email = "schwalbach@wiso.uni-koeln.de", role = c("aut"),
+  comment = ("0000-0002-6990-8098")))
 Depends: 
     R (>= 2.10)
 Description: Clustered set-relational data can have a hierarchical structure, a 
