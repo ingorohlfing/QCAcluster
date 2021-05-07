@@ -2,7 +2,7 @@
 title: "Weight of partitions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Weight-of-partitions}
+  %\VignetteIndexEntry{Weight of partitions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,11 +16,19 @@ knitr::opts_chunk$set(
 
 ```{r setup, message = F}
 library(QCAcluster)
-library(formattable) # nicer html tables
+library(knitr) # nicer html tables
 ```
 
 ### Conservative and parsimonious solution
-We use the data from [Thiem (2011)](https://doi.org/10.1017/S1755773910000251) for illustrating how `wop()` calculates the weights of partitions.
+We use the data from [Thiem (2011)](https://doi.org/10.1017/S1755773910000251) for illustrating how the function `wop()` calculates the weights of partitions. The weight of a partition is defined on the level of individual models and can be calculated for the *consistency* and *coverage* value of a model derived for the pooled data. The weight of a partition for the consistency value of the pooled solution is calculated by applying the consistency formula only to the cases that belong to a partition. The function takes a disaggregated perspective on the weights of partitions by calculating their *absolute* weights separately for the numerator and denominator of a formula. This allows one to use the output of the function to calculate their *relative* weights separately for the numerator and denominator of the consistency or coverage formula (see below).
+
+The arguments of the functions are:
+
+- `n_cut`: Frequency threshold for pooled data
+- `incl_cut`: Inclusion threshold (a.k.a. consistency threshold) for pooled data
+- `solution` (only for `partition_min()`): Either `C` for conservative solution (a.k.a. complex solution) or `P` for parsimonious solution
+- `BE_cons` and `WI_cons`: Inclusion thresholds for cross sections and time series. The length of the numeric vector should equal the number of units and time series.
+- `BE_ncut` and `WI_ncut`: Frequency thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 ```{r}
 # loading data
 data(Thiem2011)
@@ -38,7 +46,7 @@ Thiem_wop_pars <- wop(
   WI_cons = c(0.75, 0.8, 0.9, 0.8, 0.85, rep(0.75, 10)),
   WI_ncut = rep(1, 15))
 # result
-formattable(Thiem_wop_pars)
+kable(Thiem_wop_pars)
 ```
 
 ### Intermediate solution
@@ -55,6 +63,6 @@ Schwarz_wop_inter <- partition_min_inter(
   n_cut = 1, incl_cut = 0.8,
   intermediate = c("1", "1", "1", "1", "1"))
 # result
-formattable(Schwarz_wop_inter)
+kable(Schwarz_wop_inter)
 ```
 
