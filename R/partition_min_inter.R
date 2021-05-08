@@ -43,8 +43,31 @@
 #' to the order of the of the time-series (unit) ID
 #' in the dataset (such as countries in alphabetical order).
 #' 
-#' @return A dataframe summarizing the partition-specific and 
-#' pooled intermediate solutions. 
+#' @return A dataframe summarizing the partition-specific and pooled solutions
+#' with the following columns:
+#' 
+#' * \code{type}: The type of the partition. \code{pooled} are rows with information
+#' on the pooled data; \code{between} is for cross-section partitions;
+#' \code{within} is for time-series partitions.
+#' * \code{partition}: Specific dimension of the partition at hand. For 
+#' between-dimension, the unit identifiers are included here  (argument \code{units}).
+#' For the within-dimension, the time identifier are listed (argument \code{time}).
+#' The entry is \code{-} for the pooled data without partitions.
+#' * \code{solution}: The solution derived for the partition or the pooled data.
+#' Absence of a condition is denoted by the \code{~} sign.
+#' * \code{model}: Running ID for models. In the presence of model ambiguity, each
+#' model has its own row with its individual solution and parameters. The rest of
+#' the information in the row is duplicated, for example by having two rows for
+#' the within-partition 1996. The column \code{model} highlights the presence of
+#' model ambiguity by numbering all models belonging to the same solution. For 
+#' example, if three consecutive rows are numbered 1, 2 and 3, then these rows
+#' belong to the same solution and represent model ambiguity. If a 1 in a row
+#' is followed by another 1, then there is no model ambiguity.
+#' * \code{consistency}: The consistency score (a.k.a. inclusion score) 
+#' for the partition of the data or the pooled data.
+#' * \code{coverage}: The coverage score for the partition of the data 
+#' or the pooled data.
+#' @md
 #'
 #' @examples
 #' data(Schwarz2016)
