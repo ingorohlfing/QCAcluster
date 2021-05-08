@@ -1,10 +1,10 @@
 #' Diversity of cases belonging to the same partition of the pooled data
 #' 
 #' \code{diversity} calculates the diversity of cases that belong to the same
-#' partition of the clustered data (time series, cross section etc.).
+#' partition of the clustered data (a time series; a cross section; etc.).
 #' Diversity is measured by the number of truth table rows that the cases
-#' cover. It calculates diversity across all truth table rows and for the
-#' subsets of consistent and inconsistent rows.
+#' cover. \{diversity} calculates diversity across all truth table rows and
+#' for the subsets of consistent and inconsistent rows.
 #'
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
@@ -42,7 +42,28 @@
 #' in the dataset (such as countries in alphabetical order).
 #' 
 #' @return A dataframe presenting the diversity of cases belonging to the
-#' same partition. 
+#' same partition with the following columns:
+#' 
+#' * \code{type}: The type of the partition. \code{pooled} are rows with information
+#' on the pooled data; \code{between} is for cross-section partitions;
+#' \code{within} is for time-series partitions. 
+#' * \code{partition}: Specific dimension of the partition at hand. For 
+#' between-dimension, the unit identifiers are included here  (argument \code{units}).
+#' For the within-dimension, the time identifier are listed (argument \code{time}).
+#' The entry is \code{-} for the pooled data without partitions.
+#' * \code{diversity}: Number of all truth table rows with at least one member.
+#' * \code{diversity_1}: Number of consistent truth table rows with at least one member.
+#' * \code{diversity_0}: Number of inconsistent truth table rows with at least one member.
+#' * \code{diversity_per}: Ratio of the value for \code{diversity} and the 
+#' total number of truth table rows from pooled data 
+#' (\code{diversity} value for pooled data). 
+#' * \code{diversity_per_1}: Ratio of the value for \code{diversity_1} and the 
+#' total number of consistent truth table rows from pooled data 
+#' (\code{diversity_1} value for pooled data).
+#' * \code{diversity_per_0}: Ratio of the value for \code{diversity_0} and the 
+#' total number of inconsistent truth table rows from pooled data 
+#' (\code{diversity_0} value for pooled data).
+#' @md
 #'
 #' @examples
 #' data(schwarz2016)

@@ -102,7 +102,7 @@ partition-specific weights is equal to the value for the pooled data.
 }
 \description{
 \code{wop} calculates the weight of partitions in the pooled
-solution parameters (consistecy, coverage) for the conservative
+solution parameters (consistency, coverage) for the conservative
 and parsimonious solution.
 }
 \examples{

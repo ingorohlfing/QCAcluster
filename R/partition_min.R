@@ -61,7 +61,7 @@
 #' 
 #' * \code{type}: The type of the partition. \code{pooled} are rows with information
 #' on the pooled data; \code{between} is for cross-section partitions;
-#' \code{within} is for time-series partitions
+#' \code{within} is for time-series partitions.
 #' * \code{partition}: Specific dimension of the partition at hand. For 
 #' between-dimension, the unit identifiers are included here  (argument \code{units}).
 #' For the within-dimension, the time identifier are listed (argument \code{time}).

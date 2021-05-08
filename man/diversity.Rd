@@ -32,27 +32,27 @@ diversity(
 \item{incl_cut}{Inclusion cut-off for designating truth table rows as
 consistent}
 
-\item{BE_cons}{Inclusion (or consistency) thresholds for cross sections. 
+\item{BE_cons}{Inclusion (or consistency) thresholds for cross sections.
 Must be specified as a numeric vector with length equaling the number of
 cross sections. Numbers correspond to the order of the cross section ID
 in the data (such as years in ascending order).}
 
-\item{WI_cons}{Inclusion (or consistency) thresholds for time series. 
+\item{WI_cons}{Inclusion (or consistency) thresholds for time series.
 Must be specified as a numeric vector with length equaling the number of
 time series. Numbers correspond to the order of the time series (unit) ID
 in the data (such as countries in alphabetical order).}
 
-\item{BE_ncut}{For *cross sections*, the minimum number of members needed
-for declaring a truth table row 
+\item{BE_ncut}{For \emph{cross sections}, the minimum number of members needed
+for declaring a truth table row
 as relevant as opposed to designating it as a remainder.
 Must be specified as a numeric vector. Its length should be
 equal the number of cross sections. The order of thresholds corresponds
 to the order of the cross sections in the data defined by the cross-section
 ID in the dataset (such as years in ascending order).}
 
-\item{WI_ncut}{For *time series*, the minimum number of members needed
-for declaring a truth table row 
-as relevant as opposed to designating it as a remainder. 
+\item{WI_ncut}{For \emph{time series}, the minimum number of members needed
+for declaring a truth table row
+as relevant as opposed to designating it as a remainder.
 Must be specified as a numeric vector. Its length should be
 equal the number of time series. The order of thresholds corresponds
 to the order of the of the time-series (unit) ID
@@ -62,14 +62,31 @@ in the dataset (such as countries in alphabetical order).}
 }
 \value{
 A dataframe presenting the diversity of cases belonging to the
-same partition.
+same partition with the following columns:
+\itemize{
+\item \code{type}: The type of the partition. \code{pooled} are rows with information
+on the pooled data; \code{between} is for cross-section partitions;
+\code{within} is for time-series partitions.
+\item \code{partition}: Specific dimension of the partition at hand. For
+between-dimension, the unit identifiers are included here  (argument \code{units}).
+For the within-dimension, the time identifier are listed (argument \code{time}).
+The entry is \code{-} for the pooled data without partitions.
+\item \code{diversity}: Number of all truth table rows with at least one member.
+\item \code{diversity_1}: Number of consistent truth table rows with at least one member.
+\item \code{diversity_0}: Number of inconsistent truth table rows with at least one member.
+\item \code{diversity_per}: Ratio of the value for \code{diversity} and the
+total number of truth table rows from pooled data
+(\code{diversity} value for pooled data).
+\item \code{diversity_per_1}: Ratio of the value for \code{diversity_1} and the
+total number of consistent truth table rows from pooled data
+(\code{diversity_1} value for pooled data).
+\item \code{diversity_per_0}: Ratio of the value for \code{diversity_0} and the
+total number of inconsistent truth table rows from pooled data
+(\code{diversity_0} value for pooled data).
+}
 }
 \description{
-\code{diversity} calculates the diversity of cases that belong to the same
-partition of the clustered data (time series, cross section etc.).
-Diversity is measured by the number of truth table rows that the cases
-cover. It calculates diversity across all truth table rows and for the
-subsets of consistent and inconsistent rows.
+
 }
 \examples{
 data(schwarz2016)
