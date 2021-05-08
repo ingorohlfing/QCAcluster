@@ -2,7 +2,7 @@
 #' for conservative or parsimonious solution
 #' 
 #' \code{wop} calculates the weight of partitions in the pooled
-#' solution parameters (consistecy, coverage) for the conservative
+#' solution parameters (consistency, coverage) for the conservative
 #' and parsimonious solution. 
 #'
 #' @importFrom plyr ldply
