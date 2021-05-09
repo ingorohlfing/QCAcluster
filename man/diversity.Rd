@@ -19,6 +19,9 @@ diversity(
 )
 }
 \arguments{
+\item{dataset}{Calibrated pooled dataset that is partitioned and minimized for
+deriving the pooled solution.}
+
 \item{units}{Units defining the within-dimension of data (time series)}
 
 \item{time}{Periods defining the between-dimension of data (cross sections)}
@@ -57,8 +60,6 @@ Must be specified as a numeric vector. Its length should be
 equal the number of time series. The order of thresholds corresponds
 to the order of the of the time-series (unit) ID
 in the dataset (such as countries in alphabetical order).}
-
-\item{x}{Calibrated pooled dataset for partitioning and minimization}
 }
 \value{
 A dataframe presenting the diversity of cases belonging to the
