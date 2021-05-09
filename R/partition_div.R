@@ -10,7 +10,8 @@
 #' @importFrom testit has_error
 #' @import QCA
 #' 
-#' @param x Calibrated pooled dataset for partitioning and minimization
+#' @param dataset Calibrated pooled dataset that is partitioned and minimized for
+#' deriving the pooled solution.
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
 #' @param cond Conditions used for the pooled analysis
