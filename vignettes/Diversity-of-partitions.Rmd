@@ -20,13 +20,12 @@ library(knitr) # nicer html tables
 ```
 
 ```{r}
-# load data
+# load data (see data description for details)
 data(Schwarz2016)
-# execute function
 Schwarz_div <- diversity(Schwarz2016, 
-                               units = "country", time = "year", 
-                               cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
-                               out = "enlarge", 1, 0.8)
+                         units = "country", time = "year", 
+                         cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
+                         out = "enlarge", 1, 0.8)
 kable(Schwarz_div)
 ```
 

@@ -36,9 +36,9 @@ We first illustrate how one can dempose panel data on two dimensions. In a *betw
 ### Conservative or parsimonious solution
 We first illustrate the parsimonious solution with dataset from [Thiem (2011)](https://doi.org/10.1017/S1755773910000251).
 ```{r}
-# loading panel data (see data description for emails)
+# load data (see data description for details)
 data(Thiem2011)
-# partitioning data by countries (within-unit) and years (between-unit)
+# partition data into time series (within-unit) and cross sections (between-unit)
 Thiem_pars <- partition_min(
   dataset = Thiem2011,
   units = "country", time = "year",
@@ -65,12 +65,14 @@ There are different reasons why one might not be able to derive a partition-spec
 When one the reason applies, it is listed in the column `solution`.
 
 ### Intermediate solution
-The intermediate solution is derived with `partition_min_inter()`. The only command that is new compared to `partition_min()` is `intermediate` that is available for specifying the *directional expectations*. The data structure for [Schwarz 2016](https://doi.org/10.1080/07036337.2016.1203309) is an unbalanced panel with eight countries, ten years and 74 observations in total.
+The intermediate solution is derived with `partition_min_inter()`. The only command that is new compared to `partition_min()` is `intermediate` that is available for specifying the *directional expectations*. The data structure for [Schwarz 2016](https://doi.org/10.1080/07036337.2016.1203309) is an unbalanced panel with eight countries, ten years and 74 observations in total. We assume that one is only interested in the between-unit dimension and wants to derive one solution per cross section. For this reason, the argument for the within-unit dimension (`unit`) is not specified.
 ```{r, error = T}
+# load data (see data description for details)
 data(Schwarz2016)
+# partition data into cross sections
 Schwarz_inter <- partition_min_inter(
   Schwarz2016, 
-  units = "country", time = "year", 
+  time = "year", 
   cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
   out = "enlarge", 
   n_cut = 1, incl_cut = 0.8, 
@@ -82,14 +84,12 @@ kable(Schwarz_inter)
 ```
 
 ## Multilevel data
-Clustered data can be partitioned on a single dimension if there is only one dimension as an in multilevel data where lower-level units are nested in higher-level units. When the data is clustered along two dimensions, it is possible to partition the data only one dimension by only using the argument `units` for within-solutions or `time` for between-solutions. 
-
-We use the dataset by [Grauvogel and von Soest (2014)](https://doi.org/10.1017/S1755773910000251) for illustrating the analysis of multilevel data. The study analyzes the effect of sanctions on authoritarian regimes. The data distinguishes between the source of the sanction (`Sender`) and the target country (`Target`). All sanctions have been imposed by the EU, UN or US, which means that target countries are nested in three different senders. We partition the data on the dimension of senders to see how solutions differ across senders.
+Clustered data can be partitioned on a single dimension if there is only one dimension as an in multilevel data where lower-level units are nested in higher-level units. The analysis is then similar to the partition of panel data along one dimension. We use the dataset by [Grauvogel and von Soest (2014)](https://doi.org/10.1017/S1755773910000251) for illustrating the analysis of multilevel data. The study analyzes the effect of sanctions on authoritarian regimes. The data distinguishes between the source of the sanction (`Sender`) and the target country (`Target`). All sanctions have been imposed by the EU, UN or US, which means that target countries are nested in three different senders. We partition the data on the dimension of senders to see how solutions differ across senders.
 
 ```{r, error = T}
-# loading multilevel data (see data description for emails)
+# load data (see data description for details)
 data(Grauvogel2014)
-# partitioning data by sender country (higher-level unit)
+# partition data by sender country (higher-level unit)
 GS_pars <- partition_min(
   dataset = Grauvogel2014,
   units = "Sender",
