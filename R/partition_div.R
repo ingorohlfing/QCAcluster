@@ -1,9 +1,9 @@
 #' Diversity of cases belonging to the same partition of the pooled data
 #' 
-#' \code{diversity} calculates the diversity of cases that belong to the same
+#' \code{partition_div} calculates the diversity of cases that belong to the same
 #' partition of the clustered data (a time series; a cross section; etc.).
 #' Diversity is measured by the number of truth table rows that the cases
-#' cover. \{diversity} calculates diversity across all truth table rows and
+#' cover. \code{partition_div} calculates diversity across all truth table rows and
 #' for the subsets of consistent and inconsistent rows.
 #'
 #' @importFrom plyr ldply
@@ -68,17 +68,18 @@
 #'
 #' @examples
 #' data(schwarz2016)
-#' Schwarz_diversity <- diversity(schwarz2016, units = "country", time = "year", 
+#' Schwarz_diversity <- partition_div(schwarz2016, 
+#' units = "country", time = "year", 
 #' cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
 #' out = "enlarge", 1, 0.8)
 #' 
 #' @export
-diversity <- function(dataset, 
-                      units, time, 
-                      cond, out, 
-                      n_cut, incl_cut, 
-                      BE_cons, WI_cons, 
-                      BE_ncut, WI_ncut) {
+partition_div <- function(dataset, 
+                          units, time, 
+                          cond, out, 
+                          n_cut, incl_cut, 
+                          BE_cons, WI_cons, 
+                          BE_ncut, WI_ncut) {
   
   # turning of warnings
   quiet <- function(x) { 

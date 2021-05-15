@@ -1,5 +1,5 @@
 ---
-title: "Diversity-of-partitions"
+title: "Diversity of partitions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Diversity-of-partitions}
@@ -19,13 +19,15 @@ library(QCAcluster)
 library(knitr) # nicer html tables
 ```
 
+For illustration, we use data from [Schwarz 2016](https://doi.org/10.1080/07036337.2016.1203309). The data structure is an unbalanced panel with eight countries, ten years and 74 observations in total. `partition_div()` requires as input only parameters for the calculation of the pooled solution plus identifiers for the units (`units`) and periods (`time`).
 ```{r}
 # load data (see data description for details)
 data(Schwarz2016)
-Schwarz_div <- diversity(Schwarz2016, 
-                         units = "country", time = "year", 
-                         cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
-                         out = "enlarge", 1, 0.8)
+Schwarz_div <- partition_div(Schwarz2016, 
+                             units = "country", time = "year", 
+                             cond = c("poltrans", "ecotrans", "reform",
+                                      "conflict", "attention"), 
+                             out = "enlarge", 1, 0.8)
 kable(Schwarz_div)
 ```
 
