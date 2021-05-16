@@ -31,3 +31,4 @@ Schwarz_div <- partition_div(Schwarz2016,
 kable(Schwarz_div)
 ```
 
+The dataframe shows how the cases are distributed across truth table rows. The information is presented in absolute numbers and relative terms and for all truth table rows and the subset of consistent and inconsistent rows.
