@@ -2,8 +2,9 @@
 #' 
 #' \code{partition_div} calculates the diversity of cases that belong to the same
 #' partition of the clustered data (a time series; a cross section; etc.).
-#' Diversity is measured by the number of truth table rows that the cases
-#' cover. \code{partition_div} calculates diversity across all truth table rows and
+#' Diversity is measured by the number of truth table rows that the cases that 
+#' belong to the same partition cover.
+#' \code{partition_div} calculates diversity for all truth table rows and
 #' for the subsets of consistent and inconsistent rows.
 #'
 #' @importFrom plyr ldply
@@ -16,9 +17,10 @@
 #' @param time Periods defining the between-dimension of data (cross sections)
 #' @param cond Conditions used for the pooled analysis
 #' @param out Outcome used for the pooled analysis
-#' @param n_cut Frequency cut-off for designating truth table rows as observed
+#' @param n_cut Frequency cut-off for designating truth table rows as 
+#' observed in the pooled data
 #' @param incl_cut Inclusion cut-off for designating truth table rows as
-#' consistent
+#' consistent in the pooled data
 #' 
 #' @return A dataframe presenting the diversity of cases belonging to the
 #' same partition with the following columns:
