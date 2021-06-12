@@ -25,10 +25,14 @@ For illustration, we use data from [Schwarz 2016](https://doi.org/10.1080/070363
 data(Schwarz2016)
 Schwarz_div <- partition_div(Schwarz2016, 
                              units = "country", time = "year", 
-                             cond = c("poltrans", "ecotrans", "reform",
-                                      "conflict", "attention"), 
+                             cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
                              out = "enlarge", 1, 0.8)
 kable(Schwarz_div)
 ```
 
 The dataframe shows how the cases are distributed across truth table rows. The information is presented in absolute numbers and relative terms and for all truth table rows and the subset of consistent and inconsistent rows.
+
+The table shows that while the pooled data covers 11 truth table rows, the maximum number of rows that a partition covers is 5, which equaly about 45% of all rows. The minimum number of diversity is represented by the partition for the year 2013 because it covers only one row.
+
+The output of the function can also be used to see whether all cases of a partition fall into consistent or inconsistent rows. Whenever the value for `diversity_1` or `diversity_0` is 0, there is no variation in the type of row for the partition. In this example, this concerns `r nrow(Schwarz_div[Schwarz_div$diversity_1 == 0 | Schwarz_div$diversity_0 == 0, ])` partitions.
+

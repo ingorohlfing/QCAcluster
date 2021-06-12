@@ -4,19 +4,7 @@
 \alias{partition_div}
 \title{Diversity of cases belonging to the same partition of the pooled data}
 \usage{
-partition_div(
-  dataset,
-  units,
-  time,
-  cond,
-  out,
-  n_cut,
-  incl_cut,
-  BE_cons,
-  WI_cons,
-  BE_ncut,
-  WI_ncut
-)
+partition_div(dataset, units, time, cond, out, n_cut, incl_cut)
 }
 \arguments{
 \item{dataset}{Calibrated pooled dataset that is partitioned and minimized for
@@ -30,36 +18,11 @@ deriving the pooled solution.}
 
 \item{out}{Outcome used for the pooled analysis}
 
-\item{n_cut}{Frequency cut-off for designating truth table rows as observed}
+\item{n_cut}{Frequency cut-off for designating truth table rows as
+observed in the pooled data}
 
 \item{incl_cut}{Inclusion cut-off for designating truth table rows as
-consistent}
-
-\item{BE_cons}{Inclusion (or consistency) thresholds for cross sections.
-Must be specified as a numeric vector with length equaling the number of
-cross sections. Numbers correspond to the order of the cross section ID
-in the data (such as years in ascending order).}
-
-\item{WI_cons}{Inclusion (or consistency) thresholds for time series.
-Must be specified as a numeric vector with length equaling the number of
-time series. Numbers correspond to the order of the time series (unit) ID
-in the data (such as countries in alphabetical order).}
-
-\item{BE_ncut}{For \emph{cross sections}, the minimum number of members needed
-for declaring a truth table row
-as relevant as opposed to designating it as a remainder.
-Must be specified as a numeric vector. Its length should be
-equal the number of cross sections. The order of thresholds corresponds
-to the order of the cross sections in the data defined by the cross-section
-ID in the dataset (such as years in ascending order).}
-
-\item{WI_ncut}{For \emph{time series}, the minimum number of members needed
-for declaring a truth table row
-as relevant as opposed to designating it as a remainder.
-Must be specified as a numeric vector. Its length should be
-equal the number of time series. The order of thresholds corresponds
-to the order of the of the time-series (unit) ID
-in the dataset (such as countries in alphabetical order).}
+consistent in the pooled data}
 }
 \value{
 A dataframe presenting the diversity of cases belonging to the
@@ -89,8 +52,9 @@ total number of inconsistent truth table rows from pooled data
 \description{
 \code{partition_div} calculates the diversity of cases that belong to the same
 partition of the clustered data (a time series; a cross section; etc.).
-Diversity is measured by the number of truth table rows that the cases
-cover. \code{partition_div} calculates diversity across all truth table rows and
+Diversity is measured by the number of truth table rows that the cases that
+belong to the same partition cover.
+\code{partition_div} calculates diversity for all truth table rows and
 for the subsets of consistent and inconsistent rows.
 }
 \examples{
