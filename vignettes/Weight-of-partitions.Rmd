@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, message = F}
+```{r setup, message = F, warning = F}
 library(QCAcluster)
 library(knitr) # nicer html tables
 ```
@@ -36,8 +36,7 @@ data(Thiem2011)
 Thiem_wop_pars <- wop(
   dataset = Thiem2011,
   units = "country", time = "year",
-  cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", 
-           "pubsupfs", "ecodpcefs"),
+  cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
   out = "memberfs",
   n_cut = 6, incl_cut = 0.8,
   solution = "P",
