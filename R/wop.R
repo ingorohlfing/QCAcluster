@@ -1,33 +1,34 @@
-#' Calculation of weight of partitions in pooled solution parameters
+#' Weight of partitions for pooled solution parameters
 #' for conservative or parsimonious solution
 #' 
-#' \code{wop} calculates the weight of partitions in the pooled
-#' solution parameters (consistency, coverage) for the conservative
-#' and parsimonious solution. 
+#' \code{wop} calculates the contribution or weight of partitions 
+#' for the pooled solution parameters of consistency and coverage
+#' for the conservative or parsimonious solution. 
 #'
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
 #' @importFrom purrr map
 #' @import QCA
 #' 
-#' @param dataset Calibrated pooled dataset for partitioning and minimization
-#' @param units Units defining the within-dimension of data (time series)
-#' @param time Periods defining the between-dimension of data (cross sections)
-#' @param cond Conditions used for the pooled analysis
-#' @param out Outcome used for the pooled analysis
+#' @param dataset Calibrated pooled dataset for partitioning and minimization.
+#' @param units Units defining the within-dimension of data (time series).
+#' @param time Periods defining the between-dimension of data (cross sections).
+#' @param cond Conditions used for the pooled analysis.
+#' @param out Outcome used for the pooled analysis.
 #' @param n_cut Frequency cut-off for designating truth table rows as observed
+#' in the pooled analysis.
 #' @param incl_cut Inclusion cut-off for designating truth table rows as
-#' consistent
+#' consistent in the pooled analysis.
 #' @param solution A character specifying the type of solution that should
-#' be derived. "C" produces the conservative (or complex) solution, "P" the
-#' parsimonious solution. See \code{\link{wop_inter}} for deriving the
+#' be derived. \code{C} produces the conservative (or complex) solution,
+#' \code{P} the parsimonious solution. See \code{\link{wop_inter}} for deriving 
 #' intermediate solution.
 #' @param BE_cons Inclusion (or consistency) thresholds for cross sections. 
-#' Must be specified as a numeric vector with length equaling the number of
+#' Must be specified as a numeric vector with length equal to the number of
 #' cross sections. Numbers correspond to the order of the cross section ID
 #' in the data (such as years in ascending order).
 #' @param WI_cons Inclusion (or consistency) thresholds for time series. 
-#' Must be specified as a numeric vector with length equaling the number of
+#' Must be specified as a numeric vector with length equal to the number of
 #' time series. Numbers correspond to the order of the time series (unit) ID
 #' in the data (such as countries in alphabetical order).
 #' @param BE_ncut For cross sections, the minimum number of members needed
@@ -46,11 +47,11 @@
 #' in the dataset (such as countries in alphabetical order).
 #' 
 #' @return A dataframe with information about the weight of the partitions 
-#' for pooled consistency and coverage scores and the following columns:
+#' with the following columns:
 #' 
-#' * \code{type}: The type of the partition. \code{pooled} are rows with information
-#' on the pooled data; \code{between} is for cross-section partitions;
-#' \code{within} is for time-series partitions
+#' * \code{type}: The type of the partition. \code{pooled} are rows with 
+#' information on the pooled data; \code{between} is for 
+#' cross-section partitions; \code{within} is for time-series partitions.
 #' * \code{partition}: Specific dimension of the partition at hand. For 
 #' between-dimension, the unit identifiers are included here  (argument \code{units}).
 #' For the within-dimension, the time identifier are listed (argument \code{time}).
