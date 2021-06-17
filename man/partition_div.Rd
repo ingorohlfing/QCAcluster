@@ -35,9 +35,12 @@ on the pooled data; \code{between} is for cross-section partitions;
 between-dimension, the unit identifiers are included here  (argument \code{units}).
 For the within-dimension, the time identifier are listed (argument \code{time}).
 The entry is \code{-} for the pooled data without partitions.
-\item \code{diversity}: Number of all truth table rows with at least one member.
-\item \code{diversity_1}: Number of consistent truth table rows with at least one member.
-\item \code{diversity_0}: Number of inconsistent truth table rows with at least one member.
+\item \code{diversity}: Count of all truth table rows with at least one member
+belonging to a partition.
+\item \code{diversity_1}: Count of consistent truth table rows with at least
+one member belonging to a partition.
+\item \code{diversity_0}: Count of inconsistent truth table rows with at least
+one member belonging to a partition.
 \item \code{diversity_per}: Ratio of the value for \code{diversity} and the
 total number of truth table rows from pooled data
 (\code{diversity} value for pooled data).
@@ -52,10 +55,10 @@ total number of inconsistent truth table rows from pooled data
 \description{
 \code{partition_div} calculates the diversity of cases that belong to the same
 partition of the clustered data (a time series; a cross section; etc.).
-Diversity is measured by the number of truth table rows that the cases that
-belong to the same partition cover.
-\code{partition_div} calculates diversity for all truth table rows and
-for the subsets of consistent and inconsistent rows.
+Diversity is measured by the number of truth table rows that the cases of
+a partition cover. \code{partition_div} calculates the partition diversity
+for all truth table rows and for the subsets of consistent and
+inconsistent rows.
 }
 \examples{
 data(schwarz2016)

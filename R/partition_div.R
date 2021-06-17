@@ -2,10 +2,10 @@
 #' 
 #' \code{partition_div} calculates the diversity of cases that belong to the same
 #' partition of the clustered data (a time series; a cross section; etc.).
-#' Diversity is measured by the number of truth table rows that the cases that 
-#' belong to the same partition cover.
-#' \code{partition_div} calculates diversity for all truth table rows and
-#' for the subsets of consistent and inconsistent rows.
+#' Diversity is measured by the number of truth table rows that the cases of
+#' a partition cover. \code{partition_div} calculates the partition diversity 
+#' for all truth table rows and for the subsets of consistent and 
+#' inconsistent rows.
 #'
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
@@ -32,11 +32,14 @@
 #' between-dimension, the unit identifiers are included here  (argument \code{units}).
 #' For the within-dimension, the time identifier are listed (argument \code{time}).
 #' The entry is \code{-} for the pooled data without partitions.
-#' * \code{diversity}: Number of all truth table rows with at least one member.
-#' * \code{diversity_1}: Number of consistent truth table rows with at least one member.
-#' * \code{diversity_0}: Number of inconsistent truth table rows with at least one member.
+#' * \code{diversity}: Count of all truth table rows with at least one member
+#' belonging to a partition.
+#' * \code{diversity_1}: Count of consistent truth table rows with at least 
+#' one member belonging to a partition.
+#' * \code{diversity_0}: Count of inconsistent truth table rows with at least
+#' one member belonging to a partition.
 #' * \code{diversity_per}: Ratio of the value for \code{diversity} and the 
-#' total number of truth table rows from pooled data 
+#' total number of truth table rows from pooled data
 #' (\code{diversity} value for pooled data). 
 #' * \code{diversity_per_1}: Ratio of the value for \code{diversity_1} and the 
 #' total number of consistent truth table rows from pooled data 
@@ -55,9 +58,9 @@
 #' 
 #' @export
 partition_div <- function(dataset, 
-                      units, time, 
-                      cond, out, 
-                      n_cut, incl_cut) {
+                          units, time, 
+                          cond, out, 
+                          n_cut, incl_cut) {
   
   # turning of warnings
   quiet <- function(x) { 
