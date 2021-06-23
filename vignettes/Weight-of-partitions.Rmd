@@ -29,6 +29,21 @@ The arguments of the functions are:
 - `solution` (only for `partition_min()`): Either `C` for conservative solution (a.k.a. complex solution) or `P` for parsimonious solution
 - `BE_cons` and `WI_cons`: Inclusion thresholds for cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 - `BE_ncut` and `WI_ncut`: Frequency thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
+
+```{r}
+# for internal purposes to deal with model ambiguity
+library(QCA)
+data("Thiem2011")
+postt <- truthTable(data = Thiem2011,
+                    outcome = "memberfs",
+                    cond = "fedismfs, homogtyfs, powdifffs, comptvnsfs, 
+                    pubsupfs, ecodpcefs",
+                    n.cut = 6, incl.cut = 0.8)
+pospars <- minimize(postt, include = "?")
+pospars # three-fold model ambiguity
+```
+
+
 ```{r}
 # loading data
 data(Thiem2011)
