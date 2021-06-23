@@ -41,6 +41,15 @@ postt <- truthTable(data = Thiem2011,
                     n.cut = 6, incl.cut = 0.8)
 pospars <- minimize(postt, include = "?")
 pospars # three-fold model ambiguity
+# the prime implicants are all stored without distinguishing the models
+pospars$pims
+# a viable way could be to extract the models and the pims of the models
+# and use some string matching to identify them in $pims and use the 
+# membership in the pims to calculate the weight of a partition for a
+# specific model. The function then needs to have an argument for model
+# selection, where the number of the model corresponds to the order
+# of the models in the output
+pospars$solution
 ```
 
 
