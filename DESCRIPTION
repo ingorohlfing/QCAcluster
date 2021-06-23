@@ -1,6 +1,6 @@
 Package: QCAcluster
 Type: Package
-Title: Implementing Different QCA Analyses for Clustered Data
+Title: Techniques for Analysis of Clustered Data in QCA
 Version: 0.0.9
 Authors@R: c(
   person(given = "Ingo", family = "Rohlfing", 
