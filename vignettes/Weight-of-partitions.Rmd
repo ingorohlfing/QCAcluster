@@ -30,7 +30,7 @@ The arguments of the functions are:
 - `BE_cons` and `WI_cons`: Inclusion thresholds for cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 - `BE_ncut` and `WI_ncut`: Frequency thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 
-```{r}
+```{r, include = F}
 # for internal purposes to deal with model ambiguity
 library(QCA)
 data("Thiem2011")
@@ -55,7 +55,7 @@ pospars$solution
 
 ```{r}
 # loading data
-data(Thiem2011)
+data("Thiem2011")
 # calculating weight of partitions
 Thiem_wop_pars <- wop(
   dataset = Thiem2011,
@@ -74,9 +74,31 @@ kable(Thiem_wop_pars)
 
 ### Intermediate solution
 The weight of partitions for intermediate solutions is produced with `wop_inter()`. We use data from [Schwarz 2016](https://doi.org/10.1080/07036337.2016.1203309) to illustrate the function.
+```{r, include = F}
+library(QCA)
+data("Thiem2011")
+postt <- truthTable(data = Thiem2011,
+                    outcome = "memberfs",
+                    cond = "fedismfs, homogtyfs, powdifffs, comptvnsfs, 
+                    pubsupfs, ecodpcefs",
+                    n.cut = 6, incl.cut = 0.8)
+posinter <- minimize(postt, include = "?",
+                     dir.exp = "1, 1, 1, 1, 1, 1")
+posinter #  no model ambiguity
+# the pims are stored for pairs of conservative and parsimonious
+# solutions
+posinter$i.sol$C1P1$pims
+# you need to find out how to determine intermediate model ambiguity
+# here, three pairs of conservative and parsimonious solutions have
+# the same intermediate solution, so no intermediate ambiguity
+# if no ambiguity is given, one can work with the $C1P1$pims
+# if there is ambiguity, one again needs a model selector
+```
+
+
 ```{r}
 # loading data
-data(Schwarz2016)
+data("Schwarz2016")
 # calculating weight of partitions
 Schwarz_wop_inter <- partition_min_inter(
   Schwarz2016,
