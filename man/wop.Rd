@@ -2,80 +2,47 @@
 % Please edit documentation in R/wop.R
 \name{wop}
 \alias{wop}
-\title{Calculation of weight of partitions in pooled solution parameters
+\title{Weight of partitions for pooled solution parameters
 for conservative or parsimonious solution}
 \usage{
-wop(
-  dataset,
-  units,
-  time,
-  cond,
-  out,
-  n_cut,
-  incl_cut,
-  solution,
-  BE_cons,
-  WI_cons,
-  BE_ncut,
-  WI_ncut
-)
+wop(dataset, units, time, cond, out, n_cut, incl_cut, solution, amb_selector)
 }
 \arguments{
-\item{dataset}{Calibrated pooled dataset for partitioning and minimization}
+\item{dataset}{Calibrated pooled dataset for partitioning and minimization
+of pooled solution.}
 
-\item{units}{Units defining the within-dimension of data (time series)}
+\item{units}{Units that define the within-dimension of data (time series).}
 
-\item{time}{Periods defining the between-dimension of data (cross sections)}
+\item{time}{Periods that define the between-dimension of data (cross sections).}
 
-\item{cond}{Conditions used for the pooled analysis}
+\item{cond}{Conditions used for the pooled analysis.}
 
-\item{out}{Outcome used for the pooled analysis}
+\item{out}{Outcome used for the pooled analysis.}
 
-\item{n_cut}{Frequency cut-off for designating truth table rows as observed}
+\item{n_cut}{Frequency cut-off for designating truth table rows as observed
+in the pooled analysis.}
 
 \item{incl_cut}{Inclusion cut-off for designating truth table rows as
-consistent}
+consistent in the pooled analysis.}
 
 \item{solution}{A character specifying the type of solution that should
-be derived. "C" produces the conservative (or complex) solution, "P" the
-parsimonious solution. See \code{\link{wop_inter}} for deriving the
+be derived. \code{C} produces the conservative (or complex) solution,
+\code{P} the parsimonious solution. See \code{\link{wop_inter}} for deriving
 intermediate solution.}
 
-\item{BE_cons}{Inclusion (or consistency) thresholds for cross sections.
-Must be specified as a numeric vector with length equaling the number of
-cross sections. Numbers correspond to the order of the cross section ID
-in the data (such as years in ascending order).}
-
-\item{WI_cons}{Inclusion (or consistency) thresholds for time series.
-Must be specified as a numeric vector with length equaling the number of
-time series. Numbers correspond to the order of the time series (unit) ID
-in the data (such as countries in alphabetical order).}
-
-\item{BE_ncut}{For cross sections, the minimum number of members needed
-for declaring a truth table row
-as relevant as opposed to designating it as a remainder.
-Must be specified as a numeric vector. Its length should be
-equal the number of cross sections. The order of thresholds corresponds
-to the order of the cross sections in the data defined by the cross-section
-ID in the dataset (such as years in ascending order).}
-
-\item{WI_ncut}{For time series, the minimum number of members needed
-for declaring a truth table row
-as relevant as opposed to designating it as a remainder.
-Must be specified as a numeric vector. Its length should be
-equal the number of time series. The order of thresholds corresponds
-to the order of the of the time-series (unit) ID
-in the dataset (such as countries in alphabetical order).}
+\item{amb_selector}{Numerical value for selecting a single model in the
+presence of model ambiguity. Models are numbered according to their
+order produced by \code{\link{minimize}} by the \code{QCA} package.}
 }
 \value{
 A dataframe with information about the weight of the partitions
-for pooled consistency and coverage scores and the following columns:
+with the following columns:
 \itemize{
-\item \code{type}: The type of the partition. \code{pooled} are rows with information
-on the pooled data; \code{between} is for cross-section partitions;
-\code{within} is for time-series partitions
+\item \code{type}: The type of the partition. \code{pooled} are rows with
+information on the pooled data; \code{between} is for
+cross-section partitions; \code{within} is for time-series partitions.
 \item \code{partition}: Specific dimension of the partition at hand. For
-between-dimension, the unit identifiers are included here  (argument \code{units}).
+between-dimension, the unit identifiers are listed  (argument \code{units}).
 For the within-dimension, the time identifier are listed (argument \code{time}).
 The entry is \code{-} for the pooled data without partitions.
 \item \code{solution}: The solution derived for the partition or the pooled data.
@@ -101,12 +68,12 @@ partition-specific weights is equal to the value for the pooled data.
 }
 }
 \description{
-\code{wop} calculates the weight of partitions in the pooled
-solution parameters (consistency, coverage) for the conservative
-and parsimonious solution.
+\code{wop} calculates the contribution or weight of partitions
+for the pooled solution parameters of consistency and coverage
+for the conservative or parsimonious solution.
 }
 \examples{
-data(Thiem2016)
+data(Thiem2011)
 Thiem_wop_pars <- wop(
   dataset = Thiem2011,
   units = "country", time = "year",
@@ -114,9 +81,6 @@ Thiem_wop_pars <- wop(
   out = "memberfs",
   n_cut = 6, incl_cut = 0.8,
   solution = "P",
-  BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.85, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
-  BE_ncut = rep(1, 11),
-  WI_cons = c(0.75, 0.8, 0.9, 0.8, 0.85, rep(0.75, 10)),
-  WI_ncut = rep(1, 15))
+  amb_selector = 1)
 Thiem_wop_pars
 }

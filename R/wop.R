@@ -10,9 +10,10 @@
 #' @importFrom purrr map
 #' @import QCA
 #' 
-#' @param dataset Calibrated pooled dataset for partitioning and minimization.
-#' @param units Units defining the within-dimension of data (time series).
-#' @param time Periods defining the between-dimension of data (cross sections).
+#' @param dataset Calibrated pooled dataset for partitioning and minimization
+#' of pooled solution.
+#' @param units Units that define the within-dimension of data (time series).
+#' @param time Periods that define the between-dimension of data (cross sections).
 #' @param cond Conditions used for the pooled analysis.
 #' @param out Outcome used for the pooled analysis.
 #' @param n_cut Frequency cut-off for designating truth table rows as observed
@@ -23,9 +24,9 @@
 #' be derived. \code{C} produces the conservative (or complex) solution,
 #' \code{P} the parsimonious solution. See \code{\link{wop_inter}} for deriving 
 #' intermediate solution.
-#' @param amb_selector Allows to select a particular ambiguous model in case of
-#' model ambiguity
-#' 
+#' @param amb_selector Numerical value for selecting a single model in the
+#' presence of model ambiguity. Models are numbered according to their 
+#' order produced by \code{\link{minimize}} by the \code{QCA} package.
 #' @return A dataframe with information about the weight of the partitions 
 #' with the following columns:
 #' 
@@ -33,7 +34,7 @@
 #' information on the pooled data; \code{between} is for 
 #' cross-section partitions; \code{within} is for time-series partitions.
 #' * \code{partition}: Specific dimension of the partition at hand. For 
-#' between-dimension, the unit identifiers are included here  (argument \code{units}).
+#' between-dimension, the unit identifiers are listed  (argument \code{units}).
 #' For the within-dimension, the time identifier are listed (argument \code{time}).
 #' The entry is \code{-} for the pooled data without partitions.
 #' * \code{solution}: The solution derived for the partition or the pooled data.
@@ -59,7 +60,7 @@
 #' @md
 #' 
 #' @examples
-#' data(Thiem2016)
+#' data(Thiem2011)
 #' Thiem_wop_pars <- wop(
 #'   dataset = Thiem2011,
 #'   units = "country", time = "year",
@@ -166,7 +167,7 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut,
           if (ambig < 2) {
             
             if (ambig < amb_selector) {
-              stop("Selected model number > total number of ambiguous models")
+              stop("Selected model number larger than total number of models")
             }
             
             pim <- x3$pims
@@ -190,7 +191,7 @@ wop <- function(dataset, units, time, cond, out, n_cut, incl_cut,
           } else {
             
             if (ambig < amb_selector) {
-              stop("Selected model number > total number of ambiguous models")
+              stop("Selected model number larger than total number of models")
             }
             
             pims <- x3$IC$individual[]
