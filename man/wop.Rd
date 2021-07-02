@@ -38,33 +38,22 @@ order produced by \code{\link{minimize}} by the \code{QCA} package.}
 A dataframe with information about the weight of the partitions
 with the following columns:
 \itemize{
-\item \code{type}: The type of the partition. \code{pooled} are rows with
-information on the pooled data; \code{between} is for
-cross-section partitions; \code{within} is for time-series partitions.
-\item \code{partition}: Specific dimension of the partition at hand. For
+\item \code{type}: The type of the partition. \code{between} stands for
+cross-sections; \code{within} stands for time series. \code{pooled} stands
+information about the pooled data.
+\item \code{partition}: Type of partition. For
 between-dimension, the unit identifiers are listed  (argument \code{units}).
-For the within-dimension, the time identifier are listed (argument \code{time}).
-The entry is \code{-} for the pooled data without partitions.
-\item \code{solution}: The solution derived for the partition or the pooled data.
-Absence of a condition is denoted by the \code{~} sign.
-\item \code{model}: Running ID for models. In the presence of model ambiguity, each
-model has its own row with its individual solution and parameters. The rest of
-the information in the row is duplicated, for example by having two rows for
-the within-partition 1996. The column \code{model} highlights the presence of
-model ambiguity by numbering all models belonging to the same solution. For
-example, if three consecutive rows are numbered 1, 2 and 3, then these rows
-belong to the same solution and represent model ambiguity. If a 1 in a row
-is followed by another 1, then there is no model ambiguity.
-\item \code{num}: The contribution of the data to the numerator of the consistency
-formula. For the pooled data, the value draws on all cases. For
-partitions, the value represents the weight of the partition. The larger the
-value, the larger the weight. The sum over all partition-specific weights is
-equal to the value for the pooled data.
-\item \code{denom}: The contribution of the data to the denominator of the
-consistency formula. For the pooled data, the value draws on all cases.
-For partitions, the value represents the weight of the partition.
-The larger the value, the larger the weight. The sum over all
-partition-specific weights is equal to the value for the pooled data.
+For the within-dimension, the time identifiers are listed (argument \code{time}).
+The entry is \code{-} for the pooled data.
+\item \code{denom_cons}: Denominator of the consistency formula. It is the sum
+over the cases' membership in the solution.
+\item \code{num_cons}: Numerator of the consistency formula. It is the sum
+over the minimum of the cases' membership in the solution and the outcome.
+\item \code{denom_cov}: Denominator of the coverage formula. It is the sum
+over the cases' membership in the outcome.
+\item \code{num_cov}: Numerator of the coverage formula. It is the sum
+over the minimum of the cases' membership in the solution and the outcome.
+(identical to \code{num_cons})
 }
 }
 \description{
@@ -74,7 +63,7 @@ for the conservative or parsimonious solution.
 }
 \examples{
 data(Thiem2011)
-Thiem_wop_pars <- wop(
+wop_pars <- wop(
   dataset = Thiem2011,
   units = "country", time = "year",
   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
@@ -82,5 +71,5 @@ Thiem_wop_pars <- wop(
   n_cut = 6, incl_cut = 0.8,
   solution = "P",
   amb_selector = 1)
-Thiem_wop_pars
+wop_pars
 }
