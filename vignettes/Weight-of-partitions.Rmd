@@ -20,39 +20,53 @@ library(knitr) # nicer html tables
 ```
 
 ### Conservative and parsimonious solution
-We use the data from [Thiem (2011)](https://doi.org/10.1017/S1755773910000251) for illustrating how the function `wop()` calculates the weights of partitions. The weight of a partition is defined on the level of individual models and can be calculated for the *consistency* and *coverage* value of a model derived for the pooled data. The weight of a partition for the consistency value of the pooled solution is calculated by applying the consistency formula only to the cases that belong to a partition. The function takes a disaggregated perspective on the weights of partitions by calculating their *absolute* weights separately for the numerator and denominator of a formula. This allows one to use the output of the function to calculate their *relative* weights separately for the numerator and denominator of the consistency or coverage formula (see below).
+We use the data from [Thiem (2011)](https://doi.org/10.1017/S1755773910000251) for illustrating how the function `wop()` calculates the weights of partitions. The weight of a partition is defined on the level of individual models and can be calculated for the *consistency* and *coverage* value of a model rhar has been derived from the pooled data. The weight of a partition for the consistency value of the pooled solution is calculated by applying the consistency formula only to the cases that belong to a partition. The weight of partition is calculated in *absolute* terms by calculating separately its contribution to the numerator and denominator of the formula. When one divides the partition-specific absolute contribution to the numerator by the contribution to the denominator, then one receives the partition-specific consistency or coverage score (depending on the type of formula).
 
 The arguments of the functions are:
 
 - `n_cut`: Frequency threshold for pooled data
 - `incl_cut`: Inclusion threshold (a.k.a. consistency threshold) for pooled data
-- `solution` (only for `partition_min()`): Either `C` for conservative solution (a.k.a. complex solution) or `P` for parsimonious solution
-- `BE_cons` and `WI_cons`: Inclusion thresholds for cross sections and time series. The length of the numeric vector should equal the number of units and time series.
-- `BE_ncut` and `WI_ncut`: Frequency thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
+- `solution`: Either `C` for conservative solution (a.k.a. complex solution) or `P` for parsimonious solution
+- `amb_selector`: Numerical value for selecting a single model in the presence of model ambiguity. Models are numbered according to their order produced by minimize by the QCA package. 
 
 ```{r}
-# loading data
+# load data
 data("Thiem2011")
-# calculating weight of partitions
-Thiem_wop_pars <- wop(
+# calculate weight of partitions
+wop_pars <- wop(
   dataset = Thiem2011,
   units = "country", time = "year",
   cond = c("fedismfs", "homogtyfs", "powdifffs", "comptvnsfs", "pubsupfs", "ecodpcefs"),
   out = "memberfs",
   n_cut = 6, incl_cut = 0.8,
-  solution = "C",
-  BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.85, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
-  BE_ncut = rep(1, 11),
-  WI_cons = c(0.75, 0.8, 0.9, 0.8, 0.85, rep(0.75, 10)),
-  WI_ncut = rep(1, 15))
+  solution = "P",
+  amb_selector = 1)
 # result
-kable(Thiem_wop_pars)
+kable(wop_pars)
 ```
+
+When one aggregates the partition-specific absolute weights for the between-dimension or within-dimension, one gets the absolute value for the pooled solution. We illustrate this with the following chunk
+```{r}
+# sum over all cross-sections for consistency denominator
+sum(wop_pars[wop_pars$type == "between", ]$denom_cons)
+# sum over all time series for coverage  numerator
+sum(wop_pars[wop_pars$type == "within", ]$num_cov)
+```
+
+on the basis of the absolute weights, one can calculate the *relative weight* of a partition by dividing its absolute contribution by the corresponding value for the pooled solution.
+```{r}
+# relative contribution of cross sections to denominator for consistency
+wop_between  <- wop_pars[wop_pars$type == "between", ]
+wop_between$rel_denom_cons <- round(wop_between$denom_cons / 
+  sum(wop_between$denom_cons), digits = 2)
+kable(wop_between)
+```
+
 
 ### Intermediate solution
 The weight of partitions for intermediate solutions is produced with `wop_inter()`. We use data from [Schwarz 2016](https://doi.org/10.1080/07036337.2016.1203309) to illustrate the function.
 
-```{r}
+```{r, eval = F}
 # loading data
 data("Schwarz2016")
 # calculating weight of partitions
