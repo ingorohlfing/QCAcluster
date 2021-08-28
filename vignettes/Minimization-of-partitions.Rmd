@@ -1,5 +1,7 @@
 ---
 title: "Minimization of partitions"
+author: "Ingo Rohlfing"
+date: "`r format(Sys.Date())`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Minimization of partitions}
@@ -24,7 +26,7 @@ Two functions allow empirical researchers to partition clustered data on one or 
 - `partition_min()` is available for producing *conservative* or *parsimonious* models;  
 - `partition_min_inter()` should be used for *intermediate* models. For programming purposes, we opted for a separate function for the intermediate solution.
 
-## Panel data: Minimization for cross sections and time series
+## Panel data: Minimization of cross sections and time series
 We first illustrate how one can dempose panel data on two dimensions. In a *between-unit* perspective, the panel is partitioned into multiple cross sections with the `time` argument that specifies the cross section ID. In a *within-unit* perspective, the data is decomposed into multiple time series with the `units` argument that specifies the unit (or time series) ID. The arguments of the functions are:
 
 - `n_cut`: Frequency threshold for pooled data
@@ -33,7 +35,7 @@ We first illustrate how one can dempose panel data on two dimensions. In a *betw
 - `BE_cons` and `WI_cons`: Inclusion thresholds for cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 - `BE_ncut` and `WI_ncut`: Frequency thresholds for the cross sections and time series. The length of the numeric vector should equal the number of units and time series.
 
-### Conservative or parsimonious solution
+### Conservative and parsimonious solution
 We first illustrate the parsimonious solution with dataset from [Thiem (2011)](https://doi.org/10.1017/S1755773910000251).
 ```{r}
 # load data (see data description for details)

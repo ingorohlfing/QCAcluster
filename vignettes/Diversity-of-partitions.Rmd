@@ -1,5 +1,7 @@
 ---
 title: "Diversity of partitions"
+author: "Ingo Rohlfing"
+date: "`r format(Sys.Date())`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Diversity-of-partitions}

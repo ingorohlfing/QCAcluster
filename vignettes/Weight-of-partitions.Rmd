@@ -1,5 +1,7 @@
 ---
 title: "Weight of partitions"
+author: "Ingo Rohlfing"
+date: "`r format(Sys.Date())`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Weight of partitions}
@@ -30,7 +32,7 @@ The arguments of the functions are:
 - `amb_selector`: Numerical value for selecting a single model in the presence of model ambiguity. Models are numbered according to their order produced by minimize by the QCA package. 
 
 ```{r}
-# load data
+# load data (see data description for details)
 data("Thiem2011")
 # calculate weight of partitions
 wop_pars <- wop(
@@ -41,7 +43,6 @@ wop_pars <- wop(
   n_cut = 6, incl_cut = 0.8,
   solution = "P",
   amb_selector = 1)
-# result
 kable(wop_pars)
 ```
 
@@ -53,7 +54,7 @@ sum(wop_pars[wop_pars$type == "between", ]$denom_cons)
 sum(wop_pars[wop_pars$type == "within", ]$num_cov)
 ```
 
-on the basis of the absolute weights, one can calculate the *relative weight* of a partition by dividing its absolute contribution by the corresponding value for the pooled solution.
+On the basis of the absolute weights, one can calculate the *relative weight* of a partition by dividing its absolute contribution by the corresponding value for the pooled solution.
 ```{r}
 # relative contribution of cross sections to denominator for consistency
 wop_between  <- wop_pars[wop_pars$type == "between", ]
@@ -67,7 +68,7 @@ kable(wop_between)
 The weight of partitions for intermediate solutions is produced with `wop_inter()`. We use data from [Schwarz 2016](https://doi.org/10.1080/07036337.2016.1203309) to illustrate the function.
 
 ```{r, eval = F}
-# loading data
+# load data (see data description for details)
 data("Schwarz2016")
 # calculating weight of partitions
 Schwarz_wop_inter <- partition_min_inter(
@@ -77,7 +78,6 @@ Schwarz_wop_inter <- partition_min_inter(
   out = "enlarge",
   n_cut = 1, incl_cut = 0.8,
   intermediate = c("1", "1", "1", "1", "1"))
-# result
 kable(Schwarz_wop_inter)
 ```
 
