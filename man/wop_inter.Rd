@@ -14,10 +14,7 @@ wop_inter(
   n_cut,
   incl_cut,
   intermediate,
-  BE_cons,
-  WI_cons,
-  BE_ncut,
-  WI_ncut
+  amb_selector
 )
 }
 \arguments{
@@ -34,34 +31,12 @@ wop_inter(
 \item{incl_cut}{Inclusion cut-off for designating truth table rows as
 consistent}
 
-\item{intermediate}{A vector of directional expectations to derive
+\item{intermediate}{A vector of directional expectations to derive the
 intermediate solutions}
 
-\item{BE_cons}{Inclusion (or consistency) thresholds for cross sections.
-Must be specified as a numeric vector with length equaling the number of
-cross sections. Numbers correspond to the order of the cross section ID
-in the data (such as years in ascending order).}
-
-\item{WI_cons}{Inclusion (or consistency) thresholds for time series.
-Must be specified as a numeric vector with length equaling the number of
-time series. Numbers correspond to the order of the time series (unit) ID
-in the data (such as countries in alphabetical order).}
-
-\item{BE_ncut}{For \emph{cross sections}, the minimum number of members needed
-for declaring a truth table row
-as relevant as opposed to designating it as a remainder.
-Must be specified as a numeric vector. Its length should be
-equal the number of cross sections. The order of thresholds corresponds
-to the order of the cross sections in the data defined by the cross-section
-ID in the dataset (such as years in ascending order).}
-
-\item{WI_ncut}{For \emph{time series}, the minimum number of members needed
-for declaring a truth table row
-as relevant as opposed to designating it as a remainder.
-Must be specified as a numeric vector. Its length should be
-equal the number of time series. The order of thresholds corresponds
-to the order of the of the time-series (unit) ID
-in the dataset (such as countries in alphabetical order).}
+\item{amb_selector}{Numerical value for selecting a single model in the
+presence of model ambiguity. Models are numbered according to their
+order produced by \code{\link{minimize}} by the \code{QCA} package.}
 
 \item{Dataset}{Calibrated pooled dataset for partitioning and minimization}
 }
@@ -69,39 +44,27 @@ in the dataset (such as countries in alphabetical order).}
 A dataframe with information about the weight of the partitions
 for pooled consistency and coverage scores and the following columns:
 \itemize{
-\item \code{type}: The type of the partition. \code{pooled} are rows with information
-on the pooled data; \code{between} is for cross-section partitions;
-\code{within} is for time-series partitions
-\item \code{partition}: Specific dimension of the partition at hand. For
-between-dimension, the unit identifiers are included here  (argument \code{units}).
-For the within-dimension, the time identifier are listed (argument \code{time}).
-The entry is \code{-} for the pooled data without partitions.
-\item \code{solution}: The solution derived for the partition or the pooled data.
-Absence of a condition is denoted by the \code{~} sign.
-\item \code{model}: Running ID for models. In the presence of model ambiguity, each
-model has its own row with its individual solution and parameters. The rest of
-the information in the row is duplicated, for example by having two rows for
-the within-partition 1996. The column \code{model} highlights the presence of
-model ambiguity by numbering all models belonging to the same solution. For
-example, if three consecutive rows are numbered 1, 2 and 3, then these rows
-belong to the same solution and represent model ambiguity. If a 1 in a row
-is followed by another 1, then there is no model ambiguity.
-\item \code{num}: The contribution of the data to the numerator of the consistency
-formula. For the pooled data, the value draws on all cases. For
-partitions, the value represents the weight of the partition. The larger the
-value, the larger the weight. The sum over all partition-specific weights is
-equal to the value for the pooled data.
-\item \code{denom}: The contribution of the data to the denominator of the
-consistency formula. For the pooled data, the value draws on all cases.
-For partitions, the value represents the weight of the partition.
-The larger the value, the larger the weight. The sum over all
-partition-specific weights is equal to the value for the pooled data.
+\item \code{type}: The type of the partition. \code{between} stands for
+cross-sections; \code{within} stands for time series. \code{pooled} stands
+information about the pooled data.
+\item \code{partition}: Type of partition. For
+between-dimension, the unit identifiers are listed  (argument \code{units}).
+For the within-dimension, the time identifiers are listed (argument \code{time}).
+The entry is \code{-} for the pooled data.
+\item \code{denom_cons}: Denominator of the consistency formula. It is the sum
+over the cases' membership in the solution.
+\item \code{num_cons}: Numerator of the consistency formula. It is the sum
+over the minimum of the cases' membership in the solution and the outcome.
+\item \code{denom_cov}: Denominator of the coverage formula. It is the sum
+over the cases' membership in the outcome.
+\item \code{num_cov}: Numerator of the coverage formula. It is the sum
+over the minimum of the cases' membership in the solution and the outcome.
+(identical to \code{num_cons})
 }
 }
 \description{
 \code{wop_inter} calculates the weight of partitions in the pooled
-solution parameters (consistency, coverage) for the conservative
-and parsimonious solution.
+solution parameters (consistency, coverage) for the intermediate solution.
 }
 \examples{
 data(schwarz2016)
