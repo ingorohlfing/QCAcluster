@@ -81,3 +81,4 @@ Schwarz_wop_inter <- partition_min_inter(
 kable(Schwarz_wop_inter)
 ```
 
+
