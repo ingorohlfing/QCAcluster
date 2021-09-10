@@ -31,11 +31,11 @@
 #'  solution = "P",
 #'  BE_cons = rep(0.75, 3),
 #'  BE_ncut = rep(1, 3))
-#' upset_plot(GS_pars, nsets = 5)
+#' upset_conditions(GS_pars, nsets = 5)
 #' 
 #' @export
-upset_plot <- function(df, nsets) {
-
+upset_conditions <- function(df, nsets) {
+  
 temp1 <- purrr::map(unlist(df$solution), function(x)stringi::stri_split_fixed(x, "*") %>% 
                       unlist())
 temp1 <- purrr::map(temp1, function(x)
