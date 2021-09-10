@@ -3,6 +3,7 @@
 export(partition_div)
 export(partition_min)
 export(partition_min_inter)
+export(upset_plot)
 export(wop)
 export(wop_inter)
 import(QCA)

@@ -1,7 +1,11 @@
-# UpSetR
-# Documentation required
-# Input: data frame that has a column with solutions
-# Output: an Upset Plot
+#'  Aggregation of partition-specific models
+#'
+#' @param df Dataframe created with \code{\link{partition_min}} or
+#' \code{\link{partition_min_inter}}.
+#' @param nsets Number of terms to include in plot
+#' @md
+#' 
+#' @export
 upset_plot <- function(df, nsets) {
 
 temp1 <- purrr::map(unlist(df$solution), function(x)stringi::stri_split_fixed(x, "*") %>% 
