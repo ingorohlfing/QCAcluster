@@ -2,7 +2,10 @@
 % Please edit documentation in R/upset.R
 \name{upset_plot}
 \alias{upset_plot}
-\title{Aggregation of partition-specific models}
+\title{Aggregation of partition-specific models
+
+Modelds that have been derived for individual partitions can be aggregated
+to find out whether they share common elements.}
 \usage{
 upset_plot(df, nsets)
 }
@@ -14,4 +17,7 @@ upset_plot(df, nsets)
 }
 \description{
 Aggregation of partition-specific models
+
+Modelds that have been derived for individual partitions can be aggregated
+to find out whether they share common elements.
 }

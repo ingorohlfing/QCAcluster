@@ -1,4 +1,7 @@
 #'  Aggregation of partition-specific models
+#'  
+#'  Modelds that have been derived for individual partitions can be aggregated
+#'  to find out whether they share common elements.
 #'
 #' @param df Dataframe created with \code{\link{partition_min}} or
 #' \code{\link{partition_min_inter}}.
