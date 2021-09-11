@@ -2,15 +2,7 @@
 % Please edit documentation in R/upset_conditions.R
 \name{upset_conditions}
 \alias{upset_conditions}
-\title{Aggregation of individual conditions partition-specific
-models
-
-Models that have been derived for individual partitions are first
-decomposed into individual conditions, that is single conditions or
-conditions that are INUS (insufficient conditions that are necessary
-parts of a conjunction that is unnecessary and sufficient).
-The individual conditions are aggregated using UpSet plots to determine
-how frequent they are.}
+\title{Aggregation of individual conditions partition-specific models}
 \usage{
 upset_conditions(df, nsets)
 }
@@ -18,18 +10,18 @@ upset_conditions(df, nsets)
 \item{df}{Dataframe created with \code{\link{partition_min}} or
 \code{\link{partition_min_inter}}.}
 
-\item{nsets}{Number of terms to include in plot}
+\item{nsets}{Number of terms to include in plot.}
+}
+\value{
+An upset plot produced with \code{\link[UpSetR]{upset}}.
 }
 \description{
-Aggregation of individual conditions partition-specific
-models
-
 Models that have been derived for individual partitions are first
 decomposed into individual conditions, that is single conditions or
 conditions that are INUS (insufficient conditions that are necessary
-parts of a conjunction that is unnecessary and sufficient).
-The individual conditions are aggregated using UpSet plots to determine
-how frequent they are.
+parts of a conjunction that is unnecessary and sufficient). The individual
+conditions are aggregated using UpSet plots to determine how frequent
+they are.
 }
 \examples{
 data(Grauvogel2014)
