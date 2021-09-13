@@ -19,7 +19,7 @@
 #' @param nsets Number of sets to include in plot (default is 5).
 #' @md
 #'
-#' @return An upset plot produced with \code{\link[UpSetR]{upset}}.
+#' @return An UpSet plot produced with \code{\link[UpSetR]{upset}}.
 #' @md
 #'
 #' @examples 
