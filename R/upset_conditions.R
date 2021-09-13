@@ -1,12 +1,12 @@
-#' Aggregation of individual conditions partition-specific models
+#' Aggregation of individual conditions over partition-specific models
 #' 
 #' @description 
 #' Models that have been derived for individual partitions are first 
-#' decomposed into individual conditions, that is single conditions or 
+#' decomposed into conditions, that is single conditions or 
 #' conditions that are INUS (insufficient conditions that are necessary
 #' parts of a conjunction that is unnecessary and sufficient). The individual 
 #' conditions are aggregated using UpSet plots to determine how frequent 
-#' they are.
+#' they are individually and in combination.
 #'  
 #' @importFrom magrittr %>% 
 #' @importFrom stringi stri_split_fixed stri_unique
@@ -16,7 +16,7 @@
 #'
 #' @param df Dataframe created with \code{\link{partition_min}} or
 #' \code{\link{partition_min_inter}}.
-#' @param nsets Number of terms to include in plot.
+#' @param nsets Number of sets to include in plot (default is 5).
 #' @md
 #'
 #' @return An upset plot produced with \code{\link[UpSetR]{upset}}.
