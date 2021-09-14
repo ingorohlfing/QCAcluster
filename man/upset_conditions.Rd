@@ -13,7 +13,7 @@ upset_conditions(df, nsets)
 \item{nsets}{Number of sets to include in plot (default is 5).}
 }
 \value{
-An upset plot produced with \code{\link[UpSetR]{upset}}.
+An UpSet plot produced with \code{\link[UpSetR]{upset}}.
 }
 \description{
 Models that have been derived for individual partitions are first

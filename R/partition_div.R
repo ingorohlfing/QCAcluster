@@ -50,7 +50,7 @@
 #' @md
 #'
 #' @examples
-#' data(schwarz2016)
+#' data(Schwarz2016)
 #' Schwarz_diversity <- partition_div(schwarz2016, 
 #' units = "country", time = "year", 
 #' cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
