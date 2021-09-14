@@ -6,7 +6,7 @@
 #'
 #' @return A list counting the individual solutions
 #' or configurations.
-detection <- function(ls, x){
+mdetection_upset <- function(ls, x){
   mtr <- NULL
   for(l in x) {
     vctr <- as.numeric(stringi::stri_detect_fixed(ls, l))

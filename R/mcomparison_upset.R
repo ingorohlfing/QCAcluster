@@ -14,7 +14,7 @@
 #'
 #' @return A dataframe counting the individual solutions
 #' or configurations.
-comparison <- function(x = all_values, y, num = F) {
+mcomparison_upset <- function(x = all_values, y, num = F) {
   temp <- x %in% y
   
   if (num) {
