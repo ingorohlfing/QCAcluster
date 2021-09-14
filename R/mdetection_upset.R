@@ -1,8 +1,9 @@
-#' Version of comparison function for configurations.
+#' Internal comparison function for configurations.
 #'
 #' @importFrom  stringi stri_detect_fixed
 #'
 #' @param ls List of QCA solutions 
+#' @noRd
 #'
 #' @return A list counting the individual solutions
 #' or configurations.
