@@ -2,10 +2,7 @@
 #'
 #' @importFrom  stringi stri_detect_fixed
 #'
-#' @param ls List of QCA solutions or configurations
-#' derived from multiple truth table analyses performed
-#' with \code{\link[QCA]{minimize}} from \code{\link{QCA}}
-#' package
+#' @param ls List of QCA solutions 
 #'
 #' @return A list counting the individual solutions
 #' or configurations.
