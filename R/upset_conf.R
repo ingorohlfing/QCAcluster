@@ -26,7 +26,7 @@ upset_conf <- function(df, nsets) {
   all_values <- stringi::stri_unique(unlist(temp1))
   all_values
   
-  finl <- detection(temp1, all_values)
+  finl <- mdetection_upset(temp1, all_values)
   colnames(finl) <- all_values
   UpSetR::upset(finl, order.by = "freq", nsets = nsets)
 }
