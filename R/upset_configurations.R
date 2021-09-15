@@ -1,5 +1,10 @@
-#' UpSetR for configurations
+#' Aggregation of individual configurations  over partition-specific models
 #'
+#' @description 
+#' Models that have been derived for individual partitions are first 
+#' decomposed into sufficient terms, that is single sufficient conditions or 
+#' configurations. The individual terms are aggregated using UpSet plots to 
+#' determine how frequent they are individually and in combination.
 #'
 #' @importFrom magrittr %>%
 #' @importFrom stringi stri_trim stri_unique
@@ -9,12 +14,11 @@
 #'
 #' @param df Dataframe created with \code{\link{partition_min}} or
 #' \code{\link{partition_min_inter}}.
-#' 
-#' @param nsets Specifies number of sets to be plotted. Argument
-#' imported from the \code{\link{upset}} function from \pkg{UpSetR}.
+#' @param nsets Number of sets to include in plot (default is 5).
+#' @md
 #'
-#' @return A plot presenting the frequency of individual
-#' terms and their cooccurrences across QCA solutions.
+#' @return An UpSet plot produced with \code{\link[UpSetR]{upset}}.
+#' @md
 #'
 #' @export
 upset_conf <- function(df, nsets) {
