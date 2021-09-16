@@ -1,5 +1,5 @@
 # QCAcluster  
-**Contributors: Jan Schwalbach, Ingo Rohlfing, Ayjeren Rozyjumayeva**  
+**Contributors: Jan Schwalbach, Ingo Rohlfing, Ayjeren R. Bekmuratovna**  
 Clustered data can take different forms in empirical research. The data might
 have a hierarchical structure (lower-level units nested in higher-level units);
 we might have multiple units nested in time (panel data); or the combination of 
@@ -10,7 +10,3 @@ the clusters in the data.
 
 **This is work in progress.**
 
-**Internal notes**
-
-- Vignette now uses formattable(). I guess it needs to be suggested 
-in the DESCRIPTION?
