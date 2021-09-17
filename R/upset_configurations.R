@@ -9,6 +9,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom stringi stri_trim stri_unique stri_split_fixed
 #' @importFrom purrr map
+#' @importFrom rlist list.flatten
 #' @import UpSetR
 #'
 #' @param df Dataframe created with \code{\link{partition_min}} or
@@ -35,11 +36,20 @@
 #'
 #' @export
 upset_configurations <- function(df, nsets) {
-  temp1 <- unlist(df$solution) 
+  #prior to internal function
+  temp1 <- unlist(df) 
   temp1 <- purrr::map(temp1, function(x) stringi::stri_trim(x))
   temp1 <- purrr::map(temp1, function(x) stringi::stri_split_fixed(x, "+"))
+  temp1 <- rlist::list.flatten(temp1)
   all_values <- stringi::stri_unique(unlist(temp1))
-  finl <- mdetection_upset(temp1, all_values)
+  
+  # using the new internal functoin
+  finl <- lapply(temp1, mdetection_upset, all_values) 
+  
+  # post internal function
+  finl <- lapply(finl, as.numeric)
+  finl <- data.frame(Reduce(rbind, finl))
   colnames(finl) <- all_values
+  rownames(finl) <- NULL
   UpSetR::upset(finl, order.by = "freq", nsets = nsets)
 }
