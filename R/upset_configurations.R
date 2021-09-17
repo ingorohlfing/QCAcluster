@@ -37,7 +37,6 @@
 upset_configurations <- function(df, nsets) {
   temp1 <- unlist(df$solution) # is this needed? df$solution is a column of a dataframe
   temp1 <- purrr::map(temp1, function(x) stringi::stri_trim(x))
-  temp1 <- purrr::map(temp1, function(x) stringi::stri_split_fixed(x, "+"))
   all_values <- stringi::stri_unique(unlist(temp1))
   finl <- mdetection_upset(temp1, all_values)
   colnames(finl) <- all_values
