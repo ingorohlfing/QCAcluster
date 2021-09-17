@@ -29,15 +29,15 @@
 #'           "Repression", "Claims"),
 #'  out = "Persistence",
 #'  n_cut = 1, incl_cut = 0.75,
-#'  solution = "C",
+#'  solution = "P",
 #'  BE_cons = rep(0.75, 3),
 #'  BE_ncut = rep(1, 3))
-#' upset_configurations(GS_pars, nsets = 6)
+#' upset_configurations(GS_pars, nsets = 4)
 #'
 #' @export
 upset_configurations <- function(df, nsets) {
   #prior to internal function
-  temp1 <- unlist(df) 
+  temp1 <- unlist(df$solution) 
   temp1 <- purrr::map(temp1, function(x) stringi::stri_trim(x))
   temp1 <- purrr::map(temp1, function(x) stringi::stri_split_fixed(x, "+"))
   temp1 <- rlist::list.flatten(temp1)
