@@ -2,7 +2,7 @@
 % Please edit documentation in R/upset_configurations.R
 \name{upset_configurations}
 \alias{upset_configurations}
-\title{Aggregation of individual configurations  over partition-specific models}
+\title{Aggregation of individual configurations over partition-specific models}
 \usage{
 upset_configurations(df, nsets)
 }
@@ -33,6 +33,6 @@ GS_cons <- partition_min(
  solution = "C",
  BE_cons = rep(0.75, 3),
  BE_ncut = rep(1, 3))
-upset_conf(GS_pars, nsets = 6)
+upset_configurations(GS_pars, nsets = 6)
 
 }

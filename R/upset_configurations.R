@@ -1,4 +1,4 @@
-#' Aggregation of individual configurations  over partition-specific models
+#' Aggregation of individual configurations over partition-specific models
 #'
 #' @description 
 #' Models that have been derived for individual partitions are first 
@@ -21,7 +21,7 @@
 #' 
 #' @examples
 #' data(Grauvogel2014)
-#' GS_cons <- partition_min(
+#' GS_pars <- partition_min(
 #'  dataset = Grauvogel2014,
 #'  units = "Sender",
 #'  cond = c("Comprehensiveness", "Linkage", "Vulnerability",
@@ -31,12 +31,13 @@
 #'  solution = "C",
 #'  BE_cons = rep(0.75, 3),
 #'  BE_ncut = rep(1, 3))
-#' upset_conf(GS_pars, nsets = 6)
+#' upset_configurations(GS_pars, nsets = 6)
 #'
 #' @export
 upset_configurations <- function(df, nsets) {
-  temp1 <- unlist(df$solution) # is this needed? df$solution is a column of a dataframe
+  temp1 <- unlist(df$solution) 
   temp1 <- purrr::map(temp1, function(x) stringi::stri_trim(x))
+  temp1 <- purrr::map(temp1, function(x) stringi::stri_split_fixed(x, "+"))
   all_values <- stringi::stri_unique(unlist(temp1))
   finl <- mdetection_upset(temp1, all_values)
   colnames(finl) <- all_values
