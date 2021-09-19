@@ -36,6 +36,15 @@
 #'
 #' @export
 upset_configurations <- function(df, nsets) {
+  if (!is.data.frame(df)) {
+    stop('Models should be part of a dataframe or tibble. 
+    Object used in function is not a dataframe or tibble.') 
+  }
+  if ("solution" %in% colnames(df) == FALSE) {
+    stop('There is no column named "solution" in the object.
+         The models to be aggregated over should be in a column "solution".')
+  }
+  else {
   #prior to internal function
   temp1 <- unlist(df$solution) 
   temp1 <- purrr::map(temp1, function(x) stringi::stri_trim(x))
@@ -52,4 +61,5 @@ upset_configurations <- function(df, nsets) {
   colnames(finl) <- all_values
   rownames(finl) <- NULL
   UpSetR::upset(finl, order.by = "freq", nsets = nsets)
+  }
 }

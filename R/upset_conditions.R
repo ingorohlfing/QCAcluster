@@ -38,7 +38,6 @@
 #' 
 #' @export
 upset_conditions <- function(df, nsets) {
-  
   if (!is.data.frame(df)) {
     stop('Models should be part of a dataframe or tibble. 
     Object used in function is not a dataframe or tibble.') 
