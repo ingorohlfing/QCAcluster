@@ -9,6 +9,7 @@
 #' 
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
+#' @importFrom stats na.omit
 #' @import QCA
 #'
 #' @param dataset Calibrated pooled dataset that is partitioned and minimized for

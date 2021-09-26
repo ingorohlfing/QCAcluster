@@ -23,16 +23,16 @@ determine how frequent they are individually and in combination.
 }
 \examples{
 data(Grauvogel2014)
-GS_cons <- partition_min(
+GS_pars <- partition_min(
  dataset = Grauvogel2014,
  units = "Sender",
  cond = c("Comprehensiveness", "Linkage", "Vulnerability",
           "Repression", "Claims"),
  out = "Persistence",
  n_cut = 1, incl_cut = 0.75,
- solution = "C",
+ solution = "P",
  BE_cons = rep(0.75, 3),
  BE_ncut = rep(1, 3))
-upset_configurations(GS_pars, nsets = 6)
+upset_configurations(GS_pars, nsets = 4)
 
 }

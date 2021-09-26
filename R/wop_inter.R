@@ -7,9 +7,10 @@
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
 #' @importFrom purrr map
+#' @importFrom stats na.omit
 #' @import QCA
 #' 
-#' @param Dataset Calibrated pooled dataset for partitioning and minimization
+#' @param dataset Calibrated pooled dataset for partitioning and minimization
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
 #' @param cond Conditions used for the pooled analysis
@@ -44,7 +45,7 @@
 #' @md
 #' 
 #' @examples
-#' data(schwarz2016)
+#' data(Schwarz2016)
 # Schwarz_wop_inter <- wop_inter(
 #   Schwarz2016,
 #   units = "country", time = "year",

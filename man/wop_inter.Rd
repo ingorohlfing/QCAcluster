@@ -18,6 +18,8 @@ wop_inter(
 )
 }
 \arguments{
+\item{dataset}{Calibrated pooled dataset for partitioning and minimization}
+
 \item{units}{Units defining the within-dimension of data (time series)}
 
 \item{time}{Periods defining the between-dimension of data (cross sections)}
@@ -37,8 +39,6 @@ intermediate solutions}
 \item{amb_selector}{Numerical value for selecting a single model in the
 presence of model ambiguity. Models are numbered according to their
 order produced by \code{\link{minimize}} by the \code{QCA} package.}
-
-\item{Dataset}{Calibrated pooled dataset for partitioning and minimization}
 }
 \value{
 A dataframe with information about the weight of the partitions
@@ -67,6 +67,6 @@ over the minimum of the cases' membership in the solution and the outcome.
 solution parameters (consistency, coverage) for the intermediate solution.
 }
 \examples{
-data(schwarz2016)
+data(Schwarz2016)
 
 }

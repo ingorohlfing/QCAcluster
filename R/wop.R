@@ -8,6 +8,7 @@
 #' @importFrom plyr ldply
 #' @importFrom testit has_error
 #' @importFrom purrr map
+#' @importFrom stats na.omit
 #' @import QCA
 #' 
 #' @param dataset Calibrated pooled dataset for partitioning and minimization

@@ -36,7 +36,7 @@ Imports:
     magrittr, 
     stringi (>= 1.7.4), 
     rlist(>= 0.4.6.1)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 URL: https://github.com/ingorohlfing/QCAcluster
 BugReports: https://github.com/ingorohlfing/QCAcluster/issues
 Suggests: 
