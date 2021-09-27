@@ -21,6 +21,8 @@ partition_min_inter(
 )
 }
 \arguments{
+\item{dataset}{Calibrated pooled dataset for partitioning and minimization}
+
 \item{units}{Units defining the within-dimension of data (time series)}
 
 \item{time}{Periods defining the between-dimension of data (cross sections)}
@@ -61,8 +63,6 @@ Must be specified as a numeric vector. Its length should be
 equal the number of time series. The order of thresholds corresponds
 to the order of the of the time-series (unit) ID
 in the dataset (such as countries in alphabetical order).}
-
-\item{x}{Calibrated pooled dataset for partitioning and minimization}
 }
 \value{
 A dataframe summarizing the partition-specific and pooled solutions

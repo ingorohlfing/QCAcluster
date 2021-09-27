@@ -12,7 +12,7 @@
 #' @importFrom stats na.omit
 #' @import QCA
 #'
-#' @param x Calibrated pooled dataset for partitioning and minimization
+#' @param dataset Calibrated pooled dataset for partitioning and minimization
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
 #' @param cond Conditions used for the pooled analysis
