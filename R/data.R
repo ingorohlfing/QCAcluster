@@ -30,8 +30,8 @@
 #' @format A data frame with 165 rows and 10 variables:
 #' \describe{
 #'   \item{id}{Country-year ID}
-#'   \item{time}{Time ID}
-#'   \item{units}{Country ID}
+#'   \item{year}{Time ID}
+#'   \item{country}{Country ID}
 #'   \item{memberfs}{Monadic count of membership in formal intergovernmental agreements on armaments cooperation}
 #'   \item{fedismfs}{Degree to which a country’s domestic constitutional setup is federalist in character}
 #'   \item{homogtyfs}{Bilateral interaction scores based on all UN and NATO military missions conducted between 1996 and 2006}
