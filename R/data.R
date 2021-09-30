@@ -38,7 +38,7 @@
 #'   \item{powdifffs}{Score to measure a country's military power based on the CINC score}
 #'   \item{comptvnsfs}{Competitiveness of a country’s domestic armaments industry}
 #'   \item{pubsupfs}{Public support for cooperation in defence}
-#'   \item{ecodpcefs}{Degree of econmic dependence}
+#'   \item{ecodpcefs}{Degree of economic dependence}
 #' }
 #' @source \url{https://doi.org/10.1017/S1755773910000251}
 "Thiem2011"
@@ -62,7 +62,7 @@
 #'   \item{Linkage}{Economic and social, respectively communicative and geographic ties}
 #'   \item{Vulnerability}{Military and economic vulnerability of the state to outside pressure}
 #'   \item{Repression}{Degree of repression by the state}
-#'   \item{Claims}{Variety and strength of claims to legitimicy}
+#'   \item{Claims}{Variety and strength of claims to legitimacy}
 #' }
 #' @source \url{https://doi.org/10.1111/1475-6765.12065}
 "Grauvogel2014"

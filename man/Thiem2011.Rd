@@ -16,7 +16,7 @@ A data frame with 165 rows and 10 variables:
   \item{powdifffs}{Score to measure a country's military power based on the CINC score}
   \item{comptvnsfs}{Competitiveness of a country’s domestic armaments industry}
   \item{pubsupfs}{Public support for cooperation in defence}
-  \item{ecodpcefs}{Degree of econmic dependence}
+  \item{ecodpcefs}{Degree of economic dependence}
 }
 }
 \source{

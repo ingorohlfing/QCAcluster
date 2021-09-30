@@ -16,7 +16,7 @@ A data frame with 120 rows and 10 variables:
   \item{Linkage}{Economic and social, respectively communicative and geographic ties}
   \item{Vulnerability}{Military and economic vulnerability of the state to outside pressure}
   \item{Repression}{Degree of repression by the state}
-  \item{Claims}{Variety and strength of claims to legitimicy}
+  \item{Claims}{Variety and strength of claims to legitimacy}
 }
 }
 \source{
