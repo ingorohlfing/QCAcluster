@@ -11,8 +11,8 @@
 #' @importFrom testit has_error
 #' @import QCA
 #' 
-#' @param dataset Calibrated pooled dataset that is partitioned and minimized for
-#' deriving the pooled solution.
+#' @param dataset Calibrated pooled dataset that is partitioned 
+#' and minimized for deriving the pooled solution.
 #' @param units Units defining the within-dimension of data (time series)
 #' @param time Periods defining the between-dimension of data (cross sections)
 #' @param cond Conditions used for the pooled analysis
@@ -25,13 +25,14 @@
 #' @return A dataframe presenting the diversity of cases belonging to the
 #' same partition with the following columns:
 #' 
-#' * \code{type}: The type of the partition. \code{pooled} are rows with information
-#' on the pooled data; \code{between} is for cross-section partitions;
-#' \code{within} is for time-series partitions. 
+#' * \code{type}: The type of the partition. \code{pooled} are 
+#' rows with information on the pooled data; \code{between} is for 
+#' cross-section partitions; \code{within} is for time-series partitions. 
 #' * \code{partition}: Specific dimension of the partition at hand. For 
-#' between-dimension, the unit identifiers are included here  (argument \code{units}).
-#' For the within-dimension, the time identifier are listed (argument \code{time}).
-#' The entry is \code{-} for the pooled data without partitions.
+#' between-dimension, the unit identifiers are included here 
+#' (argument \code{units}). For the within-dimension, the time identifier 
+#' are listed (argument \code{time}). The entry is \code{-} for the 
+#' pooled data without partitions. 
 #' * \code{diversity}: Count of all truth table rows with at least one member
 #' belonging to a partition.
 #' * \code{diversity_1}: Count of consistent truth table rows with at least 
@@ -63,7 +64,8 @@ partition_div <- function(dataset,
                           n_cut, incl_cut) {
   
   # turning of warnings
-  quiet <- function(x) { 
+  quiet <- function(x) 
+    { 
     sink(tempfile()) 
     on.exit(sink()) 
     invisible(force(x)) 
