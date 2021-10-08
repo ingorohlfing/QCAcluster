@@ -7,6 +7,6 @@
 #'
 #' @return A list counting the individual models or configurations.
 mdetection_upset <- function(list, strng){
-  result = strng %in% list
+  result <- strng %in% list
   return(result)
 }
