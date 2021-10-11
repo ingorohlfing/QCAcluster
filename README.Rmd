@@ -9,7 +9,7 @@ output: github_document
 Three people have contributed to `QCAcluster`. In alphabetical order:
 
 - Ayjeren Bekmuratnova R. [(Github)](https://github.com/AyjerenR/)
-- Ingo Rohlfing
+- Ingo Rohlfing [(Github)](https://github.com/ingorohlfing)
 - Jan Schwalbach [(Github)](https://github.com/JanSchwalbach)
 
 ## Description of package
