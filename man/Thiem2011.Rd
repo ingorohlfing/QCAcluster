@@ -10,11 +10,16 @@ A data frame with 165 rows and 10 variables:
   \item{id}{Country-year ID}
   \item{year}{Time ID}
   \item{country}{Country ID}
-  \item{memberfs}{Monadic count of membership in formal intergovernmental agreements on armaments cooperation}
-  \item{fedismfs}{Degree to which a country’s domestic constitutional setup is federalist in character}
-  \item{homogtyfs}{Bilateral interaction scores based on all UN and NATO military missions conducted between 1996 and 2006}
-  \item{powdifffs}{Score to measure a country's military power based on the CINC score}
-  \item{comptvnsfs}{Competitiveness of a country’s domestic armaments industry}
+  \item{memberfs}{Monadic count of membership in formal intergovernmental 
+  agreements on armaments cooperation}
+  \item{fedismfs}{Degree to which a country’s domestic constitutional setup 
+  is federalist in character}
+  \item{homogtyfs}{Bilateral interaction scores based on all UN and NATO 
+  military missions conducted between 1996 and 2006}
+  \item{powdifffs}{Score to measure a country's military power based on the 
+  CINC score}
+  \item{comptvnsfs}{Competitiveness of a country’s domestic armaments 
+  industry}
   \item{pubsupfs}{Public support for cooperation in defence}
   \item{ecodpcefs}{Degree of economic dependence}
 }

@@ -12,9 +12,12 @@ A data frame with 120 rows and 10 variables:
   \item{Target}{Country that is target of sanctions}
   \item{Timeframe}{Considered years for each country case}
   \item{Persistence}{Degree of regime persistence after the intervention}
-  \item{Comprehensiveness}{Scope of the imposed sanctions - comprehensive vs. targeted sanctions}
-  \item{Linkage}{Economic and social, respectively communicative and geographic ties}
-  \item{Vulnerability}{Military and economic vulnerability of the state to outside pressure}
+  \item{Comprehensiveness}{Scope of the imposed sanctions - comprehensive 
+  vs. targeted sanctions}
+  \item{Linkage}{Economic and social, respectively communicative and 
+  geographic ties}
+  \item{Vulnerability}{Military and economic vulnerability of the state to 
+  outside pressure}
   \item{Repression}{Degree of repression by the state}
   \item{Claims}{Variety and strength of claims to legitimacy}
 }

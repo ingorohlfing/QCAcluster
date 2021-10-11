@@ -7,8 +7,8 @@
 partition_div(dataset, units, time, cond, out, n_cut, incl_cut)
 }
 \arguments{
-\item{dataset}{Calibrated pooled dataset that is partitioned and minimized for
-deriving the pooled solution.}
+\item{dataset}{Calibrated pooled dataset that is partitioned
+and minimized for deriving the pooled solution.}
 
 \item{units}{Units defining the within-dimension of data (time series)}
 
@@ -28,13 +28,14 @@ consistent in the pooled data}
 A dataframe presenting the diversity of cases belonging to the
 same partition with the following columns:
 \itemize{
-\item \code{type}: The type of the partition. \code{pooled} are rows with information
-on the pooled data; \code{between} is for cross-section partitions;
-\code{within} is for time-series partitions.
+\item \code{type}: The type of the partition. \code{pooled} are
+rows with information on the pooled data; \code{between} is for
+cross-section partitions; \code{within} is for time-series partitions.
 \item \code{partition}: Specific dimension of the partition at hand. For
-between-dimension, the unit identifiers are included here  (argument \code{units}).
-For the within-dimension, the time identifier are listed (argument \code{time}).
-The entry is \code{-} for the pooled data without partitions.
+between-dimension, the unit identifiers are included here
+(argument \code{units}). For the within-dimension, the time identifier
+are listed (argument \code{time}). The entry is \code{-} for the
+pooled data without partitions.
 \item \code{diversity}: Count of all truth table rows with at least one member
 belonging to a partition.
 \item \code{diversity_1}: Count of consistent truth table rows with at least
