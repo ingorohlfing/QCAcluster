@@ -25,7 +25,7 @@ A data frame with 165 rows and 10 variables:
 }
 }
 \source{
-\url{https://doi.org/10.1017/S1755773910000251}
+\doi{10.1017/S1755773910000251}
 }
 \usage{
 Thiem2011

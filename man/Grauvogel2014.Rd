@@ -23,7 +23,7 @@ A data frame with 120 rows and 10 variables:
 }
 }
 \source{
-\url{https://doi.org/10.1111/1475-6765.12065}
+\doi{10.1111/1475-6765.12065}
 }
 \usage{
 Grauvogel2014
