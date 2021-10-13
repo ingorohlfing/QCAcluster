@@ -52,7 +52,7 @@ upset_configurations <- function(df, nsets) {
   temp1 <- rlist::list.flatten(temp1)
   all_values <- stringi::stri_unique(unlist(temp1))
   
-  # using the new internal functoin
+  # using the new internal function
   finl <- lapply(temp1, mdetection_upset, all_values) 
   
   # post internal function
