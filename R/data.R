@@ -17,8 +17,7 @@
 #'   \item{year}{Year ID}
 #'   \item{country}{Country ID}
 #' }
-#' @source <doi:10.1080/07036337.2016.1203309>
-"Schwarz2016"
+#' @source Schwarz (2016) <doi:10.1080/07036337.2016.1203309>
 
 #' Original data used by Thiem (2011)
 #'
@@ -45,8 +44,8 @@
 #'   \item{pubsupfs}{Public support for cooperation in defence}
 #'   \item{ecodpcefs}{Degree of economic dependence}
 #' }
-#' @source <doi:10.1017/S1755773910000251>
-"Thiem2011"
+#' @source Thiem(2011) <doi:10.1017/S1755773910000251>
+
 
 #' Original data used by Grauvogel/von Soest (2014)
 #'
@@ -72,6 +71,6 @@
 #'   \item{Repression}{Degree of repression by the state}
 #'   \item{Claims}{Variety and strength of claims to legitimacy}
 #' }
-#' @source <doi:10.1111/1475-6765.12065>
-"Grauvogel2014"
+#' @source Grauvogel (2014) <doi:10.1111/1475-6765.12065>
+
 
