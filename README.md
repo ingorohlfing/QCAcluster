@@ -1,13 +1,13 @@
 QCAcluster
 ================
-2021-09-19
+2021-10-15
 
 ## Contributors
 
 Three people have contributed to `QCAcluster`. In alphabetical order:
 
 -   Ayjeren Bekmuratnova R. [(Github)](https://github.com/AyjerenR/)
--   Ingo Rohlfing
+-   Ingo Rohlfing [(Github)](https://github.com/ingorohlfing)
 -   Jan Schwalbach [(Github)](https://github.com/JanSchwalbach)
 
 ## Description of package
@@ -26,3 +26,10 @@ Github.
 ``` r
 devtools::install_github("ingorohlfing/QCAcluster")
 ```
+
+------------------------------------------------------------------------
+
+Work on the package was funded by the European Research Council (ERC)
+under the European Union’s Horizon 2020 research and innovation program
+(grant agreement number 638425, *Enhanced Qualitative and Multimethod
+Research*).
