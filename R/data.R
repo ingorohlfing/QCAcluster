@@ -18,6 +18,7 @@
 #'   \item{country}{Country ID}
 #' }
 #' @source Schwarz (2016) <doi:10.1080/07036337.2016.1203309>
+"Schwarz2016"
 
 #' Original data used by Thiem (2011)
 #'
@@ -45,7 +46,7 @@
 #'   \item{ecodpcefs}{Degree of economic dependence}
 #' }
 #' @source Thiem(2011) <doi:10.1017/S1755773910000251>
-
+"Thiem2011"
 
 #' Original data used by Grauvogel/von Soest (2014)
 #'
@@ -72,5 +73,5 @@
 #'   \item{Claims}{Variety and strength of claims to legitimacy}
 #' }
 #' @source Grauvogel (2014) <doi:10.1111/1475-6765.12065>
-
+"Grauvogel2014"
 

@@ -19,7 +19,7 @@ A data frame with 74 rows and 9 variables:
 }
 }
 \source{
-\doi{10.1080/07036337.2016.1203309}
+Schwarz (2016) <doi:10.1080/07036337.2016.1203309>
 }
 \usage{
 Schwarz2016
