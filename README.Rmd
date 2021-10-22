@@ -21,7 +21,7 @@ clustered data in *Qualitative Comparative Analysis*. The use of
 the tools promises insights that would go unnoticed in a pooled analysis
 ignoring the clusters in the data.
 
-This is work in progress. You can download the development version from Github.
+This is work in progress. You can download the development version 0.9.0.
 ```{r, eval = F}
 devtools::install_github("ingorohlfing/QCAcluster")
 ```

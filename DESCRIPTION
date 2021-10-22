@@ -1,7 +1,7 @@
 Package: QCAcluster
 Type: Package
 Title: Tools for the Analysis of Clustered Data in QCA
-Version: 0.0.9
+Version: 0.1.0
 Authors@R: c(
   person(given = "Ingo", family = "Rohlfing", 
   email = "i.rohlfing@uni-koeln.de", 
