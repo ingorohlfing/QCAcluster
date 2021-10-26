@@ -26,7 +26,7 @@ one has derived partition-specific models with `partition_min()` or
 column of the dataframes produced with `partition_min()`/or 
 `partition_min_inter()` as input to produce an UpSet plot. `upset_conditions()` 
 and `upset_configurations()` are functions that draw on the `upset()`
-function of the [UpSetR](https://cran.r-project.org/web/packages/UpSetR/) 
+function of the [UpSetR](https://CRAN.R-project.org/package=UpSetR/) 
 package. We use the dataset by 
 [Grauvogel and von Soest (2014)](https://doi.org/10.1017/S1755773910000251) 
 for illustrating the meaning and interpretation of UpSet plots. 
