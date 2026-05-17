@@ -21,6 +21,8 @@
 #' @md
 #' 
 #' @examples
+#' load data from Grauvogel (2014; see data documentation)
+#' 
 #' data(Grauvogel2014)
 #' GS_pars <- partition_min(
 #'  dataset = Grauvogel2014,

@@ -50,6 +50,8 @@
 #' @md
 #' 
 #' @examples
+#' # load data from Thiem (EPSR, 2011; see data documentation)
+#' 
 #' data(Thiem2011)
 #' wop_pars <- wop(
 #'   dataset = Thiem2011,

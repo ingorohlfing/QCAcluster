@@ -51,6 +51,8 @@
 #' @md
 #'
 #' @examples
+#' load data from Schwarz (2016; see data documentation)
+#' 
 #' data(Schwarz2016)
 #' Schwarz_diversity <- partition_div(Schwarz2016, 
 #' units = "country", time = "year", 

@@ -84,10 +84,10 @@
 #' @md
 #'
 #' @examples
-#' # loading data from Thiem (EPSR, 2011; see data documentation)
+#' # load data from Thiem (2011; see data documentation)
+#'
 #' data(Thiem2011)
 #' 
-#' # running function for parsimonious solution
 #' Thiem_pars <- partition_min(
 #'   dataset = Thiem2011,
 #'   units = "country", time = "year",
@@ -97,7 +97,7 @@
 #'   solution = "P",
 #'   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
 #'   WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
-#' 
+#'    
 #' @export
 partition_min <- function(dataset, 
                           units, time, 
