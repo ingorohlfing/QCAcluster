@@ -1,17 +1,16 @@
 Package: QCAcluster
 Type: Package
 Title: Tools for the Analysis of Clustered Data in QCA
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
-  person(given = "Ingo", family = "Rohlfing", 
-  email = "i.rohlfing@uni-koeln.de", 
-  role = c("aut", "cre"),
-  comment = ("0000-0001-8715-4771")),
-  person(given = "Ayjeren", family = "Bekmuratovna", 
-  email = "arozyjum@uni-koeln.de", role = c("aut")),
+  person(given = "Ingo", family = "Rohlfing", role = c("aut", "cre"),
+  email = "ingo.rohlfing@uni-passau.de", 
+  comment = c("0000-0001-8715-4771")),
+  person(given = "Ayjeren", family = "Bekmuratovna", role = c("aut")),
   person(given = "Jan", family = "Schwalbach", 
-  email = "schwalbach@wiso.uni-koeln.de", role = c("aut"),
-  comment = ("0000-0002-6990-8098")))
+  email = "jan.schwalbach@gesis.org", role = c("aut"),
+  comment = c("0000-0002-6990-8098"))
+  )
 Depends: 
     R (>= 2.10)
 Description: Clustered set-relational data in Qualitative Comparative Analysis
@@ -37,7 +36,6 @@ Imports:
     magrittr, 
     stringi (>= 1.7.4), 
     rlist(>= 0.4.6.1)
-RoxygenNote: 7.1.2
 URL: https://github.com/ingorohlfing/QCAcluster
 BugReports: https://github.com/ingorohlfing/QCAcluster/issues
 Suggests: 
@@ -45,3 +43,4 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 Language: en-US
+Config/roxygen2/version: 8.0.0
