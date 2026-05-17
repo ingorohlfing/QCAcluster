@@ -23,11 +23,11 @@
 #' consistent in the pooled analysis.
 #' @param solution A character specifying the type of solution that should
 #' be derived. \code{C} produces the conservative (or complex) solution,
-#' \code{P} the parsimonious solution. See \code{\link{wop_inter}} for deriving 
+#' \code{P} the parsimonious solution. See \code{wop_inter} for deriving 
 #' intermediate solution.
 #' @param amb_selector Numerical value for selecting a single model in the
 #' presence of model ambiguity. Models are numbered according to their 
-#' order produced by \code{\link{minimize}} by the \code{QCA} package.
+#' order produced by \code{minimize} by the \code{QCA} package.
 #' @return A dataframe with information about the weight of the partitions 
 #' with the following columns:
 #' 
