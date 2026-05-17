@@ -38,7 +38,7 @@ intermediate solutions}
 
 \item{amb_selector}{Numerical value for selecting a single model in the
 presence of model ambiguity. Models are numbered according to their
-order produced by \code{\minimize} by the \code{QCA} package.}
+order produced by \code{minimize} by the \code{QCA} package.}
 }
 \value{
 A dataframe with information about the weight of the partitions

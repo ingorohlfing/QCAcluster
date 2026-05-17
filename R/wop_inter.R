@@ -22,7 +22,7 @@
 #' intermediate solutions
 #' @param amb_selector Numerical value for selecting a single model in the
 #' presence of model ambiguity. Models are numbered according to their 
-#' order produced by \code{\minimize} by the \code{QCA} package.
+#' order produced by \code{minimize} by the \code{QCA} package.
 #' @return A dataframe with information about the weight of the partitions 
 #' for pooled consistency and coverage scores and the following columns:
 #' 
