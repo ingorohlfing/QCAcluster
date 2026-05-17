@@ -62,6 +62,8 @@ for the pooled solution parameters of consistency and coverage
 for the conservative or parsimonious solution.
 }
 \examples{
+# load data from Thiem (EPSR, 2011; see data documentation)
+
 data(Thiem2011)
 wop_pars <- wop(
   dataset = Thiem2011,

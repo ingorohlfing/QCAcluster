@@ -99,6 +99,7 @@ and the pooled data to assess the robustness of the
 solutions.
 }
 \examples{
+# load data from Schwarz (2016; see data documentation)
 data(Schwarz2016)
 Schwarz_inter <- partition_min_inter(
   Schwarz2016,

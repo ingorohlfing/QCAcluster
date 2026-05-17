@@ -12,8 +12,8 @@
 #' @importFrom rlist list.flatten
 #' @import UpSetR
 #'
-#' @param df Dataframe created with \code{\link{partition_min}} or
-#' \code{\link{partition_min_inter}}.
+#' @param df Dataframe created with \code{partition_min} or
+#' \code{partition_min_inter}.
 #' @param nsets Number of sets to include in plot (default is 5).
 #' @md
 #'
@@ -21,7 +21,7 @@
 #' @md
 #' 
 #' @examples
-#' load data from Grauvogel (2014; see data documentation)
+#' # load data from Grauvogel (2014; see data documentation)
 #' 
 #' data(Grauvogel2014)
 #' GS_pars <- partition_min(

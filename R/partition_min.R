@@ -28,7 +28,7 @@
 #' truth table rows as consistent for the *pooled* data.
 #' @param solution A character specifying the type of solution that should
 #' be derived. \code{C} produces the conservative (or complex) solution, 
-#' \code{P} for the parsimonious solution. See \code{\link{partition_min_inter}} 
+#' \code{P} for the parsimonious solution. See \code{partition_min_inter} 
 #' for a separate function for the intermediate solution.
 #' @param BE_cons Inclusion thresholds for creating an individual truth table
 #' for each cross section.

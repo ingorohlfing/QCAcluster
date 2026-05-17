@@ -45,7 +45,7 @@
 #' @md
 #' 
 #' @examples
-#' load data from Schwarz (2016; see data documentation)
+#' # load data from Schwarz (2016; see data documentation)
 #' 
 #' data(Schwarz2016)
 # Schwarz_wop_inter <- wop_inter(

@@ -7,8 +7,8 @@
 upset_configurations(df, nsets)
 }
 \arguments{
-\item{df}{Dataframe created with \code{\link{partition_min}} or
-\code{\link{partition_min_inter}}.}
+\item{df}{Dataframe created with \code{partition_min} or
+\code{partition_min_inter}.}
 
 \item{nsets}{Number of sets to include in plot (default is 5).}
 }
@@ -22,6 +22,8 @@ configurations. The individual terms are aggregated using UpSet plots to
 determine how frequent they are individually and in combination.
 }
 \examples{
+# load data from Grauvogel (2014; see data documentation)
+
 data(Grauvogel2014)
 GS_pars <- partition_min(
  dataset = Grauvogel2014,

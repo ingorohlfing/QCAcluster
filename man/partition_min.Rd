@@ -44,7 +44,7 @@ truth table rows as consistent for the \emph{pooled} data.}
 
 \item{solution}{A character specifying the type of solution that should
 be derived. \code{C} produces the conservative (or complex) solution,
-\code{P} for the parsimonious solution. See \code{\link{partition_min_inter}}
+\code{P} for the parsimonious solution. See \code{partition_min_inter}
 for a separate function for the intermediate solution.}
 
 \item{BE_cons}{Inclusion thresholds for creating an individual truth table
@@ -112,10 +112,10 @@ each partition and the pooled data to assess the robustness of the
 solutions in a comparative perspective.
 }
 \examples{
-# loading data from Thiem (EPSR, 2011; see data documentation)
+# load data from Thiem (2011; see data documentation)
+
 data(Thiem2011)
 
-# running function for parsimonious solution
 Thiem_pars <- partition_min(
   dataset = Thiem2011,
   units = "country", time = "year",
@@ -125,5 +125,5 @@ Thiem_pars <- partition_min(
   solution = "P",
   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
   WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
-
+   
 }

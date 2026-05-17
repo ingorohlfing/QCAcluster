@@ -67,6 +67,8 @@ over the minimum of the cases' membership in the solution and the outcome.
 solution parameters (consistency, coverage) for the intermediate solution.
 }
 \examples{
+# load data from Schwarz (2016; see data documentation)
+
 data(Schwarz2016)
 
 }
