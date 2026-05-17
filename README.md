@@ -1,6 +1,4 @@
-QCAcluster
-================
-2021-10-22
+QCACluster
 
 ## Contributors
 
@@ -20,11 +18,11 @@ multiple tools for the analysis of clustered data in *Qualitative
 Comparative Analysis*. The use of the tools promises insights that would
 go unnoticed in a pooled analysis ignoring the clusters in the data.
 
-This is work in progress. You can download the development version
-0.9.0.
+Version 0.2.0 of the package is on Github. This version is not on CRAN yet, but 
+should be soon. 
 
 ``` r
-devtools::install_github("ingorohlfing/QCAcluster")
+pak::pak("ingorohlfing/QCAcluster")
 ```
 
 ------------------------------------------------------------------------
