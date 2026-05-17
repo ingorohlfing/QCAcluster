@@ -29,7 +29,7 @@ LazyData: true
 Imports: 
     data.table (>= 1.12.8),
     plyr (>= 1.8.5),
-    QCA (>= 3.7),
+    QCA (>= 3.07),
     testit (>= 0.11),
     purrr (>= 0.3.3), 
     UpSetR (>= 1.4.0), 
