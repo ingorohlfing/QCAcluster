@@ -27,7 +27,6 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    data.table (>= 1.12.8),
     plyr (>= 1.8.5),
     QCA (>= 3.07),
     testit (>= 0.11),
