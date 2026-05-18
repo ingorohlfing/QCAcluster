@@ -99,8 +99,10 @@ and the pooled data to assess the robustness of the
 solutions.
 }
 \examples{
+ \donttest{
 # load data from Schwarz (2016; see data documentation)
 data(Schwarz2016)
+
 Schwarz_inter <- partition_min_inter(
   Schwarz2016,
   units = "country", time = "year",
@@ -108,5 +110,6 @@ Schwarz_inter <- partition_min_inter(
   out = "enlarge",
   n_cut = 1, incl_cut = 0.8,
   intermediate = c("1", "1", "1", "1", "1"))
+}
 
 }

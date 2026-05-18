@@ -24,6 +24,7 @@ conditions are aggregated using UpSet plots to determine how frequent
 they are individually and in combination.
 }
 \examples{
+\donttest{
 # load data from Grauvogel (2014; see data documentation)
 
 data(Grauvogel2014)
@@ -38,5 +39,6 @@ GS_pars <- partition_min(
  BE_cons = rep(0.75, 3),
  BE_ncut = rep(1, 3))
 upset_conditions(GS_pars, nsets = 5)
+}
 
 }

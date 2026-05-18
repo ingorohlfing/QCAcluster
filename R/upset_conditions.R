@@ -23,6 +23,7 @@
 #' @md
 #'
 #' @examples 
+#' \donttest{
 #' # load data from Grauvogel (2014; see data documentation)
 #' 
 #' data(Grauvogel2014)
@@ -37,6 +38,7 @@
 #'  BE_cons = rep(0.75, 3),
 #'  BE_ncut = rep(1, 3))
 #' upset_conditions(GS_pars, nsets = 5)
+#' }
 #' 
 #' @export
 upset_conditions <- function(df, nsets) {

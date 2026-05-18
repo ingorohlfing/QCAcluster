@@ -51,6 +51,7 @@
 #' @md
 #'
 #' @examples
+#' \donttest{
 #' # load data from Schwarz (2016; see data documentation)
 #' 
 #' data(Schwarz2016)
@@ -58,6 +59,7 @@
 #' units = "country", time = "year", 
 #' cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
 #' out = "enlarge", 1, 0.8)
+#' }
 #' 
 #' @export
 partition_div <- function(dataset, 

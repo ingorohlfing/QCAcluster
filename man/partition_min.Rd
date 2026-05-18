@@ -112,6 +112,7 @@ each partition and the pooled data to assess the robustness of the
 solutions in a comparative perspective.
 }
 \examples{
+\donttest{
 # load data from Thiem (2011; see data documentation)
 
 data(Thiem2011)
@@ -125,5 +126,6 @@ Thiem_pars <- partition_min(
   solution = "P",
   BE_cons = c(0.9, 0.8, 0.7, 0.8, 0.6, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8),
   WI_cons = c(0.5, 0.8, 0.7, 0.8, 0.6, rep(0.8, 10)))
-   
+ }
+ 
 }

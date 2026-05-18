@@ -62,6 +62,7 @@ for all truth table rows and for the subsets of consistent and
 inconsistent rows.
 }
 \examples{
+\donttest{
 # load data from Schwarz (2016; see data documentation)
 
 data(Schwarz2016)
@@ -69,5 +70,6 @@ Schwarz_diversity <- partition_div(Schwarz2016,
 units = "country", time = "year", 
 cond = c("poltrans", "ecotrans", "reform", "conflict", "attention"), 
 out = "enlarge", 1, 0.8)
+}
 
 }
