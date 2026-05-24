@@ -4,7 +4,7 @@ author: "Ingo Rohlfing"
 date: "`r format(Sys.Date())`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Diversity-of-partitions}
+  %\VignetteIndexEntry{Diversity of partitions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
