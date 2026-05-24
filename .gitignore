@@ -3,4 +3,7 @@
 .RData
 .Ruserdata
 inst/doc
-docs
+# docs // commented out for manual pkgdown building
+.positai
+/doc/
+/Meta/
