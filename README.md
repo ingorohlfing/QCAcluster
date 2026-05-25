@@ -1,4 +1,7 @@
-QCACluster
+[![CRAN](http://www.r-pkg.org/badges/version/QCAcluster)](https://cran.r-project.org/package=QCAcluster)
+[![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/grand-total/QCAcluster)](https://CRAN.R-project.org/package=QCAcluster)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 
 ## Contributors
 
