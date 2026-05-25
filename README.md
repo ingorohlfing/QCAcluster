@@ -21,6 +21,9 @@ multiple tools for the analysis of clustered data in *Qualitative
 Comparative Analysis*. The use of the tools promises insights that would
 go unnoticed in a pooled analysis ignoring the clusters in the data.
 
+A description of the package functions and their use can be found 
+on the [package website](https://ingorohlfing.github.io/QCAcluster).
+
 Version 0.2.0 of the package is on Github and on CRAN. You can install the
 package from CRAN with the following code:
 
@@ -28,7 +31,7 @@ package from CRAN with the following code:
 install.packages("QCAcluster")
 ```
 
-You can download the Github version with the following code:
+You can download the Github version with the following code using `{pak}`:
 
 ``` r
 pak::pak("ingorohlfing/QCAcluster")
