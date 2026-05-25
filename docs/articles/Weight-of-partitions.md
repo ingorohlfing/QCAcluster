@@ -10,17 +10,18 @@ library(knitr) # nicer html tables
 
 We use the data from [Thiem
 (2011)](https://doi.org/10.1017/S1755773910000251) for illustrating how
-the function [`wop()`](../reference/wop.md) calculates the weights of
-partitions. The weight of a partition is defined on the level of
-individual models and can be calculated for the *consistency* and
-*coverage* value of a model that has been derived from the pooled data.
-The weight of a partition for the consistency value of the pooled
-solution is calculated by applying the consistency formula only to the
-cases that belong to a partition. The weight of partition is calculated
-in *absolute* terms by calculating separately its contribution to the
-numerator and denominator of the formula. When one divides the
-partition-specific absolute contribution to the numerator by the
-contribution to the denominator, then one receives the
+the function
+[`wop()`](https://ingorohlfing.github.io/QCAcluster/reference/wop.md)
+calculates the weights of partitions. The weight of a partition is
+defined on the level of individual models and can be calculated for the
+*consistency* and *coverage* value of a model that has been derived from
+the pooled data. The weight of a partition for the consistency value of
+the pooled solution is calculated by applying the consistency formula
+only to the cases that belong to a partition. The weight of partition is
+calculated in *absolute* terms by calculating separately its
+contribution to the numerator and denominator of the formula. When one
+divides the partition-specific absolute contribution to the numerator by
+the contribution to the denominator, then one receives the
 partition-specific consistency or coverage score (depending on the type
 of formula).
 
@@ -125,7 +126,8 @@ kable(wop_between)
 ### Intermediate solution
 
 The weight of partitions for intermediate solutions is produced with
-[`wop_inter()`](../reference/wop_inter.md). We use data from [Schwarz
+[`wop_inter()`](https://ingorohlfing.github.io/QCAcluster/reference/wop_inter.md).
+We use data from [Schwarz
 2016](https://doi.org/10.1080/07036337.2016.1203309) to illustrate the
 function.
 

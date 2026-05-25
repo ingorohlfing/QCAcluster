@@ -5,18 +5,22 @@
 library(QCAcluster)
 ```
 
-The functions [`upset_conditions()`](../reference/upset_conditions.md)
+The functions
+[`upset_conditions()`](https://ingorohlfing.github.io/QCAcluster/reference/upset_conditions.md)
 and `upset_conjunctions()` can be used after one has derived
 partition-specific models with
-[`partition_min()`](../reference/partition_min.md) or
-[`partition_min_inter()`](../reference/partition_min_inter.md). The
-functions take the models from the `solution` column of the dataframes
-produced with [`partition_min()`](../reference/partition_min.md)/or
-[`partition_min_inter()`](../reference/partition_min_inter.md) as input
-to produce an UpSet plot.
-[`upset_conditions()`](../reference/upset_conditions.md) and
-[`upset_configurations()`](../reference/upset_configurations.md) are
-functions that draw on the `upset()` function of the
+[`partition_min()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min.md)
+or
+[`partition_min_inter()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min_inter.md).
+The functions take the models from the `solution` column of the
+dataframes produced with
+[`partition_min()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min.md)/or
+[`partition_min_inter()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min_inter.md)
+as input to produce an UpSet plot.
+[`upset_conditions()`](https://ingorohlfing.github.io/QCAcluster/reference/upset_conditions.md)
+and
+[`upset_configurations()`](https://ingorohlfing.github.io/QCAcluster/reference/upset_configurations.md)
+are functions that draw on the `upset()` function of the
 [UpSetR](https://CRAN.R-project.org/package=UpSetR/) package. We use the
 dataset by [Grauvogel and von Soest
 (2014)](https://doi.org/10.1017/S1755773910000251) for illustrating the
@@ -83,13 +87,14 @@ specific to one model each.
 ### Aggregation over individual sufficient terms
 
 The function
-[`upset_configurations()`](../reference/upset_configurations.md)
+[`upset_configurations()`](https://ingorohlfing.github.io/QCAcluster/reference/upset_configurations.md)
 decomposes models into the constitutive sufficient terms. A ‘term’ can
 be a configuration (aka as conjunction) of conditions or single
 sufficient conditions. Nonetheless, we called this function
-[`upset_configurations()`](../reference/upset_configurations.md) for
-convenience and to distinguish it from the
-[`upset_conditions()`](../reference/upset_conditions.md) function.
+[`upset_configurations()`](https://ingorohlfing.github.io/QCAcluster/reference/upset_configurations.md)
+for convenience and to distinguish it from the
+[`upset_conditions()`](https://ingorohlfing.github.io/QCAcluster/reference/upset_conditions.md)
+function.
 
 ``` r
 

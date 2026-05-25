@@ -10,11 +10,11 @@ Two functions allow empirical researchers to partition clustered data on
 one or two dimensions and to derive solutions for the pooled data and
 for each partition.
 
-- [`partition_min()`](../reference/partition_min.md) is available for
-  producing *conservative* or *parsimonious* models;  
-- [`partition_min_inter()`](../reference/partition_min_inter.md) should
-  be used for *intermediate* models. For programming purposes, we opted
-  for a separate function for the intermediate solution.
+- [`partition_min()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min.md)
+  is available for producing *conservative* or *parsimonious* models;  
+- [`partition_min_inter()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min_inter.md)
+  should be used for *intermediate* models. For programming purposes, we
+  opted for a separate function for the intermediate solution.
 
 ## Panel data: Minimization of cross sections and time series
 
@@ -29,9 +29,9 @@ series) ID. The arguments of the functions are:
 - `incl_cut`: Inclusion threshold (a.k.a. consistency threshold) for
   pooled data
 - `solution` (only for
-  [`partition_min()`](../reference/partition_min.md)): Either `C` for
-  conservative solution (a.k.a. complex solution) or `P` for
-  parsimonious solution
+  [`partition_min()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min.md)):
+  Either `C` for conservative solution (a.k.a. complex solution) or `P`
+  for parsimonious solution
 - `BE_cons` and `WI_cons`: Inclusion thresholds for cross sections and
   time series. The length of the numeric vector should equal the number
   of units and time series.
@@ -107,8 +107,9 @@ kable(Thiem_pars)
 | within | SE | All truth table rows inconsistent | \- | NA | NA |
 | within | UK | All truth table rows consistent | \- | NA | NA |
 
-The output of [`partition_min()`](../reference/partition_min.md) is a
-dataframe summarizing the solutions for the pooled data and the
+The output of
+[`partition_min()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min.md)
+is a dataframe summarizing the solutions for the pooled data and the
 partitions and the consistency and coverage values for the solution. The
 column `model` shows whether model ambiguity is given for the pooled
 data or individual partitions *if* one can derive any model from the
@@ -127,11 +128,11 @@ When one the reason applies, it is listed in the column `solution`.
 ### Intermediate solution
 
 The intermediate solution is derived with
-[`partition_min_inter()`](../reference/partition_min_inter.md). The only
-command that is new compared to
-[`partition_min()`](../reference/partition_min.md) is `intermediate`
-that is available for specifying the *directional expectations*. The
-data structure for [Schwarz
+[`partition_min_inter()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min_inter.md).
+The only command that is new compared to
+[`partition_min()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_min.md)
+is `intermediate` that is available for specifying the *directional
+expectations*. The data structure for [Schwarz
 2016](https://doi.org/10.1080/07036337.2016.1203309) is an unbalanced
 panel with eight countries, ten years and 74 observations in total. We
 assume that one is only interested in the between-unit dimension and

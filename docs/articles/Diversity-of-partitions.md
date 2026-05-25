@@ -10,9 +10,9 @@ For illustration, we use data from [Schwarz
 2016](https://doi.org/10.1080/07036337.2016.1203309). The data structure
 is an unbalanced panel with eight countries, ten years and 74
 observations in total.
-[`partition_div()`](../reference/partition_div.md) requires as input
-only parameters for the calculation of the pooled solution plus
-identifiers for the units (`units`) and periods (`time`).
+[`partition_div()`](https://ingorohlfing.github.io/QCAcluster/reference/partition_div.md)
+requires as input only parameters for the calculation of the pooled
+solution plus identifiers for the units (`units`) and periods (`time`).
 
 ``` r
 
